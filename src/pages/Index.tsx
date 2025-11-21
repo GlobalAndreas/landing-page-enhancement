@@ -602,7 +602,7 @@ const Index = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Telegram или e-mail</label>
+                      <label className="text-sm font-medium mb-2 block">Telegram или What's app</label>
                       <Input
                         placeholder="@username или почта"
                         value={formData.contact}
