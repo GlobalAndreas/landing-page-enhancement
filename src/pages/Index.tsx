@@ -277,8 +277,8 @@ const Index = () => {
                             
                             <div className="flex flex-wrap gap-2">
                               {[
-                                { icon: "Award", text: "5+ лет в digital" },
-                                { icon: "Users", text: "200+ проектов" },
+                                { icon: "Award", text: "13+ лет в digital" },
+                                { icon: "Users", text: "100+ проектов" },
                                 { icon: "TrendingUp", text: "x2-x5 рост конверсий" },
                               ].map((stat, i) => (
                                 <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/80 border border-border/50">
