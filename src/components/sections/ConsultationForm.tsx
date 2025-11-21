@@ -6,6 +6,7 @@ import Icon from "@/components/ui/icon";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { analytics } from "@/utils/analytics";
 
 interface ConsultationFormProps {
   formData: {
@@ -127,7 +128,13 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
                 className="border-2"
                 asChild
               >
-                <a href="https://t.me/andreasdilman" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <a 
+                  href="https://t.me/andreasdilman" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2"
+                  onClick={() => analytics.trackLinkClick('telegram_footer', 'https://t.me/andreasdilman')}
+                >
                   <Icon name="Send" size={18} />
                   Telegram
                 </a>
@@ -137,7 +144,11 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
                 className="border-2"
                 asChild
               >
-                <a href="mailto:contact@example.com" className="flex items-center gap-2">
+                <a 
+                  href="mailto:contact@example.com" 
+                  className="flex items-center gap-2"
+                  onClick={() => analytics.trackLinkClick('email_footer', 'mailto:contact@example.com')}
+                >
                   <Icon name="Mail" size={18} />
                   Email
                 </a>

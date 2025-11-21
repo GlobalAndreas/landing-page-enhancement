@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { motion } from "framer-motion";
+import { analytics } from "@/utils/analytics";
 
 interface HeroSectionProps {
   scrollToConsultation: () => void;
@@ -62,7 +63,13 @@ export const HeroSection = ({ scrollToConsultation }: HeroSectionProps) => {
                 className="border-2 text-base font-semibold"
                 asChild
               >
-                <a href="https://t.me/andreasdilman" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <a 
+                  href="https://t.me/andreasdilman" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2"
+                  onClick={() => analytics.trackLinkClick('telegram_button', 'https://t.me/andreasdilman')}
+                >
                   <Icon name="Send" size={18} />
                   Написать в Telegram
                 </a>

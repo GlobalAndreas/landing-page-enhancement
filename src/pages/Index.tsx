@@ -7,9 +7,13 @@ import { StatsAndServicesSection } from "@/components/sections/StatsAndServicesS
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { LegalSection } from "@/components/sections/LegalSection";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
+import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
+import { useScrollTracking } from "@/hooks/useAnalytics";
+import { analytics } from "@/utils/analytics";
 
 const Index = () => {
   const { toast } = useToast();
+  useScrollTracking();
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -19,6 +23,7 @@ const Index = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    analytics.trackFormSubmit('consultation_form');
     toast({
       title: "Заявка отправлена!",
       description: "Свяжемся с вами в течение 24 часов",
@@ -27,6 +32,7 @@ const Index = () => {
   };
 
   const scrollToConsultation = () => {
+    analytics.trackButtonClick('get_consultation', 'hero_section');
     document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -50,9 +56,9 @@ const Index = () => {
             </div>
             
             <nav className="hidden md:flex items-center gap-6 text-sm">
-              <a href="#services" className="hover:text-primary transition-colors">Услуги</a>
-              <a href="#process" className="hover:text-primary transition-colors">Процесс</a>
-              <a href="#legal" className="hover:text-primary transition-colors">Прозрачность</a>
+              <a href="#services" onClick={() => analytics.trackLinkClick('nav_services', '#services')} className="hover:text-primary transition-colors">Услуги</a>
+              <a href="#process" onClick={() => analytics.trackLinkClick('nav_process', '#process')} className="hover:text-primary transition-colors">Процесс</a>
+              <a href="#legal" onClick={() => analytics.trackLinkClick('nav_legal', '#legal')} className="hover:text-primary transition-colors">Прозрачность</a>
             </nav>
 
             <Button onClick={scrollToConsultation} className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
@@ -82,6 +88,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      <AnalyticsDashboard />
     </div>
   );
 };
