@@ -38,7 +38,7 @@ const Index = () => {
                 <span className="text-xl font-black text-primary-foreground">A</span>
               </div>
               <div>
-                <div className="font-bold text-sm tracking-tight">Andreas Dilman</div>
+                <div className="font-bold text-sm tracking-tight">Andrej Dilman</div>
                 <div className="text-xs text-muted-foreground">Digital-автоворонки</div>
               </div>
             </div>
