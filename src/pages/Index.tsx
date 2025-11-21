@@ -65,7 +65,8 @@ const Index = () => {
               <div className="animate-fade-in space-y-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/80 border border-primary/30 backdrop-blur">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs font-medium tracking-wider uppercase">Автоматизация без серых схем</span>
+                  <span className="text-xs font-medium tracking-wider uppercase">автоматизация бизнес процессов
+</span>
                 </div>
 
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-balance">
