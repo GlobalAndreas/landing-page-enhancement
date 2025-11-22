@@ -83,7 +83,7 @@ const Index = () => {
       <footer className="py-12 border-t border-border/50 bg-card/30 backdrop-blur">
         <div className="container mx-auto px-4">
           <div className="text-center text-sm text-muted-foreground">
-            <p className="mb-2">© 2024 Andrej Dilman. Все права защищены.</p>
+            <p className="mb-2">© 2025-2026 Andrej Dilman. Все права защищены.</p>
             <p className="text-xs">Digital-маркетинг, разработка, автоматизация — официально и легально</p>
           </div>
         </div>
