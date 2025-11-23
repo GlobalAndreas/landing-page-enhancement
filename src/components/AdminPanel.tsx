@@ -7,6 +7,8 @@ import { analytics, AnalyticsEvent } from "@/utils/analytics";
 export const AdminPanel = () => {
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [typedCommand, setTypedCommand] = useState('');
   const [stats, setStats] = useState({
     totalEvents: 0,
     clicks: 0,
@@ -23,6 +25,9 @@ export const AdminPanel = () => {
   };
 
   useEffect(() => {
+    const isAuth = localStorage.getItem('admin_authorized') === 'true';
+    setIsAuthorized(isAuth);
+    
     loadAnalytics();
     const interval = setInterval(loadAnalytics, 2000);
     return () => clearInterval(interval);
@@ -46,14 +51,30 @@ export const AdminPanel = () => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      const key = e.key.toLowerCase();
+      const newCommand = typedCommand + key;
+      
+      if (newCommand.endsWith('admin')) {
+        setIsAuthorized(true);
+        localStorage.setItem('admin_authorized', 'true');
+        setTypedCommand('');
+        return;
+      }
+      
+      setTypedCommand(newCommand.slice(-10));
+      
+      if (isAuthorized && e.ctrlKey && e.shiftKey && e.key === 'A') {
         togglePanel();
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isVisible]);
+  }, [isVisible, isAuthorized, typedCommand]);
+
+  if (!isAuthorized) {
+    return null;
+  }
 
   return (
     <>
