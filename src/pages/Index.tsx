@@ -31,17 +31,29 @@ const Index = () => {
     contact: "",
     niche: "",
     goal: "",
+    pdnConsent: false,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.pdnConsent) {
+      toast({
+        title: "Требуется согласие",
+        description: "Поставьте галочку, чтобы отправить заявку",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     analytics.trackFormSubmit('consultation_form');
+    analytics.track('form_pdn_agree', 'consent', 'pdn_checked');
     
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
     
-    setFormData({ name: "", contact: "", niche: "", goal: "" });
+    setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
     setIsModalOpen(true);
     
     await sendTelegramNotification(savedFormData, trackingData);

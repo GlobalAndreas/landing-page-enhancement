@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import Icon from "@/components/ui/icon";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { analytics } from "@/utils/analytics";
+import { Link } from "react-router-dom";
 
 interface ConsultationFormProps {
   formData: {
@@ -14,6 +16,7 @@ interface ConsultationFormProps {
     contact: string;
     niche: string;
     goal: string;
+    pdnConsent: boolean;
   };
   handleSubmit: (e: React.FormEvent) => void;
   setFormData: React.Dispatch<React.SetStateAction<{
@@ -21,6 +24,7 @@ interface ConsultationFormProps {
     contact: string;
     niche: string;
     goal: string;
+    pdnConsent: boolean;
   }>>;
 }
 
@@ -106,16 +110,48 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
                 />
               </div>
 
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30 border border-border/50">
+                <Checkbox 
+                  id="pdnConsent"
+                  checked={formData.pdnConsent}
+                  onCheckedChange={(checked) => setFormData({...formData, pdnConsent: checked as boolean})}
+                  className="mt-0.5"
+                />
+                <label 
+                  htmlFor="pdnConsent" 
+                  className="text-xs text-muted-foreground leading-relaxed cursor-pointer"
+                >
+                  Я согласен с{' '}
+                  <Link 
+                    to="/privacy" 
+                    className="text-primary hover:underline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      analytics.trackLinkClick('privacy_policy', '/privacy');
+                    }}
+                  >
+                    Политикой конфиденциальности
+                  </Link>
+                  {' '}и{' '}
+                  <Link 
+                    to="/personal-data" 
+                    className="text-primary hover:underline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      analytics.trackLinkClick('personal_data_policy', '/personal-data');
+                    }}
+                  >
+                    Обработкой персональных данных
+                  </Link>
+                </label>
+              </div>
+
               <Button 
                 type="submit" 
                 className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity text-lg font-semibold py-6"
               >
                 Отправить заявку
               </Button>
-
-              <p className="text-xs text-center text-muted-foreground">
-                Нажимая кнопку, вы соглашаетесь на обработку персональных данных
-              </p>
             </form>
           </Card>
           </motion.div>
