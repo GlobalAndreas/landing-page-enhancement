@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { useToast } from "@/hooks/use-toast";
@@ -14,11 +14,16 @@ import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
+import { parseAndSaveUTM } from "@/utils/utmTracking";
 
 const Index = () => {
   const { toast } = useToast();
   useScrollTracking();
   const { getTrackingData } = usePageTracking();
+
+  useEffect(() => {
+    parseAndSaveUTM();
+  }, []);
   const [formData, setFormData] = useState({
     name: "",
     contact: "",

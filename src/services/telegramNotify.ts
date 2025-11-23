@@ -30,6 +30,8 @@ export const sendTelegramNotification = async (
       utmSource: utmParams.utmSource,
       utmContent: utmParams.utmContent,
       utmCampaign: utmParams.utmCampaign,
+      utmMedium: utmParams.utmMedium,
+      utmTerm: utmParams.utmTerm,
       pageDepth: trackingData.pageDepth,
       timeOnPage: trackingData.timeOnPage,
       device: device,
