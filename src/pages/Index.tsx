@@ -8,6 +8,7 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { LegalSection } from "@/components/sections/LegalSection";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
 import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
+import { ThankYouModal } from "@/components/modals/ThankYouModal";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { analytics } from "@/utils/analytics";
@@ -21,15 +22,13 @@ const Index = () => {
     niche: "",
     goal: "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     analytics.trackFormSubmit('consultation_form');
-    toast({
-      title: "Заявка отправлена!",
-      description: "Свяжемся с вами в течение 24 часов",
-    });
     setFormData({ name: "", contact: "", niche: "", goal: "" });
+    setIsModalOpen(true);
   };
 
   const scrollToConsultation = () => {
@@ -90,6 +89,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      <ThankYouModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <AnalyticsDashboard />
     </div>
   );
