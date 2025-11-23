@@ -31,12 +31,23 @@ export const AdminPanel = () => {
       setIsAuthorized(true);
     });
     
+    const handleAuthChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ authorized: boolean }>;
+      setIsAuthorized(customEvent.detail.authorized);
+      if (!customEvent.detail.authorized) {
+        setIsVisible(false);
+      }
+    };
+    
+    window.addEventListener('adminAuthChanged', handleAuthChange);
+    
     loadAnalytics();
     const interval = setInterval(loadAnalytics, 2000);
     
     return () => {
       clearInterval(interval);
       cleanupKeyListener();
+      window.removeEventListener('adminAuthChanged', handleAuthChange);
     };
   }, []);
 

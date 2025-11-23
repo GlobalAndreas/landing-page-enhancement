@@ -34,6 +34,16 @@ export const LeadsExportPanel = () => {
       setIsAuthorized(true);
     });
     
+    const handleAuthChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ authorized: boolean }>;
+      setIsAuthorized(customEvent.detail.authorized);
+      if (!customEvent.detail.authorized) {
+        setIsOpen(false);
+      }
+    };
+    
+    window.addEventListener('adminAuthChanged', handleAuthChange);
+    
     const interval = setInterval(() => {
       setLeads(getLeads());
     }, 1000);
@@ -41,6 +51,7 @@ export const LeadsExportPanel = () => {
     return () => {
       clearInterval(interval);
       cleanupKeyListener();
+      window.removeEventListener('adminAuthChanged', handleAuthChange);
     };
   }, []);
 

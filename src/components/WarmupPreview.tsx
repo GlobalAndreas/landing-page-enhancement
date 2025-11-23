@@ -54,13 +54,26 @@ export const WarmupPreview = () => {
       setIsAuthorized(true);
     });
     
+    const handleAuthChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ authorized: boolean }>;
+      setIsAuthorized(customEvent.detail.authorized);
+      if (!customEvent.detail.authorized) {
+        setIsOpen(false);
+      }
+    };
+    
+    window.addEventListener('adminAuthChanged', handleAuthChange);
+    
     const states: Record<string, boolean> = {};
     Object.entries(warmup).forEach(([key, value]) => {
       states[key] = isDayActive(key, value.active ?? true);
     });
     setDayStates(states);
     
-    return cleanup;
+    return () => {
+      cleanup();
+      window.removeEventListener('adminAuthChanged', handleAuthChange);
+    };
   }, []);
 
   const toggleDayActive = (dayId: string, currentState: boolean) => {

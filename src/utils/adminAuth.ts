@@ -8,6 +8,8 @@ export const setAdminAuthorized = (value: boolean): void => {
   } else {
     localStorage.removeItem('admin_authorized');
   }
+  
+  window.dispatchEvent(new CustomEvent('adminAuthChanged', { detail: { authorized: value } }));
 };
 
 export const setupAdminKeyListener = (callback: () => void): (() => void) => {
