@@ -2,10 +2,35 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
+import { useEffect, useRef } from "react";
 
 export const TelegramBotSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const hasLoggedView = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasLoggedView.current) {
+            analytics.logEvent('open_bot_block', 'telegram_section');
+            hasLoggedView.current = true;
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleTelegramClick = () => {
     analytics.trackButtonClick('telegram_bot_cta', 'telegram_section');
+    analytics.logEvent('click_bot_button', 'telegram_section');
     window.open('https://t.me/dilman4in1bot?start=from_landing', '_blank');
   };
 
@@ -37,7 +62,7 @@ export const TelegramBotSection = () => {
   ];
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
       
       <div className="container mx-auto px-4 relative z-10">

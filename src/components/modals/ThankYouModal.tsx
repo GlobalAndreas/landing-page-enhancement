@@ -14,6 +14,8 @@ interface ThankYouModalProps {
 export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
   useEffect(() => {
     if (isOpen) {
+      analytics.logEvent('thanks_popup_opened', 'thank_you_modal');
+      
       const duration = 3000;
       const animationEnd = Date.now() + duration;
       const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };

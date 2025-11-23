@@ -75,6 +75,10 @@ class Analytics {
     this.track('link_click', 'engagement', 'click', `${linkName} → ${url}`);
   }
 
+  logEvent(eventName: string, label?: string): void {
+    this.track(eventName, 'custom', 'event', label);
+  }
+
   getEvents(): AnalyticsEvent[] {
     return this.events;
   }
