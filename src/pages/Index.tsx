@@ -7,6 +7,7 @@ import { StatsAndServicesSection } from "@/components/sections/StatsAndServicesS
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { LegalSection } from "@/components/sections/LegalSection";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
+import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { analytics } from "@/utils/analytics";
@@ -78,6 +79,7 @@ const Index = () => {
           handleSubmit={handleSubmit} 
           setFormData={setFormData} 
         />
+        <TelegramBotSection />
       </main>
 
       <footer className="py-12 border-t border-border/50 bg-card/30 backdrop-blur">
