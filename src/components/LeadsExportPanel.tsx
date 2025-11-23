@@ -25,6 +25,7 @@ interface Filters {
 export const LeadsExportPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showPreview, setShowPreview] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
   const [leads, setLeads] = useState<Lead[]>([]);
   const [filters, setFilters] = useState<Filters>({
     dateFilter: 'all',
@@ -104,7 +105,7 @@ export const LeadsExportPanel = () => {
   };
 
   const filteredLeads = useMemo(() => {
-    const result = leads.filter(lead => {
+    let result = leads.filter(lead => {
       if (!filterByDate(lead)) return false;
       if (!filterByScroll(lead)) return false;
       if (filters.device !== 'all' && lead.device !== filters.device) return false;
@@ -115,6 +116,14 @@ export const LeadsExportPanel = () => {
       if (filters.utmTerm !== 'all' && lead.utmTerm !== filters.utmTerm) return false;
       return true;
     });
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter(lead => 
+        lead.name.toLowerCase().includes(query) || 
+        lead.contact.toLowerCase().includes(query)
+      );
+    }
 
     switch (filters.sortBy) {
       case 'date-desc':
@@ -135,7 +144,7 @@ export const LeadsExportPanel = () => {
     }
 
     return result;
-  }, [leads, filters]);
+  }, [leads, filters, searchQuery]);
 
   const exportToJSON = () => {
     if (filteredLeads.length === 0) {
@@ -463,7 +472,7 @@ export const LeadsExportPanel = () => {
           </div>
         </div>
 
-        {filteredLeads.length > 0 && (
+        {leads.length > 0 && (
           <div className="mt-6">
             <div className="flex items-center justify-between mb-3">
               <div className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
@@ -481,7 +490,34 @@ export const LeadsExportPanel = () => {
             </div>
 
             {showPreview && (
-              <div className="border border-border rounded-lg overflow-hidden">
+              <>
+                <div className="mb-3 relative">
+                  <Icon name="Search" size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Поиск по имени или контакту..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-10 py-2 text-sm rounded-lg bg-secondary border border-border focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/50"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <Icon name="X" size={14} />
+                    </button>
+                  )}
+                </div>
+
+                {filteredLeads.length === 0 ? (
+                  <div className="border border-border rounded-lg p-6 text-center">
+                    <Icon name="SearchX" size={32} className="mx-auto mb-2 text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground">Ничего не найдено</p>
+                    <p className="text-xs text-muted-foreground/70 mt-1">Попробуйте изменить фильтры или поисковый запрос</p>
+                  </div>
+                ) : (
+                  <div className="border border-border rounded-lg overflow-hidden">
                 <div className="max-h-64 overflow-y-auto">
                   <table className="w-full text-xs">
                     <thead className="bg-secondary sticky top-0">
@@ -544,10 +580,12 @@ export const LeadsExportPanel = () => {
                 </div>
                 {filteredLeads.length > 5 && (
                   <div className="bg-secondary/50 px-3 py-1.5 text-center text-[10px] text-muted-foreground border-t border-border">
-                    Показано {filteredLeads.length} строк
+                    Показано {filteredLeads.length} {filteredLeads.length === 1 ? 'строка' : filteredLeads.length < 5 ? 'строки' : 'строк'}
                   </div>
                 )}
               </div>
+                )}
+              </>
             )}
           </div>
         )}
