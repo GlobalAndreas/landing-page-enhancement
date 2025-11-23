@@ -10,6 +10,7 @@ import { ConsultationForm } from "@/components/sections/ConsultationForm";
 import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
 import { ThankYouModal } from "@/components/modals/ThankYouModal";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
+import { LeadsExportPanel } from "@/components/LeadsExportPanel";
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import { analytics } from "@/utils/analytics";
@@ -105,6 +106,7 @@ const Index = () => {
       </footer>
       <ThankYouModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <AnalyticsDashboard />
+      <LeadsExportPanel />
     </div>
   );
 };
