@@ -30,6 +30,10 @@ export const TelegramBotSection = () => {
       icon: "Sparkles",
       text: "Новые кейсы и инсайты каждую неделю",
     },
+    {
+      icon: "Gift",
+      text: "Эксклюзивные чек-листы и шаблоны для быстрого старта",
+    },
   ];
 
   return (

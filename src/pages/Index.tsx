@@ -74,12 +74,12 @@ const Index = () => {
         <StatsAndServicesSection />
         <TestimonialsSection />
         <LegalSection />
+        <TelegramBotSection />
         <ConsultationForm 
           formData={formData} 
           handleSubmit={handleSubmit} 
           setFormData={setFormData} 
         />
-        <TelegramBotSection />
       </main>
 
       <footer className="py-12 border-t border-border/50 bg-card/30 backdrop-blur">
