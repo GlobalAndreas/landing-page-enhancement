@@ -9,11 +9,14 @@ import { LegalSection } from "@/components/sections/LegalSection";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
 import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
 import { ThankYouModal } from "@/components/modals/ThankYouModal";
+import { ExitIntentModal } from "@/components/modals/ExitIntentModal";
+import { FAQSection } from "@/components/sections/FAQSection";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { LeadsExportPanel } from "@/components/LeadsExportPanel";
 import { WarmupPreview } from "@/components/WarmupPreview";
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
+import { useExitIntent } from "@/hooks/useExitIntent";
 import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
@@ -22,6 +25,7 @@ const Index = () => {
   const { toast } = useToast();
   useScrollTracking();
   const { getTrackingData } = usePageTracking();
+  const { showExitIntent, closeExitIntent } = useExitIntent();
 
   useEffect(() => {
     parseAndSaveUTM();
@@ -102,6 +106,7 @@ const Index = () => {
         <TestimonialsSection />
         <LegalSection />
         <TelegramBotSection />
+        <FAQSection />
         <ConsultationForm 
           formData={formData} 
           handleSubmit={handleSubmit} 
@@ -118,6 +123,7 @@ const Index = () => {
         </div>
       </footer>
       <ThankYouModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ExitIntentModal isOpen={showExitIntent} onClose={closeExitIntent} />
       <AnalyticsDashboard />
       <LeadsExportPanel />
       <WarmupPreview />
