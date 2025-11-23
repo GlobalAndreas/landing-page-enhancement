@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { analytics, AnalyticsEvent } from "@/utils/analytics";
-import { isAdminAuthorized, setupAdminKeyListener } from "@/utils/adminAuth";
+import { isAdminAuthorized, setupAdminKeyListener, setAdminAuthorized } from "@/utils/adminAuth";
 
 export const AdminPanel = () => {
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
@@ -52,6 +52,14 @@ export const AdminPanel = () => {
     }
   };
 
+  const handleLogout = () => {
+    if (confirm('Выйти из админки? Все кнопки управления будут скрыты.')) {
+      setAdminAuthorized(false);
+      setIsAuthorized(false);
+      setIsVisible(false);
+    }
+  };
+
   const togglePanel = () => {
     setIsVisible(!isVisible);
   };
@@ -96,6 +104,10 @@ export const AdminPanel = () => {
                 <Button variant="outline" size="sm" onClick={clearAllData}>
                   <Icon name="Trash2" size={16} className="mr-2" />
                   Очистить
+                </Button>
+                <Button variant="destructive" size="sm" onClick={handleLogout}>
+                  <Icon name="LogOut" size={16} className="mr-2" />
+                  Выйти
                 </Button>
                 <Button variant="ghost" size="sm" onClick={togglePanel}>
                   <Icon name="X" size={20} />

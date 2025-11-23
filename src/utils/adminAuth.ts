@@ -17,7 +17,7 @@ export const setupAdminKeyListener = (callback: () => void): (() => void) => {
     const key = e.key.toLowerCase();
     typedCommand = typedCommand + key;
     
-    if (typedCommand.endsWith('admin')) {
+    if (typedCommand.endsWith('master')) {
       setAdminAuthorized(true);
       callback();
       typedCommand = '';
