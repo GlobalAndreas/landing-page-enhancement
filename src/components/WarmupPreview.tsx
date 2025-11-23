@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { warmup, type WarmupDay, type WarmupAttachment } from '@/data/warmupMessages';
+import { isDayActive, setWarmupDayActive } from '@/utils/warmupStorage';
 
 const getAttachmentIcon = (type: WarmupAttachment['type']) => {
   const icons = {
@@ -42,12 +43,27 @@ const truncateText = (text: string, maxLength: number = 120): string => {
 export const WarmupPreview = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedDay, setExpandedDay] = useState<string | null>(null);
+  const [dayStates, setDayStates] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const states: Record<string, boolean> = {};
+    Object.entries(warmup).forEach(([key, value]) => {
+      states[key] = isDayActive(key, value.active ?? true);
+    });
+    setDayStates(states);
+  }, []);
+
+  const toggleDayActive = (dayId: string, currentState: boolean) => {
+    const newState = !currentState;
+    setWarmupDayActive(dayId, newState);
+    setDayStates(prev => ({ ...prev, [dayId]: newState }));
+  };
 
   const warmupDays = Object.entries(warmup).map(([key, value], index) => ({
     id: key,
     dayNumber: index,
     ...value,
-    isActive: true,
+    isActive: dayStates[key] ?? value.active ?? true,
   }));
 
   const toggleDay = (dayId: string) => {
@@ -130,6 +146,22 @@ export const WarmupPreview = () => {
                     <div className="flex items-center justify-between mb-1">
                       <h4 className="font-semibold text-sm truncate">{day.title}</h4>
                       <div className="flex items-center gap-2 ml-2">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleDayActive(day.id, day.isActive);
+                          }}
+                          className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                            day.isActive ? 'bg-green-500' : 'bg-gray-500'
+                          }`}
+                          title={day.isActive ? 'Отключить' : 'Включить'}
+                        >
+                          <span
+                            className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${
+                              day.isActive ? 'translate-x-5' : 'translate-x-0.5'
+                            }`}
+                          />
+                        </button>
                         <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded">
                           {formatDelay(day.delay || 0)}
                         </span>
@@ -168,13 +200,7 @@ export const WarmupPreview = () => {
                     )}
                   </div>
 
-                  {!day.isActive && (
-                    <div className="flex-shrink-0">
-                      <div className="px-2 py-1 rounded text-[10px] bg-orange-500/20 text-orange-400 border border-orange-500/30">
-                        Неактивно
-                      </div>
-                    </div>
-                  )}
+
                 </div>
               </div>
 
@@ -232,13 +258,27 @@ export const WarmupPreview = () => {
 
                     <div className="pt-2 border-t border-border/50">
                       <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Icon name="Clock" size={10} />
-                          <span>Задержка: {formatDelay(day.delay || 0)}</span>
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-1">
+                            <Icon name="Clock" size={10} />
+                            <span>Задержка: {formatDelay(day.delay || 0)}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Icon name="Hash" size={10} />
+                            <span>ID: {day.id}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Icon name="Hash" size={10} />
-                          <span>ID: {day.id}</span>
+                        <div className={`flex items-center gap-1 px-2 py-0.5 rounded ${
+                          day.isActive 
+                            ? 'bg-green-500/20 text-green-400' 
+                            : 'bg-red-500/20 text-red-400'
+                        }`}>
+                          <div className={`w-1.5 h-1.5 rounded-full ${
+                            day.isActive ? 'bg-green-400' : 'bg-red-400'
+                          }`} />
+                          <span className="font-semibold">
+                            {day.isActive ? 'Активен' : 'Выключен'}
+                          </span>
                         </div>
                       </div>
                     </div>
