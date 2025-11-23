@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
+import confetti from "canvas-confetti";
 
 interface ThankYouModalProps {
   isOpen: boolean;
@@ -10,10 +12,78 @@ interface ThankYouModalProps {
 }
 
 export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      const duration = 3000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+      const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+      const interval = window.setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          return;
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        });
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        });
+      }, 250);
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#9370DB'],
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#FFD700', '#FFA500', '#FF6347'],
+        });
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#00CED1', '#9370DB', '#FFD700'],
+        });
+      }, 300);
+
+      return () => clearInterval(interval);
+    }
+  }, [isOpen]);
+
   const handleTelegramClick = () => {
     analytics.trackButtonClick('telegram_modal_cta', 'thank_you_modal');
-    window.open('https://t.me/dilman4in1bot?start=from_landing', '_blank');
-    onClose();
+    
+    confetti({
+      particleCount: 30,
+      spread: 60,
+      origin: { y: 0.7 },
+      colors: ['#0088cc', '#00aced', '#55acee'],
+    });
+    
+    setTimeout(() => {
+      window.open('https://t.me/dilman4in1bot?start=from_landing', '_blank');
+      onClose();
+    }, 300);
   };
 
   return (
@@ -53,20 +123,55 @@ export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
                 <div className="text-center relative z-10">
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-6 shadow-2xl shadow-green-500/50"
+                    animate={{ 
+                      scale: [0, 1.2, 1],
+                      rotate: [180, 0, 0],
+                    }}
+                    transition={{ 
+                      delay: 0.2, 
+                      duration: 0.6,
+                      times: [0, 0.6, 1],
+                      ease: "easeOut"
+                    }}
+                    className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 mb-6 shadow-2xl shadow-green-500/60 relative"
                   >
-                    <Icon name="CheckCircle2" size={40} className="text-white" />
+                    <motion.div
+                      animate={{ 
+                        scale: [1, 1.5, 1],
+                        opacity: [0.5, 0, 0.5]
+                      }}
+                      transition={{ 
+                        repeat: Infinity,
+                        duration: 2,
+                        ease: "easeInOut"
+                      }}
+                      className="absolute inset-0 rounded-full bg-green-500"
+                    />
+                    <Icon name="CheckCircle2" size={48} className="text-white relative z-10" />
                   </motion.div>
                   
                   <motion.h3
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
+                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      scale: 1
+                    }}
+                    transition={{ 
+                      delay: 0.3,
+                      type: "spring",
+                      stiffness: 150
+                    }}
                     className="text-3xl md:text-4xl font-black mb-3 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
                   >
-                    🎉 Ура! Заявка отправлена
+                    <motion.span
+                      animate={{ rotate: [0, 10, -10, 10, 0] }}
+                      transition={{ delay: 0.6, duration: 0.5 }}
+                      className="inline-block"
+                    >
+                      🎉
+                    </motion.span>
+                    {' '}Ура! Заявка отправлена
                   </motion.h3>
                   
                   <motion.p
@@ -79,15 +184,42 @@ export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
                   </motion.p>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="my-8 p-5 rounded-2xl bg-gradient-to-br from-primary/20 via-accent/20 to-primary/10 border-2 border-primary/30 shadow-lg relative overflow-hidden"
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ delay: 0.5, type: "spring" }}
+                    whileHover={{ scale: 1.02 }}
+                    className="my-8 p-5 rounded-2xl bg-gradient-to-br from-primary/20 via-accent/20 to-primary/10 border-2 border-primary/30 shadow-lg relative overflow-hidden cursor-default"
                   >
+                    <motion.div 
+                      animate={{ 
+                        x: [-100, 500],
+                        opacity: [0, 1, 1, 0]
+                      }}
+                      transition={{ 
+                        repeat: Infinity,
+                        duration: 3,
+                        ease: "linear",
+                        repeatDelay: 1
+                      }}
+                      className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+                    />
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/10 to-transparent rounded-full blur-2xl" />
                     <div className="relative z-10">
                       <p className="text-base font-bold mb-2 flex items-center justify-center gap-2">
-                        <span className="text-2xl">💎</span>
+                        <motion.span 
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 10, -10, 0]
+                          }}
+                          transition={{ 
+                            repeat: Infinity,
+                            duration: 2,
+                            repeatDelay: 3
+                          }}
+                          className="text-2xl inline-block"
+                        >
+                          💎
+                        </motion.span>
                         <span>А пока не ждите — получите пользу прямо сейчас!</span>
                       </p>
                       <p className="text-sm text-muted-foreground leading-relaxed">
