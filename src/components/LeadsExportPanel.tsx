@@ -24,6 +24,7 @@ interface Filters {
 
 export const LeadsExportPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [filters, setFilters] = useState<Filters>({
     dateFilter: 'all',
@@ -461,6 +462,95 @@ export const LeadsExportPanel = () => {
             </select>
           </div>
         </div>
+
+        {filteredLeads.length > 0 && (
+          <div className="mt-6">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
+                <Icon name="Table" size={12} />
+                Предпросмотр ({filteredLeads.length})
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowPreview(!showPreview)}
+                className="h-6 px-2 text-xs"
+              >
+                {showPreview ? <Icon name="ChevronUp" size={14} /> : <Icon name="ChevronDown" size={14} />}
+              </Button>
+            </div>
+
+            {showPreview && (
+              <div className="border border-border rounded-lg overflow-hidden">
+                <div className="max-h-64 overflow-y-auto">
+                  <table className="w-full text-xs">
+                    <thead className="bg-secondary sticky top-0">
+                      <tr>
+                        <th className="px-2 py-2 text-left font-semibold">Имя</th>
+                        <th className="px-2 py-2 text-left font-semibold">Контакт</th>
+                        <th className="px-2 py-2 text-left font-semibold">UTM</th>
+                        <th className="px-2 py-2 text-center font-semibold">Скролл</th>
+                        <th className="px-2 py-2 text-center font-semibold">Время</th>
+                        <th className="px-2 py-2 text-left font-semibold">Дата</th>
+                        <th className="px-2 py-2 text-center font-semibold">Устр.</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {filteredLeads.map((lead) => (
+                        <tr key={lead.id} className="hover:bg-secondary/50 transition-colors">
+                          <td className="px-2 py-2 text-foreground truncate max-w-[80px]" title={lead.name}>
+                            {lead.name}
+                          </td>
+                          <td className="px-2 py-2 text-foreground truncate max-w-[80px]" title={lead.contact}>
+                            {lead.contact}
+                          </td>
+                          <td className="px-2 py-2 truncate max-w-[100px]" title={`${lead.utmSource || '-'} / ${lead.utmMedium || '-'} / ${lead.utmCampaign || '-'}`}>
+                            <div className="flex flex-col gap-0.5">
+                              {lead.utmSource && (
+                                <span className="text-blue-400">{lead.utmSource}</span>
+                              )}
+                              {lead.utmCampaign && (
+                                <span className="text-muted-foreground text-[10px]">{lead.utmCampaign}</span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-2 py-2 text-center">
+                            <span className={`font-semibold ${
+                              lead.pageDepth >= 75 ? 'text-green-400' : 
+                              lead.pageDepth >= 50 ? 'text-yellow-400' : 
+                              lead.pageDepth >= 25 ? 'text-orange-400' : 
+                              'text-red-400'
+                            }`}>
+                              {lead.pageDepth}%
+                            </span>
+                          </td>
+                          <td className="px-2 py-2 text-center text-muted-foreground">
+                            {lead.timeOnPage}с
+                          </td>
+                          <td className="px-2 py-2 text-muted-foreground text-[10px]">
+                            {lead.date.split(',')[0]}
+                          </td>
+                          <td className="px-2 py-2 text-center">
+                            {lead.device === 'mobile' ? (
+                              <Icon name="Smartphone" size={12} className="inline text-blue-400" />
+                            ) : (
+                              <Icon name="Monitor" size={12} className="inline text-purple-400" />
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {filteredLeads.length > 5 && (
+                  <div className="bg-secondary/50 px-3 py-1.5 text-center text-[10px] text-muted-foreground border-t border-border">
+                    Показано {filteredLeads.length} строк
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="mt-6 space-y-2">
           <Button
