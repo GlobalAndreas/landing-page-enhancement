@@ -6,11 +6,13 @@ import { getLeads, type Lead } from '@/services/leadsStorage';
 import { LeadsFilterControls, type Filters } from './leads-export/LeadsFilterControls';
 import { LeadsPreviewTable } from './leads-export/LeadsPreviewTable';
 import { LeadsExportButtons } from './leads-export/LeadsExportButtons';
+import { isAdminAuthorized, setupAdminKeyListener } from '@/utils/adminAuth';
 
 export const LeadsExportPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [filters, setFilters] = useState<Filters>({
     dateFilter: 'all',
     customDateFrom: '',
@@ -26,10 +28,20 @@ export const LeadsExportPanel = () => {
   });
 
   useEffect(() => {
+    setIsAuthorized(isAdminAuthorized());
+    
+    const cleanupKeyListener = setupAdminKeyListener(() => {
+      setIsAuthorized(true);
+    });
+    
     const interval = setInterval(() => {
       setLeads(getLeads());
     }, 1000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+      cleanupKeyListener();
+    };
   }, []);
 
   const uniqueValues = useMemo(() => {
@@ -145,6 +157,10 @@ export const LeadsExportPanel = () => {
       sortBy: 'date-desc',
     });
   };
+
+  if (!isAuthorized) {
+    return null;
+  }
 
   if (!isOpen) {
     return (

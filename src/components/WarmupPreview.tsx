@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { warmup, type WarmupDay, type WarmupAttachment } from '@/data/warmupMessages';
 import { isDayActive, setWarmupDayActive } from '@/utils/warmupStorage';
+import { isAdminAuthorized, setupAdminKeyListener } from '@/utils/adminAuth';
 
 const getAttachmentIcon = (type: WarmupAttachment['type']) => {
   const icons = {
@@ -44,13 +45,22 @@ export const WarmupPreview = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedDay, setExpandedDay] = useState<string | null>(null);
   const [dayStates, setDayStates] = useState<Record<string, boolean>>({});
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
+    setIsAuthorized(isAdminAuthorized());
+    
+    const cleanup = setupAdminKeyListener(() => {
+      setIsAuthorized(true);
+    });
+    
     const states: Record<string, boolean> = {};
     Object.entries(warmup).forEach(([key, value]) => {
       states[key] = isDayActive(key, value.active ?? true);
     });
     setDayStates(states);
+    
+    return cleanup;
   }, []);
 
   const toggleDayActive = (dayId: string, currentState: boolean) => {
@@ -69,6 +79,10 @@ export const WarmupPreview = () => {
   const toggleDay = (dayId: string) => {
     setExpandedDay(expandedDay === dayId ? null : dayId);
   };
+
+  if (!isAuthorized) {
+    return null;
+  }
 
   if (!isOpen) {
     return (

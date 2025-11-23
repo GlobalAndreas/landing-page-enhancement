@@ -3,12 +3,12 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { analytics, AnalyticsEvent } from "@/utils/analytics";
+import { isAdminAuthorized, setupAdminKeyListener } from "@/utils/adminAuth";
 
 export const AdminPanel = () => {
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [typedCommand, setTypedCommand] = useState('');
   const [stats, setStats] = useState({
     totalEvents: 0,
     clicks: 0,
@@ -25,12 +25,19 @@ export const AdminPanel = () => {
   };
 
   useEffect(() => {
-    const isAuth = localStorage.getItem('admin_authorized') === 'true';
-    setIsAuthorized(isAuth);
+    setIsAuthorized(isAdminAuthorized());
+    
+    const cleanupKeyListener = setupAdminKeyListener(() => {
+      setIsAuthorized(true);
+    });
     
     loadAnalytics();
     const interval = setInterval(loadAnalytics, 2000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+      cleanupKeyListener();
+    };
   }, []);
 
   const customEvents = events.filter(e => e.category === 'custom');
@@ -51,18 +58,6 @@ export const AdminPanel = () => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
-      const newCommand = typedCommand + key;
-      
-      if (newCommand.endsWith('admin')) {
-        setIsAuthorized(true);
-        localStorage.setItem('admin_authorized', 'true');
-        setTypedCommand('');
-        return;
-      }
-      
-      setTypedCommand(newCommand.slice(-10));
-      
       if (isAuthorized && e.ctrlKey && e.shiftKey && e.key === 'A') {
         togglePanel();
       }
@@ -70,7 +65,7 @@ export const AdminPanel = () => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isVisible, isAuthorized, typedCommand]);
+  }, [isVisible, isAuthorized]);
 
   if (!isAuthorized) {
     return null;
