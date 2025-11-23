@@ -3,10 +3,12 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { analytics } from '@/utils/analytics';
+import { getLeads, exportLeadsToJSON, exportLeadsToCSV, clearLeads } from '@/services/leadsStorage';
 
 export const AnalyticsDashboard = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [leadsCount, setLeadsCount] = useState(0);
   const [stats, setStats] = useState({
     totalEvents: 0,
     clicks: 0,
@@ -19,6 +21,7 @@ export const AnalyticsDashboard = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setStats(analytics.getEngagementStats());
+      setLeadsCount(getLeads().length);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -155,36 +158,94 @@ export const AnalyticsDashboard = () => {
           </div>
         </div>
 
-        <div className="mt-4 pt-4 border-t border-border/50 space-y-2">
-          <Button
-            variant="default"
-            size="sm"
-            onClick={exportToCSV}
-            className="w-full text-xs bg-gradient-to-r from-primary to-accent"
-          >
-            <Icon name="Download" size={14} className="mr-2" />
-            Экспортировать в CSV
-          </Button>
+        <div className="mt-4 pt-4 border-t border-border/50">
+          <div className="mb-3 p-3 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Icon name="Users" size={16} className="text-green-400" />
+                <span className="text-sm font-bold">Лидов собрано</span>
+              </div>
+              <span className="font-bold text-lg text-green-400">{leadsCount}</span>
+            </div>
+          </div>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              analytics.clearEvents();
-              setStats({
-                totalEvents: 0,
-                clicks: 0,
-                views: 0,
-                submits: 0,
-                maxScroll: 0,
-                conversionRate: 0,
-              });
-            }}
-            className="w-full text-xs"
-          >
-            <Icon name="Trash2" size={14} className="mr-2" />
-            Очистить данные
-          </Button>
+          <div className="space-y-2">
+            <div className="text-xs font-semibold text-muted-foreground mb-2">Экспорт лидов:</div>
+            
+            <Button
+              variant="default"
+              size="sm"
+              onClick={exportLeadsToJSON}
+              className="w-full text-xs bg-gradient-to-r from-blue-500 to-cyan-500"
+              disabled={leadsCount === 0}
+            >
+              <Icon name="FileJson" size={14} className="mr-2" />
+              Скачать JSON ({leadsCount})
+            </Button>
+
+            <Button
+              variant="default"
+              size="sm"
+              onClick={exportLeadsToCSV}
+              className="w-full text-xs bg-gradient-to-r from-green-500 to-emerald-500"
+              disabled={leadsCount === 0}
+            >
+              <Icon name="FileSpreadsheet" size={14} className="mr-2" />
+              Скачать CSV ({leadsCount})
+            </Button>
+
+            <div className="text-xs font-semibold text-muted-foreground mt-3 mb-2">Экспорт аналитики:</div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={exportToCSV}
+              className="w-full text-xs"
+            >
+              <Icon name="Download" size={14} className="mr-2" />
+              События в CSV
+            </Button>
+
+            <div className="text-xs font-semibold text-destructive mt-3 mb-2">Опасная зона:</div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (confirm('Удалить все лиды? Это действие нельзя отменить!')) {
+                  clearLeads();
+                  setLeadsCount(0);
+                }
+              }}
+              className="w-full text-xs border-destructive/50 text-destructive hover:bg-destructive/10"
+              disabled={leadsCount === 0}
+            >
+              <Icon name="UserX" size={14} className="mr-2" />
+              Удалить лиды ({leadsCount})
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (confirm('Очистить всю аналитику?')) {
+                  analytics.clearEvents();
+                  setStats({
+                    totalEvents: 0,
+                    clicks: 0,
+                    views: 0,
+                    submits: 0,
+                    maxScroll: 0,
+                    conversionRate: 0,
+                  });
+                }
+              }}
+              className="w-full text-xs border-destructive/50 text-destructive hover:bg-destructive/10"
+            >
+              <Icon name="Trash2" size={14} className="mr-2" />
+              Очистить события
+            </Button>
+          </div>
         </div>
 
         <p className="text-xs text-muted-foreground mt-3 text-center">

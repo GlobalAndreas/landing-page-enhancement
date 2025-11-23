@@ -1,5 +1,6 @@
 import { getDeviceType } from '@/utils/deviceDetection';
 import { getUTMParams, getReferrer } from '@/utils/utmTracking';
+import { saveLead } from './leadsStorage';
 
 interface FormData {
   name: string;
@@ -37,6 +38,8 @@ export const sendTelegramNotification = async (
       device: device,
       referrer: referrer,
     };
+
+    saveLead(payload);
 
     const response = await fetch('/tg_notify.php', {
       method: 'POST',
