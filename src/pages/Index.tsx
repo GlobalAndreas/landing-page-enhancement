@@ -11,11 +11,14 @@ import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
 import { ThankYouModal } from "@/components/modals/ThankYouModal";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { useScrollTracking } from "@/hooks/useAnalytics";
+import { usePageTracking } from "@/hooks/usePageTracking";
 import { analytics } from "@/utils/analytics";
+import { sendTelegramNotification } from "@/services/telegramNotify";
 
 const Index = () => {
   const { toast } = useToast();
   useScrollTracking();
+  const { getTrackingData } = usePageTracking();
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -24,11 +27,17 @@ const Index = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     analytics.trackFormSubmit('consultation_form');
+    
+    const trackingData = getTrackingData();
+    const savedFormData = { ...formData };
+    
     setFormData({ name: "", contact: "", niche: "", goal: "" });
     setIsModalOpen(true);
+    
+    await sendTelegramNotification(savedFormData, trackingData);
   };
 
   const scrollToConsultation = () => {
