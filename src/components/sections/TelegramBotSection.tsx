@@ -81,6 +81,33 @@ export const TelegramBotSection = () => {
                 Получить доступ в Telegram-боте
               </Button>
               
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-red-500/10 to-red-600/5 border border-red-500/20 hover:scale-110 transition-transform">
+                  <span className="text-xl">🎥</span>
+                  <span className="text-xs font-medium text-foreground/80">Видео-разборы</span>
+                </div>
+                
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 hover:scale-110 transition-transform">
+                  <span className="text-xl">📈</span>
+                  <span className="text-xs font-medium text-foreground/80">Кейсы</span>
+                </div>
+                
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 hover:scale-110 transition-transform">
+                  <span className="text-xl">🚀</span>
+                  <span className="text-xs font-medium text-foreground/80">Автоворонки</span>
+                </div>
+                
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 hover:scale-110 transition-transform">
+                  <span className="text-xl">🎯</span>
+                  <span className="text-xs font-medium text-foreground/80">Уроки по трафику</span>
+                </div>
+                
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-500/20 hover:scale-110 transition-transform">
+                  <span className="text-xl">💼</span>
+                  <span className="text-xs font-medium text-foreground/80">Практические примеры</span>
+                </div>
+              </div>
+              
               <p className="text-xs text-muted-foreground mt-4">
                 Никакого спама — только полезный контент
               </p>
