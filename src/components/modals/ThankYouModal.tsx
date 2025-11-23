@@ -24,7 +24,8 @@ export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50"
             onClick={onClose}
           />
           
@@ -36,54 +37,97 @@ export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
               transition={{ duration: 0.3 }}
               className="w-full max-w-md"
             >
-              <Card className="p-8 bg-gradient-to-br from-card/98 to-card/95 backdrop-blur-xl border-primary/30 shadow-2xl relative">
+              <Card className="p-8 bg-gradient-to-br from-card via-card to-primary/5 backdrop-blur-xl border-2 border-primary/30 shadow-2xl relative overflow-hidden">
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-tr from-accent/20 to-primary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={onClose}
-                  className="absolute top-4 right-4 h-8 w-8 p-0 hover:bg-secondary/50"
+                  className="absolute top-4 right-4 h-8 w-8 p-0 hover:bg-secondary/50 z-10 rounded-full"
                 >
                   <Icon name="X" size={16} />
                 </Button>
 
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent mb-6 shadow-lg animate-bounce">
-                    <Icon name="CheckCircle2" size={32} className="text-white" />
-                  </div>
-                  
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    Спасибо! Заявка отправлена
-                  </h3>
-                  
-                  <p className="text-muted-foreground mb-2">
-                    Свяжемся с вами в течение 24 часов
-                  </p>
-
-                  <div className="my-6 p-4 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20">
-                    <p className="text-sm font-medium mb-1">
-                      💎 А пока не ждите — получите пользу прямо сейчас!
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Перейдите в Telegram-бот и получите бесплатные мастер-классы, разборы и готовые шаблоны автоворонок
-                    </p>
-                  </div>
-
-                  <Button
-                    onClick={handleTelegramClick}
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 text-base font-semibold py-6 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105"
+                <div className="text-center relative z-10">
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-6 shadow-2xl shadow-green-500/50"
                   >
-                    <Icon name="Send" size={20} className="mr-2" />
-                    Перейти в Telegram-бота →
-                  </Button>
-
-                  <Button
-                    variant="ghost"
-                    onClick={onClose}
-                    className="w-full mt-3 text-sm text-muted-foreground hover:text-foreground"
+                    <Icon name="CheckCircle2" size={40} className="text-white" />
+                  </motion.div>
+                  
+                  <motion.h3
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-3xl md:text-4xl font-black mb-3 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
                   >
-                    Закрыть
-                  </Button>
+                    🎉 Ура! Заявка отправлена
+                  </motion.h3>
+                  
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-muted-foreground mb-2 text-base"
+                  >
+                    Свяжемся с вами в течение <span className="font-bold text-foreground">24 часов</span>
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="my-8 p-5 rounded-2xl bg-gradient-to-br from-primary/20 via-accent/20 to-primary/10 border-2 border-primary/30 shadow-lg relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/10 to-transparent rounded-full blur-2xl" />
+                    <div className="relative z-10">
+                      <p className="text-base font-bold mb-2 flex items-center justify-center gap-2">
+                        <span className="text-2xl">💎</span>
+                        <span>А пока не ждите — получите пользу прямо сейчас!</span>
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Перейдите в Telegram-бот и получите <span className="font-semibold text-foreground">бесплатные мастер-классы</span>, разборы и готовые шаблоны автоворонок
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      onClick={handleTelegramClick}
+                      size="lg"
+                      className="w-full bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 text-base font-bold py-7 shadow-2xl shadow-blue-500/50 hover:shadow-3xl hover:shadow-blue-500/70 relative overflow-hidden group"
+                    >
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                      <Icon name="Send" size={22} className="mr-2" />
+                      <span>Перейти в Telegram-бот</span>
+                      <Icon name="ArrowRight" size={20} className="ml-2" />
+                    </Button>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    <Button
+                      variant="ghost"
+                      onClick={onClose}
+                      className="w-full mt-4 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/30 rounded-xl py-3"
+                    >
+                      Вернуться на сайт
+                    </Button>
+                  </motion.div>
                 </div>
               </Card>
             </motion.div>
