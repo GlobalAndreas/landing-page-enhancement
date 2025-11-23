@@ -227,6 +227,30 @@ export const LeadsExportPanel = () => {
     URL.revokeObjectURL(url);
   };
 
+  const highlightText = (text: string): JSX.Element => {
+    if (!searchQuery.trim()) {
+      return <>{text}</>;
+    }
+
+    const query = searchQuery.trim();
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = text.split(regex);
+
+    return (
+      <>
+        {parts.map((part, index) => 
+          regex.test(part) ? (
+            <mark key={index} className="bg-yellow-400/30 text-yellow-900 dark:text-yellow-200 rounded px-0.5">
+              {part}
+            </mark>
+          ) : (
+            <span key={index}>{part}</span>
+          )
+        )}
+      </>
+    );
+  };
+
   const resetFilters = () => {
     setFilters({
       dateFilter: 'all',
@@ -535,10 +559,10 @@ export const LeadsExportPanel = () => {
                       {filteredLeads.map((lead) => (
                         <tr key={lead.id} className="hover:bg-secondary/50 transition-colors">
                           <td className="px-2 py-2 text-foreground truncate max-w-[80px]" title={lead.name}>
-                            {lead.name}
+                            {highlightText(lead.name)}
                           </td>
                           <td className="px-2 py-2 text-foreground truncate max-w-[80px]" title={lead.contact}>
-                            {lead.contact}
+                            {highlightText(lead.contact)}
                           </td>
                           <td className="px-2 py-2 truncate max-w-[100px]" title={`${lead.utmSource || '-'} / ${lead.utmMedium || '-'} / ${lead.utmCampaign || '-'}`}>
                             <div className="flex flex-col gap-0.5">
