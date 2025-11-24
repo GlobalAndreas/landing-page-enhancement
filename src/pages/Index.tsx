@@ -71,6 +71,7 @@ const Index = () => {
   const [isStickyVisible, setIsStickyVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const hasShownStickyRef = useRef(false);
+  const hasVibratedRef = useRef(false);
 
   const scrollToConsultation = () => {
     analytics.trackButtonClick('get_consultation', 'hero_section');
@@ -103,6 +104,17 @@ const Index = () => {
           setIsStickyVisible(true);
         } else {
           setIsStickyVisible(false);
+        }
+
+        const consultationElement = document.getElementById('consultation');
+        if (consultationElement) {
+          const rect = consultationElement.getBoundingClientRect();
+          const isNearForm = rect.top < window.innerHeight && rect.bottom > window.innerHeight / 2;
+
+          if (isNearForm && !hasVibratedRef.current && 'vibrate' in navigator && typeof navigator.vibrate === 'function') {
+            navigator.vibrate(15);
+            hasVibratedRef.current = true;
+          }
         }
       } else {
         setIsStickyVisible(false);
