@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 import { useToast } from "@/hooks/use-toast";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsAndServicesSection } from "@/components/sections/StatsAndServicesSection";
+import { ClientJourneySection } from "@/components/sections/ClientJourneySection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { LegalSection } from "@/components/sections/LegalSection";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
@@ -167,6 +168,7 @@ const Index = () => {
       <main>
         <HeroSection scrollToConsultation={scrollToConsultation} slots={slots} onTimerCTA={handleHeroCTA} />
         <StatsAndServicesSection />
+        <ClientJourneySection />
         <TestimonialsSection />
         <LegalSection />
         <TelegramBotSection />
