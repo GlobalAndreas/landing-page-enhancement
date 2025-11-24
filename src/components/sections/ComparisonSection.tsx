@@ -77,7 +77,7 @@ export const ComparisonSection = () => {
       <div className="container mx-auto px-4 relative z-10 space-y-12">
         <div className="text-center space-y-4 max-w-2xl mx-auto">
           <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">Сценарий</p>
-          <h2 className="text-3xl md:text-4xl font-black text-balance">
+          <h2 className="text-3xl md:text-4xl font-black text-balance text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient">
             Что меняется, когда подключаете автоворонку
           </h2>
           <p className="text-muted-foreground">

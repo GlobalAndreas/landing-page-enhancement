@@ -15,6 +15,7 @@ import { FAQSection } from "@/components/sections/FAQSection";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { LeadsExportPanel } from "@/components/LeadsExportPanel";
 import { WarmupPreview } from "@/components/WarmupPreview";
+import { PauseReminder } from "@/components/Popups/PauseReminder";
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import { useExitIntent } from "@/hooks/useExitIntent";
@@ -194,6 +195,7 @@ const Index = () => {
       <AnalyticsDashboard />
       <LeadsExportPanel />
       <WarmupPreview />
+      <PauseReminder onCTA={scrollToConsultation} />
     </div>
   );
 };
