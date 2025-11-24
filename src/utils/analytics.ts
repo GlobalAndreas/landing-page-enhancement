@@ -55,6 +55,10 @@ class Analytics {
     console.log('[Analytics]', analyticsEvent);
   }
 
+  trackEvent(event: string, category: string, action: string, label?: string, value?: number): void {
+    this.track(event, category, action, label, value);
+  }
+
   trackButtonClick(buttonName: string, location: string): void {
     this.track('button_click', 'engagement', 'click', `${buttonName} (${location})`);
   }

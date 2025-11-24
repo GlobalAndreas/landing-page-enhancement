@@ -17,6 +17,7 @@ import { WarmupPreview } from "@/components/WarmupPreview";
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import { useExitIntent } from "@/hooks/useExitIntent";
+import { useConsultationSlots } from "@/hooks/useConsultationSlots";
 import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
@@ -26,6 +27,7 @@ const Index = () => {
   useScrollTracking();
   const { getTrackingData } = usePageTracking();
   const { showExitIntent, closeExitIntent } = useExitIntent();
+  const { slots, decreaseSlot } = useConsultationSlots();
 
   useEffect(() => {
     parseAndSaveUTM();
@@ -53,6 +55,7 @@ const Index = () => {
     
     analytics.trackFormSubmit('consultation_form');
     analytics.track('form_pdn_agree', 'consent', 'pdn_checked');
+    decreaseSlot();
     
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
@@ -66,6 +69,11 @@ const Index = () => {
   const scrollToConsultation = () => {
     analytics.trackButtonClick('get_consultation', 'hero_section');
     document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleHeroCTA = () => {
+    analytics.trackEvent('fomo_timer_influence', 'engagement', 'cta_from_timer');
+    scrollToConsultation();
   };
 
   return (
@@ -101,7 +109,7 @@ const Index = () => {
       </header>
 
       <main>
-        <HeroSection scrollToConsultation={scrollToConsultation} />
+        <HeroSection scrollToConsultation={scrollToConsultation} slots={slots} onTimerCTA={handleHeroCTA} />
         <StatsAndServicesSection />
         <TestimonialsSection />
         <LegalSection />

@@ -1,14 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { analytics } from "@/utils/analytics";
 
 interface HeroSectionProps {
   scrollToConsultation: () => void;
+  slots: number;
+  onTimerCTA: () => void;
 }
 
-export const HeroSection = ({ scrollToConsultation }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSectionProps) => {
+  const hasSlots = slots > 0;
+  const timerText = hasSlots
+    ? `Бесплатная консультация — осталось ${slots} ${slots === 1 ? "место" : slots < 5 ? "места" : "мест"} на этой неделе`
+    : "Запись на эту неделю закрыта — оставьте заявку на следующую";
+
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 blur-3xl opacity-30" />
@@ -48,6 +55,38 @@ export const HeroSection = ({ scrollToConsultation }: HeroSectionProps) => {
                 </span>
               ))}
             </div>
+
+            <motion.button
+              type="button"
+              onClick={() => {
+                onTimerCTA();
+              }}
+              className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-sm shadow-[0_0_25px_rgba(129,140,248,0.2)]"
+              animate={{
+                boxShadow: [
+                  "0 0 25px rgba(129,140,248,0.3)",
+                  "0 0 35px rgba(236,72,153,0.4)",
+                  "0 0 25px rgba(129,140,248,0.3)"
+                ]
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/30 via-accent/30 to-primary/30 flex items-center justify-center shadow-inner shadow-primary/30">
+                <Icon name="Clock" size={16} className="text-primary" />
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={`slots-${slots}`}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.3 }}
+                  className={`font-medium ${hasSlots ? "text-foreground" : "text-muted-foreground"}`}
+                >
+                  {timerText}
+                </motion.span>
+              </AnimatePresence>
+            </motion.button>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button 
