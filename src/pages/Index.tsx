@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { useToast } from "@/hooks/use-toast";
@@ -8,6 +8,7 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { LegalSection } from "@/components/sections/LegalSection";
 import { ConsultationForm } from "@/components/sections/ConsultationForm";
 import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
+import { ComparisonSection } from "@/components/sections/ComparisonSection";
 import { ThankYouModal } from "@/components/modals/ThankYouModal";
 import { ExitIntentModal } from "@/components/modals/ExitIntentModal";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -66,6 +67,10 @@ const Index = () => {
     await sendTelegramNotification(savedFormData, trackingData);
   };
 
+  const [isStickyVisible, setIsStickyVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const hasShownStickyRef = useRef(false);
+
   const scrollToConsultation = () => {
     analytics.trackButtonClick('get_consultation', 'hero_section');
     document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" });
@@ -73,6 +78,44 @@ const Index = () => {
 
   const handleHeroCTA = () => {
     analytics.trackEvent('fomo_timer_influence', 'engagement', 'cta_from_timer');
+    scrollToConsultation();
+  };
+
+  useEffect(() => {
+    let hasReachedTwentyFive = false;
+
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+      const scrollPercentage = scrollHeight > 0 ? (currentScroll / scrollHeight) * 100 : 0;
+      const isMobile = window.innerWidth <= 768;
+      const isScrollingDown = currentScroll > lastScrollY;
+
+      if (scrollPercentage >= 25 && !hasReachedTwentyFive) {
+        hasReachedTwentyFive = true;
+        analytics.trackEvent('sticky_cta_show', 'engagement', 'view');
+        hasShownStickyRef.current = true;
+      }
+
+      if (isMobile && hasReachedTwentyFive) {
+        if (!isScrollingDown) {
+          setIsStickyVisible(true);
+        } else {
+          setIsStickyVisible(false);
+        }
+      } else {
+        setIsStickyVisible(false);
+      }
+
+      setLastScrollY(currentScroll);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  const handleStickyClick = () => {
+    analytics.trackEvent('sticky_cta_click', 'engagement', 'click');
     scrollToConsultation();
   };
 
@@ -114,6 +157,7 @@ const Index = () => {
         <TestimonialsSection />
         <LegalSection />
         <TelegramBotSection />
+        <ComparisonSection />
         <FAQSection />
         <ConsultationForm 
           formData={formData} 
@@ -130,6 +174,21 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      <div
+        className={`fixed inset-x-4 sm:inset-x-auto sm:right-6 transition-all duration-300 ease-out z-50 md:hidden ${
+          isStickyVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0 pointer-events-none'
+        }`}
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 16px) + 16px)' }}
+      >
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-lg">
+          <Button
+            onClick={handleStickyClick}
+            className="w-full h-14 bg-gradient-to-r from-primary to-accent text-base font-semibold"
+          >
+            Получить консультацию
+          </Button>
+        </div>
+      </div>
       <ThankYouModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <ExitIntentModal isOpen={showExitIntent} onClose={closeExitIntent} />
       <AnalyticsDashboard />
