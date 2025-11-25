@@ -15,6 +15,7 @@ import { ThankYouModal } from "@/components/modals/ThankYouModal";
 import { ExitIntentModal } from "@/components/modals/ExitIntentModal";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { MethodologySection } from "@/components/sections/MethodologySection";
+import { AboutMeSection } from "@/components/sections/AboutMeSection";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { LeadsExportPanel } from "@/components/LeadsExportPanel";
 import { WarmupPreview } from "@/components/WarmupPreview";
@@ -176,6 +177,7 @@ const Index = () => {
         <TelegramBotSection />
         <ComparisonSection />
         <MethodologySection />
+        <AboutMeSection />
         <FAQSection />
         
         <section className="py-12 text-center">
