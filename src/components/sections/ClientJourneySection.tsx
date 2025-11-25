@@ -114,6 +114,9 @@ export const ClientJourneySection = () => {
               </motion.div>
             ))}
           </div>
+          <p className="text-center text-sm text-white/70 mt-8">
+            Все этапы проходят последовательно — клиент всегда понимает, на каком этапе мы сейчас
+          </p>
         </div>
       </div>
     </section>
