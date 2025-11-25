@@ -81,9 +81,14 @@ export const LegalSection = () => {
                   className="p-7 bg-slate-900/30 backdrop-blur-xl border border-emerald-500/10 hover:border-emerald-500/30 hover:bg-slate-900/40 transition-all duration-500 group shadow-[0_0_20px_rgba(16,185,129,0.03)] hover:shadow-[0_0_35px_rgba(16,185,129,0.08)]"
                 >
                   <div className="flex gap-5">
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500/15 to-teal-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-emerald-500/40 transition-all duration-300">
+                    <motion.div 
+                      className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500/15 to-teal-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-emerald-500/40 transition-all duration-300"
+                      initial={{ rotate: -180, scale: 0 }}
+                      animate={isInView ? { rotate: 0, scale: 1 } : { rotate: -180, scale: 0 }}
+                      transition={{ duration: 0.6, delay: i * 0.08 + 0.2, type: "spring", stiffness: 200 }}
+                    >
                       <Icon name="HelpCircle" size={16} className="text-emerald-400/80" />
-                    </div>
+                    </motion.div>
                     <div className="flex-1">
                       <h3 className="text-base font-bold mb-2.5 text-slate-100 leading-snug">{faq.q}</h3>
                       <p className="text-sm text-slate-400 leading-relaxed">{faq.a}</p>
@@ -101,9 +106,14 @@ export const LegalSection = () => {
           >
             <Card className="mt-8 p-8 bg-slate-900/40 backdrop-blur-xl border border-emerald-500/20 shadow-[0_0_40px_rgba(16,185,129,0.08)] hover:shadow-[0_0_60px_rgba(16,185,129,0.12)] transition-all duration-500">
               <div className="flex gap-5 items-start">
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                <motion.div 
+                  className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20"
+                  initial={{ rotate: -180, scale: 0 }}
+                  animate={isInView ? { rotate: 0, scale: 1 } : { rotate: -180, scale: 0 }}
+                  transition={{ duration: 0.7, delay: 0.9, type: "spring", stiffness: 180 }}
+                >
                   <Icon name="CheckCircle2" size={20} className="text-emerald-400/90" />
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="text-lg font-black mb-4 bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Почему именно Я? Ваша выгода в 3 пунктах</h3>
                   <p className="text-sm leading-relaxed text-slate-300 font-medium mb-4">
