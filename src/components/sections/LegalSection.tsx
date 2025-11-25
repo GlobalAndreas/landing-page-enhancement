@@ -10,8 +10,30 @@ export const LegalSection = () => {
 
   return (
     <section id="legal" className="py-24 relative overflow-hidden bg-gradient-to-b from-background via-slate-950/50 to-background">
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/5 rounded-full blur-[120px]" />
+      <motion.div 
+        className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/5 rounded-full blur-[120px]"
+        animate={{
+          y: [0, 30, 0],
+          x: [0, -20, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/5 rounded-full blur-[120px]"
+        animate={{
+          y: [0, -30, 0],
+          x: [0, 20, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
