@@ -114,9 +114,15 @@ export const ClientJourneySection = () => {
               </motion.div>
             ))}
           </div>
-          <p className="text-center text-sm text-white/70 mt-8">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center text-sm text-white/70 mt-8"
+          >
             Все этапы проходят последовательно — клиент всегда понимает, на каком этапе мы сейчас
-          </p>
+          </motion.p>
         </div>
       </div>
     </section>
