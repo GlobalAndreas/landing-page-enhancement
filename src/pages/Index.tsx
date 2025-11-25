@@ -174,6 +174,23 @@ const Index = () => {
         <TelegramBotSection />
         <ComparisonSection />
         <FAQSection />
+        
+        <section className="py-12 text-center">
+          <div className="container mx-auto px-4">
+            <Button 
+              variant="secondary"
+              size="default"
+              onClick={() => {
+                analytics.trackEvent('audit_cta_click', 'engagement', 'audit_cta', { audit: 'true' });
+                scrollToConsultation();
+              }}
+              className="text-sm"
+            >
+              Пройти аудит бесплатно
+            </Button>
+          </div>
+        </section>
+
         <ConsultationForm 
           formData={formData} 
           handleSubmit={handleSubmit} 
