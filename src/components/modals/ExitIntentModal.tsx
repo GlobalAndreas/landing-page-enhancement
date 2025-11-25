@@ -68,7 +68,7 @@ export const ExitIntentModal = ({ isOpen, onClose }: ExitIntentModalProps) => {
                   variant="ghost"
                   size="sm"
                   onClick={onClose}
-                  className="absolute top-4 right-4 h-8 w-8 p-0 hover:bg-secondary/50 z-10 rounded-full"
+                  className="absolute top-4 right-4 h-8 w-8 p-0 bg-secondary/50 hover:bg-secondary z-10 rounded-full"
                 >
                   <Icon name="X" size={16} />
                 </Button>
