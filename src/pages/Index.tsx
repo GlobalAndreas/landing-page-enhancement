@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { useToast } from "@/hooks/use-toast";
@@ -177,17 +178,24 @@ const Index = () => {
         
         <section className="py-12 text-center">
           <div className="container mx-auto px-4">
-            <Button 
-              variant="secondary"
-              size="default"
-              onClick={() => {
-                analytics.trackEvent('audit_cta_click', 'engagement', 'audit_cta', { audit: 'true' });
-                scrollToConsultation();
-              }}
-              className="text-sm"
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.8 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              Пройти аудит бесплатно
-            </Button>
+              <Button 
+                variant="secondary"
+                size="default"
+                onClick={() => {
+                  analytics.trackEvent('audit_cta_click', 'engagement', 'audit_cta', { audit: 'true' });
+                  scrollToConsultation();
+                }}
+                className="text-sm"
+              >
+                Пройти аудит бесплатно
+              </Button>
+            </motion.div>
           </div>
         </section>
 
