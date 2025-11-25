@@ -16,6 +16,9 @@ export const AnalyticsDashboard = () => {
     submits: 0,
     maxScroll: 0,
     conversionRate: 0,
+    exitPopupViews: 0,
+    exitPopupClicks: 0,
+    exitPopupConversion: 0,
   });
 
   useEffect(() => {
@@ -155,6 +158,36 @@ export const AnalyticsDashboard = () => {
               <span className="text-sm font-bold">Конверсия</span>
             </div>
             <span className="font-bold text-lg text-primary">{stats.conversionRate.toFixed(1)}%</span>
+          </div>
+        </div>
+
+        <div className="mt-4 pt-4 border-t border-border/50">
+          <div className="text-xs font-semibold text-muted-foreground mb-3">📊 Exit-попап статистика:</div>
+          
+          <div className="space-y-2 mb-4">
+            <div className="flex items-center justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
+              <div className="flex items-center gap-2">
+                <Icon name="Eye" size={14} className="text-amber-400" />
+                <span className="text-xs">Показов попапа</span>
+              </div>
+              <span className="font-bold text-sm text-amber-400">{stats.exitPopupViews}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+              <div className="flex items-center gap-2">
+                <Icon name="MousePointerClick" size={14} className="text-emerald-400" />
+                <span className="text-xs">Кликов на CTA</span>
+              </div>
+              <span className="font-bold text-sm text-emerald-400">{stats.exitPopupClicks}</span>
+            </div>
+
+            <div className="flex items-center justify-between p-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
+              <div className="flex items-center gap-2">
+                <Icon name="Percent" size={14} className="text-purple-400" />
+                <span className="text-xs font-bold">Конверсия попапа</span>
+              </div>
+              <span className="font-bold text-sm text-purple-400">{stats.exitPopupConversion.toFixed(1)}%</span>
+            </div>
           </div>
         </div>
 

@@ -106,6 +106,12 @@ class Analytics {
       ? Math.max(...scrollEvents.map(e => e.value || 0))
       : 0;
 
+    const exitPopupViews = this.events.filter(e => e.event === 'exit_popup_viewed').length;
+    const exitPopupClicks = this.events.filter(e => e.event === 'exit_popup_cta').length;
+    const exitPopupConversion = exitPopupViews > 0 
+      ? (exitPopupClicks / exitPopupViews) * 100 
+      : 0;
+
     return {
       totalEvents: this.events.length,
       clicks,
@@ -113,6 +119,9 @@ class Analytics {
       submits,
       maxScroll,
       conversionRate: this.getConversionRate(),
+      exitPopupViews,
+      exitPopupClicks,
+      exitPopupConversion,
     };
   }
 
