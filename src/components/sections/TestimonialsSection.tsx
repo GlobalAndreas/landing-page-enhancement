@@ -182,7 +182,7 @@ export const TestimonialsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-slate-950/50 via-purple-950/10 to-slate-950/50">
+    <section id="testimonials" className="py-24 relative overflow-hidden bg-gradient-to-b from-slate-950/50 via-purple-950/10 to-slate-950/50">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.08),transparent_65%)]" />
       <motion.div 
         className="absolute top-1/4 left-1/3 w-96 h-96 bg-purple-600/5 rounded-full blur-[100px]"

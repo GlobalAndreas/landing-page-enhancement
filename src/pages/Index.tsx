@@ -155,8 +155,9 @@ const Index = () => {
               </div>
             </div>
             
-            <nav className="hidden md:flex items-center gap-6 text-sm">
+            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
               <a href="#services" onClick={() => analytics.trackLinkClick('nav_services', '#services')} className="hover:text-primary transition-colors">Услуги</a>
+              <a href="#testimonials" onClick={() => analytics.trackLinkClick('nav_cases', '#testimonials')} className="hover:text-primary transition-colors">Кейсы</a>
               <a href="#process" onClick={() => analytics.trackLinkClick('nav_process', '#process')} className="hover:text-primary transition-colors">Процесс</a>
               <a href="#legal" onClick={() => analytics.trackLinkClick('nav_legal', '#legal')} className="hover:text-primary transition-colors">Прозрачность</a>
             </nav>
