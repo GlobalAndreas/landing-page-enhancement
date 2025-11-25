@@ -9,7 +9,7 @@ import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 export const FAQSection = () => {
   const ref = useRef(null);
@@ -45,6 +45,28 @@ export const FAQSection = () => {
       answer: "Да — гарантия результата или доработка без доплат.",
     },
   ];
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    });
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const handleAccordionChange = (value: string) => {
     if (value) {
