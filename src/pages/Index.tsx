@@ -191,9 +191,14 @@ const Index = () => {
                   analytics.trackEvent('audit_cta_click', 'engagement', 'audit_cta', { audit: 'true' });
                   scrollToConsultation();
                 }}
-                className="text-sm"
+                className="text-sm group"
               >
                 Пройти аудит бесплатно
+                <Icon 
+                  name="ChevronDown" 
+                  size={14} 
+                  className="ml-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                />
               </Button>
             </motion.div>
           </div>
