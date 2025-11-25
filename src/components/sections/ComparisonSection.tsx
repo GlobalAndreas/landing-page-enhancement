@@ -77,9 +77,24 @@ export const ComparisonSection = () => {
       <div className="container mx-auto px-4 relative z-10 space-y-12">
         <div className="text-center space-y-4 max-w-2xl mx-auto">
           <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">Сценарий</p>
-          <h2 className="text-3xl md:text-4xl font-black text-balance text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient">
-            Что меняется, когда подключаете автоворонку
-          </h2>
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-4xl font-black text-balance relative"
+          >
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: [0, 0.2, 0] }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, times: [0, 0.5, 1] }}
+              className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
+            />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient relative">
+              Что меняется, когда подключаете автоворонку
+            </span>
+          </motion.h2>
           <p className="text-muted-foreground">
             Показываю честное сравнение процессов. Слева — ручной хаос, справа — выстроенная система, которая работает
             даже когда вы спите.

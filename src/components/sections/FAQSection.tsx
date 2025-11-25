@@ -69,11 +69,24 @@ export const FAQSection = () => {
               <Icon name="HelpCircle" size={16} className="text-primary" />
               <span className="text-xs font-bold tracking-wider uppercase text-primary">FAQ</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <motion.h2 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl font-black mb-4 relative"
+            >
+              <motion.span
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: [0, 0.2, 0] }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.8, times: [0, 0.5, 1] }}
+                className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
+              />
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent relative">
                 Ответы на частые вопросы
               </span>
-            </h2>
+            </motion.h2>
           </div>
 
           <Card className="p-6 md:p-8 bg-card/50 backdrop-blur border-border/50 shadow-2xl shadow-primary/10">

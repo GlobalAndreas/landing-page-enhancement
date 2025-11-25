@@ -41,9 +41,22 @@ export function MethodologySection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-            Методология Dilman-Flow™
-          </h2>
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent relative"
+          >
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: [0, 0.2, 0] }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, times: [0, 0.5, 1] }}
+              className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
+            />
+            <span className="relative">Методология Dilman-Flow™</span>
+          </motion.h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Фирменный подход, который позволяет запускать автоворонки быстро, системно и предсказуемо
           </p>

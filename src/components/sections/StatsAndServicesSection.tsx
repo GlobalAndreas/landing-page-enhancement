@@ -31,11 +31,24 @@ export const StatsAndServicesSection = () => {
                 <Icon name="Trophy" size={16} className="text-primary" />
                 <span className="text-xs font-bold tracking-wider uppercase text-primary">результаты и цифры</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-4">
-                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+              <motion.h2 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl md:text-5xl font-black mb-4 relative"
+              >
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: [0, 0.2, 0] }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.8, times: [0, 0.5, 1] }}
+                  className="absolute inset-0 bg-gradient-to-r from-accent/20 via-primary/20 to-accent/20 blur-xl"
+                />
+                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent relative">
                   Факты для принятия решения
                 </span>
-              </h2>
+              </motion.h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Простые цифры, которые показывают, зачем нужна автоматизация — без красивых обещаний
               </p>

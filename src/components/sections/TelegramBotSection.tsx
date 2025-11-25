@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 export const TelegramBotSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -73,9 +74,24 @@ export const TelegramBotSection = () => {
                 <Icon name="Send" size={32} className="text-white" />
               </div>
               
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                Получайте бесплатные мастер-классы и разборы в Telegram
-              </h2>
+              <motion.h2 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold mb-4 relative"
+              >
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: [0, 0.2, 0] }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.8, times: [0, 0.5, 1] }}
+                  className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
+                />
+                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent relative">
+                  Получайте бесплатные мастер-классы и разборы в Telegram
+                </span>
+              </motion.h2>
               
               <p className="text-lg text-muted-foreground mb-8">
                 Присоединяйтесь к моему Telegram-боту и получите доступ к эксклюзивным материалам, которые помогут вам построить эффективные автоворонки
