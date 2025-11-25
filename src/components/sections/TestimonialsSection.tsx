@@ -120,12 +120,24 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
             </div>
           </div>
 
-          <div 
-            className="absolute top-6 right-6 px-3.5 py-2 rounded-lg backdrop-blur-sm"
+          <motion.div 
+            className="absolute top-6 right-6 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
             style={{ 
               backgroundColor: badgeStyle.bg,
               border: `1px solid ${badgeStyle.border}`,
               boxShadow: badgeStyle.shadow
+            }}
+            animate={{
+              boxShadow: [
+                badgeStyle.shadow,
+                badgeStyle.shadow.replace('0.25', '0.4'),
+                badgeStyle.shadow
+              ]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
           >
             <p 
@@ -134,7 +146,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
             >
               {testimonial.result}
             </p>
-          </div>
+          </motion.div>
 
           <div className="space-y-5">
             <div className="relative pl-3.5 border-l-2 border-red-400/25">
