@@ -194,11 +194,22 @@ const Index = () => {
                 className="text-sm group"
               >
                 Пройти аудит бесплатно
-                <Icon 
-                  name="ChevronDown" 
-                  size={14} 
-                  className="ml-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
-                />
+                <motion.div
+                  animate={{ y: [0, 2, 0] }}
+                  transition={{
+                    duration: 2,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatDelay: 5
+                  }}
+                  className="inline-block md:animate-none"
+                >
+                  <Icon 
+                    name="ChevronDown" 
+                    size={14} 
+                    className="ml-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                  />
+                </motion.div>
               </Button>
             </motion.div>
           </div>
