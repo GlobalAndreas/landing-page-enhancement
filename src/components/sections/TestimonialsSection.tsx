@@ -12,7 +12,7 @@ const testimonials = [
     before: "Реклама вела на сайт с формой обратной связи. Конверсия в заявку — 2%, большинство отваливались сразу. За месяц 150 кликов = 3 заявки.",
     after: "Запустили видео-лендинг с прогревом 60 секунд и чат-бот для квалификации. Конверсия выросла до 8%. За тот же бюджет — 12 заявок в месяц.",
     result: "×4 рост заявок",
-    color: "from-blue-500 to-cyan-500"
+    bgColor: "#4C7DFF"
   },
   {
     name: "Мария Соколова",
@@ -21,7 +21,7 @@ const testimonials = [
     before: "Лендинг с текстом и формой записи. Люди читали, но не записывались. Конверсия 1,5%, стоимость заявки — 3200₽.",
     after: "Добавили видео-приветствие и чат-бот с тестом на определение запроса. Конверсия выросла до 6%, стоимость заявки упала до 950₽.",
     result: "×4 рост конверсии, −70% стоимость заявки",
-    color: "from-purple-500 to-pink-500"
+    bgColor: "#FF4FD3"
   },
   {
     name: "Дмитрий Ковалёв",
@@ -30,7 +30,7 @@ const testimonials = [
     before: "Классический интернет-магазин. Трафик был, но брошенных корзин — 78%. Повторных покупок почти нет.",
     after: "Внедрили чат-бот для консультации по продуктам и допродажи в мессенджере. Брошенных корзин — 45%, повторные покупки выросли на 35%.",
     result: "+35% LTV клиента",
-    color: "from-orange-500 to-red-500"
+    bgColor: "#4C7DFF"
   },
   {
     name: "Елена Смирнова",
@@ -39,7 +39,7 @@ const testimonials = [
     before: "Сайт-визитка и холодные звонки. На консультацию выходило 2-3 человека в месяц. Долгий цикл сделки, низкая предсказуемость.",
     after: "Запустили автоворонку: контекстная реклама → лендинг с кейсами → бот для записи. Заявок стало 10-12 в месяц, цикл сокращён на 30%.",
     result: "×5 рост заявок, −30% цикл сделки",
-    color: "from-green-500 to-emerald-500"
+    bgColor: "#2CFFB5"
   },
   {
     name: "Игорь Волков",
@@ -48,7 +48,7 @@ const testimonials = [
     before: "Трафик с YouTube на лендинг с ценой курса. Конверсия в покупку — 0,8%. Много вопросов в комментариях, но не покупали.",
     after: "Добавили чат-бот с бесплатным мини-курсом и автоворонку прогрева на 5 дней. Конверсия в покупку выросла до 4,2%.",
     result: "×5 рост продаж",
-    color: "from-indigo-500 to-blue-500"
+    bgColor: "#4C7DFF"
   },
   {
     name: "Анна Петрова",
@@ -57,7 +57,7 @@ const testimonials = [
     before: "Запускала таргет ВКонтакте на форму записи. Стоимость заявки — 850₽, конверсия в оплату — 15%. Много нецелевых заявок, люди просто спрашивали цены.",
     after: "Сделали видео-лендинг с прогревом + чат-бот для квалификации. Стоимость целевой заявки упала до 45₽, конверсия в оплату выросла до 42%.",
     result: "45₽ за заявку, ×3 конверсия в продажу",
-    color: "from-pink-500 to-rose-500"
+    bgColor: "#FF4FD3"
   }
 ];
 
@@ -72,17 +72,25 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="p-6 bg-card/50 backdrop-blur border-border/50 hover:border-primary/50 transition-all duration-300 group h-full">
+      <Card className="p-6 bg-card/50 backdrop-blur border-border/50 hover:border-primary/50 transition-all duration-300 group h-full relative">
         <div className="flex items-start gap-4 mb-4">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-3xl flex-shrink-0">
             {testimonial.avatar}
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <h3 className="font-bold text-foreground">{testimonial.name}</h3>
             <p className="text-xs text-muted-foreground">{testimonial.niche}</p>
           </div>
-          <div className={`px-3 py-1 rounded-full bg-gradient-to-r ${testimonial.color} bg-opacity-20 border border-primary/30`}>
-            <p className="text-xs font-bold text-primary">{testimonial.result}</p>
+          <div 
+            className="absolute top-4 right-4 px-3 py-2 rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+            style={{ 
+              backgroundColor: testimonial.bgColor,
+              filter: 'blur(0px)'
+            }}
+          >
+            <p className="text-xs md:text-sm font-bold text-white whitespace-nowrap" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
+              {testimonial.result}
+            </p>
           </div>
         </div>
 
