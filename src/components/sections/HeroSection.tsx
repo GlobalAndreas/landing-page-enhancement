@@ -56,21 +56,19 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 — монолитный премиум-градиент: фиолетовый → холодная бирюза */}
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px] bg-gradient-to-r from-purple-400/75 via-violet-400/75 to-cyan-400/75 bg-clip-text text-transparent"
+              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px]"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: [1, 0.96, 1],
-                filter: [
-                  "drop-shadow(0 0 4px rgba(168,85,247,0.14)) drop-shadow(0 0 6px rgba(139,92,246,0.12))",
-                  "drop-shadow(0 0 8px rgba(168,85,247,0.16)) drop-shadow(0 0 10px rgba(139,92,246,0.14))",
-                  "drop-shadow(0 0 4px rgba(168,85,247,0.14)) drop-shadow(0 0 6px rgba(139,92,246,0.12))"
-                ]
-              }}
-              transition={{ 
-                opacity: { duration: 0.6, delay: 0.1 },
-                filter: { duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.1 }
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
+              style={{
+                background: 'linear-gradient(to right, #B50044, #7A53FF, #1EC1A6)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: 'brightness(0.9) saturate(0.85)',
+                textShadow: '0 2px 8px rgba(0,0,0,0.45)',
+                WebkitTextStroke: '1px rgba(0,0,0,0.35)'
               }}
             >
               От хаоса с заявками к предсказуемой воронке
