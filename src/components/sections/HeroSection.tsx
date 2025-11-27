@@ -56,15 +56,15 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 с breathing glow */}
+            {/* H1 с breathing glow — строго две строки */}
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] text-balance tracking-tight"
+              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[95%] md:max-w-[85%] lg:max-w-[1100px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
             >
               <motion.span 
-                className="inline-block bg-gradient-to-r from-white from-10% via-primary via-50% to-accent to-90% bg-clip-text text-transparent"
+                className="block bg-gradient-to-r from-white from-10% via-primary via-50% to-accent to-90% bg-clip-text text-transparent"
                 animate={{
                   filter: [
                     "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
@@ -77,9 +77,8 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               >
                 От хаоса с заявками
               </motion.span>
-              <br />
               <motion.span 
-                className="text-slate-50"
+                className="block text-slate-50"
                 animate={{
                   filter: [
                     "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
