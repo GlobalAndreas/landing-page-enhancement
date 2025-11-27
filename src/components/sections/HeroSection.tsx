@@ -56,59 +56,36 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 — премиальная триада: красный → фиолетовый → зелёно-бирюзовый */}
+            {/* H1 — Apple-style breathing: монолитное дыхание всего заголовка */}
             <motion.h1 
               className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px]"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
+              animate={{ 
+                opacity: [1, 0.95, 1],
+                filter: [
+                  "drop-shadow(0 0 4px rgba(168,85,247,0.12)) drop-shadow(0 0 8px rgba(16,185,129,0.08))",
+                  "drop-shadow(0 0 6px rgba(168,85,247,0.16)) drop-shadow(0 0 10px rgba(16,185,129,0.1))",
+                  "drop-shadow(0 0 4px rgba(168,85,247,0.12)) drop-shadow(0 0 8px rgba(16,185,129,0.08))"
+                ]
+              }}
+              transition={{ 
+                opacity: { duration: 0.6, delay: 0.1 },
+                filter: { duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.1 }
+              }}
             >
-              <motion.span 
-                className="bg-gradient-to-r from-rose-500/85 via-rose-400/85 to-rose-300/85 bg-clip-text text-transparent"
-                animate={{
-                  filter: [
-                    "drop-shadow(0 0 6px rgba(244,63,94,0.15))",
-                    "drop-shadow(0 0 6px rgba(244,63,94,0.2))",
-                    "drop-shadow(0 0 6px rgba(244,63,94,0.15))"
-                  ],
-                  opacity: [1, 0.95, 1]
-                }}
-                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-              >
+              <span className="bg-gradient-to-r from-rose-400/75 via-rose-300/75 to-rose-200/75 bg-clip-text text-transparent">
                 От хаоса
-              </motion.span>
+              </span>
               {" "}
-              <motion.span 
-                className="bg-gradient-to-r from-primary/85 via-accent/85 to-primary/85 bg-clip-text text-transparent"
-                animate={{
-                  filter: [
-                    "drop-shadow(0 0 6px rgba(168,85,247,0.15))",
-                    "drop-shadow(0 0 6px rgba(168,85,247,0.2))",
-                    "drop-shadow(0 0 6px rgba(168,85,247,0.15))"
-                  ],
-                  opacity: [1, 0.95, 1]
-                }}
-                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              >
+              <span className="bg-gradient-to-r from-primary/75 via-accent/75 to-primary/75 bg-clip-text text-transparent">
                 с заявками
-              </motion.span>
+              </span>
               {" "}
-              <span className="text-white/90">к</span>
+              <span className="text-white/85">к</span>
               {" "}
-              <motion.span 
-                className="bg-gradient-to-r from-emerald-500/85 via-teal-400/85 to-cyan-400/85 bg-clip-text text-transparent"
-                animate={{
-                  filter: [
-                    "drop-shadow(0 0 6px rgba(16,185,129,0.2)) drop-shadow(0 0 8px rgba(20,184,166,0.12))",
-                    "drop-shadow(0 0 6px rgba(16,185,129,0.25)) drop-shadow(0 0 8px rgba(20,184,166,0.15))",
-                    "drop-shadow(0 0 6px rgba(16,185,129,0.2)) drop-shadow(0 0 8px rgba(20,184,166,0.12))"
-                  ],
-                  opacity: [1, 0.95, 1]
-                }}
-                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              >
+              <span className="bg-gradient-to-r from-emerald-400/75 via-teal-300/75 to-cyan-300/75 bg-clip-text text-transparent">
                 предсказуемой воронке
-              </motion.span>
+              </span>
               <br />
               {/* Подзаголовок */}
               <motion.div 
