@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 const rawSteps = [
   {
@@ -69,9 +70,9 @@ export const ClientJourneySection = () => {
       <div className="container mx-auto px-4 relative z-10 space-y-12">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">Навигация</p>
-          <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient">
+          <motion.h2 {...breathingGlow} className="text-3xl md:text-4xl font-black bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
             Путь клиента: от хаоса к работающей автоворонке
-          </h2>
+          </motion.h2>
           <p className="text-muted-foreground">
             Коротко показываю, как меняются процессы после внедрения системы — шаг за шагом.
           </p>
@@ -83,17 +84,17 @@ export const ClientJourneySection = () => {
             {steps.map((step, index) => (
               <motion.div
                 key={step.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                {...glassEmergence}
+                whileInView={glassEmergence.animate}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ ...glassEmergence.transition, delay: staggerDelay(index, 0.1) }}
                 className="flex-1"
               >
-                <Card className={`relative p-6 h-full bg-gradient-to-b ${step.gradient} border border-white/10 backdrop-blur-xl shadow-xl`}
+                <Card className={`relative p-6 h-full ${glassStyle.base} ${glassStyle.shadow} bg-gradient-to-b ${step.gradient} border-white/[0.08]`}
                 >
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shadow-lg">
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
                         <Icon name={step.icon as any} size={20} className="text-white" />
                       </div>
                       <div>

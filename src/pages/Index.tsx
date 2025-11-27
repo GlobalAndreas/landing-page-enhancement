@@ -138,11 +138,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-secondary">
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/[0.35] border-b border-white/[0.08] shadow-[0_8px_18px_rgba(0,0,0,0.4)]">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-lg shadow-primary/30 ring-2 ring-primary/30">
+              <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-[0_4px_14px_rgba(0,0,0,0.3),0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-white/[0.08]">
                 <img 
                   src="https://cdn.poehali.dev/files/4282259e-6f12-4a46-9573-6f5a0b5d5880.jpg" 
                   alt="Andrej Dilman"
@@ -150,19 +150,19 @@ const Index = () => {
                 />
               </div>
               <div>
-                <div className="font-bold text-sm tracking-tight">Andrej Dilman</div>
-                <div className="text-xs text-muted-foreground">Digital-автоворонки</div>
+                <div className="font-bold text-sm tracking-tight text-slate-100">Andrej Dilman</div>
+                <div className="text-xs text-slate-400">Digital-автоворонки</div>
               </div>
             </div>
             
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-              <a href="#services" onClick={() => analytics.trackLinkClick('nav_services', '#services')} className="hover:text-primary transition-colors">Услуги</a>
-              <a href="#testimonials" onClick={() => analytics.trackLinkClick('nav_cases', '#testimonials')} className="hover:text-primary transition-colors">Кейсы</a>
-              <a href="#process" onClick={() => analytics.trackLinkClick('nav_process', '#process')} className="hover:text-primary transition-colors">Процесс</a>
-              <a href="#legal" onClick={() => analytics.trackLinkClick('nav_legal', '#legal')} className="hover:text-primary transition-colors">Прозрачность</a>
+            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+              <a href="#services" onClick={() => analytics.trackLinkClick('nav_services', '#services')} className="hover:text-slate-100 transition-colors duration-300">Услуги</a>
+              <a href="#testimonials" onClick={() => analytics.trackLinkClick('nav_cases', '#testimonials')} className="hover:text-slate-100 transition-colors duration-300">Кейсы</a>
+              <a href="#process" onClick={() => analytics.trackLinkClick('nav_process', '#process')} className="hover:text-slate-100 transition-colors duration-300">Процесс</a>
+              <a href="#legal" onClick={() => analytics.trackLinkClick('nav_legal', '#legal')} className="hover:text-slate-100 transition-colors duration-300">Прозрачность</a>
             </nav>
 
-            <Button onClick={scrollToConsultation} className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
+            <Button onClick={scrollToConsultation} className="bg-gradient-to-br from-primary/95 via-accent to-accent/95 hover:from-primary hover:via-accent hover:to-accent shadow-[0_6px_16px_rgba(0,0,0,0.4),inset_0_1px_2px_rgba(255,255,255,0.2)] hover:shadow-[0_8px_22px_rgba(168,85,247,0.3),inset_0_2px_3px_rgba(255,255,255,0.25)] border border-white/[0.08] transition-all duration-300">
               Консультация
             </Button>
           </div>
@@ -227,10 +227,10 @@ const Index = () => {
         />
       </main>
 
-      <footer className="py-12 border-t border-border/50 bg-card/30 backdrop-blur">
+      <footer className="py-12 border-t border-white/[0.08] bg-black/[0.35] backdrop-blur-xl shadow-[0_-8px_18px_rgba(0,0,0,0.4)]">
         <div className="container mx-auto px-4">
-          <div className="text-center text-sm text-muted-foreground">
-            <p className="mb-2">© 2025-2026 Andrej Dilman. Все права защищены.</p>
+          <div className="text-center text-sm text-slate-400">
+            <p className="mb-2 text-slate-300">© 2025-2026 Andrej Dilman. Все права защищены.</p>
             <p className="text-xs">Digital-маркетинг, разработка, автоматизация — официально и легально</p>
           </div>
         </div>
@@ -241,10 +241,10 @@ const Index = () => {
         }`}
         style={{ bottom: 'calc(env(safe-area-inset-bottom, 16px) + 16px)' }}
       >
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow-lg">
+        <div className="bg-black/[0.35] backdrop-blur-xl border border-white/[0.08] rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.5),0_0_40px_rgba(168,85,247,0.2),inset_0_1px_1px_rgba(255,255,255,0.08)]">
           <Button
             onClick={handleStickyClick}
-            className="w-full h-14 bg-gradient-to-r from-primary to-accent text-base font-semibold"
+            className="w-full h-14 bg-gradient-to-br from-primary/95 via-accent to-accent/95 hover:from-primary hover:via-accent hover:to-accent text-base font-semibold shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)] hover:shadow-[inset_0_2px_3px_rgba(255,255,255,0.25),0_0_30px_rgba(168,85,247,0.3)] border border-white/[0.08] transition-all duration-300"
           >
             Получить консультацию
           </Button>

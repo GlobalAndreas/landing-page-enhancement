@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 const columns = [
   {
@@ -78,22 +79,10 @@ export const ComparisonSection = () => {
         <div className="text-center space-y-4 max-w-2xl mx-auto">
           <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground">Сценарий</p>
           <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-black text-balance relative"
+            {...breathingGlow}
+            className="text-3xl md:text-4xl font-black text-balance bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
           >
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: [0, 0.2, 0] }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.8, times: [0, 0.5, 1] }}
-              className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
-            />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient relative">
-              Что меняется, когда подключаете автоворонку
-            </span>
+            Что меняется, когда подключаете автоворонку
           </motion.h2>
           <p className="text-muted-foreground">
             Показываю честное сравнение процессов. Слева — ручной хаос, справа — выстроенная система, которая работает
@@ -105,13 +94,12 @@ export const ComparisonSection = () => {
           {columns.map((column) => (
             <motion.div
               key={column.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              {...glassEmergence}
+              whileInView={glassEmergence.animate}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <Card
-                className={`relative overflow-hidden border ${column.accentBorder} bg-gradient-to-b ${column.gradient} p-6 md:p-8 shadow-2xl shadow-black/20`}
+                className={`relative overflow-hidden border-white/[0.08] ${glassStyle.base} ${glassStyle.shadow} bg-gradient-to-b ${column.gradient} p-6 md:p-8`}
               >
                 <div className="absolute inset-0 pointer-events-none opacity-40">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.25),_transparent_45%)]" />
@@ -124,7 +112,7 @@ export const ComparisonSection = () => {
                       <h3 className="text-2xl font-extrabold text-white">{column.title}</h3>
                     </div>
                     <span
-                      className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${column.badgeColor} border border-white/20`}
+                      className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${column.badgeColor} border-white/[0.08] ${glassStyle.shadow}`}
                     >
                       {column.badge}
                     </span>

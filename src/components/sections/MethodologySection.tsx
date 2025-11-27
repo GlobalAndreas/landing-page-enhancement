@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Icon from "@/components/ui/icon";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 interface MethodologyStep {
   title: string;
@@ -42,20 +43,10 @@ export function MethodologySection() {
           className="text-center mb-16"
         >
           <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent relative"
+            {...breathingGlow}
+            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
           >
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: [0, 0.2, 0] }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.8, times: [0, 0.5, 1] }}
-              className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
-            />
-            <span className="relative">Методология Dilman-Flow™</span>
+            Методология Dilman-Flow™
           </motion.h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Фирменный подход, который позволяет запускать автоворонки быстро, системно и предсказуемо
@@ -66,17 +57,17 @@ export function MethodologySection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              {...glassEmergence}
+              whileInView={glassEmergence.animate}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ ...glassEmergence.transition, delay: staggerDelay(index, 0.1) }}
               className="relative group"
             >
-              <div className="h-full p-6 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+              <div className={`h-full p-6 rounded-2xl ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08]`}>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all duration-300"
+                  transition={{ duration: 0.3, ease: premiumEasing }}
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}
                 >
                   <Icon name={step.icon} size={28} className="text-primary" />
                 </motion.div>

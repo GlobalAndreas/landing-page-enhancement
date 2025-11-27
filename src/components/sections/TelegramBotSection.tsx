@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 export const TelegramBotSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -68,29 +69,17 @@ export const TelegramBotSection = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <Card className="p-8 md:p-12 bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-xl border-primary/30 shadow-2xl">
+          <Card className={`p-8 md:p-12 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent mb-6 shadow-lg animate-pulse">
                 <Icon name="Send" size={32} className="text-white" />
               </div>
               
               <motion.h2 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.6 }}
-                className="text-3xl md:text-4xl font-bold mb-4 relative"
+                {...breathingGlow}
+                className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
               >
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: [0, 0.2, 0] }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.8, times: [0, 0.5, 1] }}
-                  className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
-                />
-                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent relative">
-                  Получайте бесплатные мастер-классы и разборы в Telegram
-                </span>
+                Получайте бесплатные мастер-классы и разборы в Telegram
               </motion.h2>
               
               <p className="text-lg text-muted-foreground mb-8">
@@ -100,15 +89,19 @@ export const TelegramBotSection = () => {
 
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               {benefits.map((benefit, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-secondary/50 hover:bg-secondary/70 transition-all duration-300 hover:scale-105"
+                  {...glassEmergence}
+                  whileInView={glassEmergence.animate}
+                  viewport={{ once: true }}
+                  transition={{ ...glassEmergence.transition, delay: staggerDelay(index, 0.08) }}
+                  className={`flex items-start gap-3 p-4 rounded-xl ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08]`}
                 >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
                     <Icon name={benefit.icon} size={20} className="text-primary" />
                   </div>
                   <p className="text-sm pt-2">{benefit.text}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -123,27 +116,27 @@ export const TelegramBotSection = () => {
               </Button>
               
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-4">
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-red-500/10 to-red-600/5 border border-red-500/20 hover:scale-110 transition-transform">
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08] hover:scale-110 transition-transform`}>
                   <span className="text-xl">🎥</span>
                   <span className="text-xs font-medium text-foreground/80">Видео-разборы</span>
                 </div>
                 
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-green-500/10 to-green-600/5 border border-green-500/20 hover:scale-110 transition-transform">
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08] hover:scale-110 transition-transform`}>
                   <span className="text-xl">📈</span>
                   <span className="text-xs font-medium text-foreground/80">Кейсы</span>
                 </div>
                 
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20 hover:scale-110 transition-transform">
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08] hover:scale-110 transition-transform`}>
                   <span className="text-xl">🚀</span>
                   <span className="text-xs font-medium text-foreground/80">Автоворонки</span>
                 </div>
                 
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 hover:scale-110 transition-transform">
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08] hover:scale-110 transition-transform`}>
                   <span className="text-xl">🎯</span>
                   <span className="text-xs font-medium text-foreground/80">Уроки по трафику</span>
                 </div>
                 
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-500/20 hover:scale-110 transition-transform">
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08] hover:scale-110 transition-transform`}>
                   <span className="text-xl">💼</span>
                   <span className="text-xs font-medium text-foreground/80">Практические примеры</span>
                 </div>

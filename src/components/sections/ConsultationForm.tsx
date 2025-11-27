@@ -9,6 +9,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { analytics } from "@/utils/analytics";
 import { Link } from "react-router-dom";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 interface ConsultationFormProps {
   formData: {
@@ -40,31 +41,31 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
         <div className="max-w-2xl mx-auto">
           <motion.div 
             ref={ref}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6 }}
+            {...glassEmergence}
+            animate={isInView ? glassEmergence.animate : glassEmergence.initial}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 backdrop-blur mb-6">
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
               <Icon name="MessageSquare" size={16} className="text-primary" />
               <span className="text-xs font-bold tracking-wider uppercase text-primary">Начните прямо сейчас</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Получить бесплатную консультацию
-              </span>
-            </h2>
+            <motion.h2 
+              {...breathingGlow}
+              className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            >
+              Получить бесплатную консультацию
+            </motion.h2>
             <p className="text-lg text-muted-foreground">
               30–40 минут созвона, чтобы разобрать вашу ситуацию и предложить конкретные решения
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            {...glassEmergence}
+            animate={isInView ? glassEmergence.animate : glassEmergence.initial}
+            transition={{ ...glassEmergence.transition, delay: staggerDelay(1) }}
           >
-            <Card className="p-8 bg-card/50 backdrop-blur border-border/50 shadow-2xl shadow-primary/10">
+            <Card className={`p-8 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Ваше имя</label>

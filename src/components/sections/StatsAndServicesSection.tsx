@@ -3,6 +3,7 @@ import Icon from "@/components/ui/icon";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 export const StatsAndServicesSection = () => {
   const statsRef = useRef(null);
@@ -22,32 +23,19 @@ export const StatsAndServicesSection = () => {
           <div className="max-w-6xl mx-auto">
             <motion.div 
               ref={statsRef}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6 }}
+              {...glassEmergence}
+              animate={isStatsInView ? glassEmergence.animate : glassEmergence.initial}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 backdrop-blur mb-6">
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
                 <Icon name="Trophy" size={16} className="text-primary" />
                 <span className="text-xs font-bold tracking-wider uppercase text-primary">результаты и цифры</span>
               </div>
               <motion.h2 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.6 }}
-                className="text-4xl md:text-5xl font-black mb-4 relative"
+                {...breathingGlow}
+                className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent"
               >
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: [0, 0.2, 0] }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.8, times: [0, 0.5, 1] }}
-                  className="absolute inset-0 bg-gradient-to-r from-accent/20 via-primary/20 to-accent/20 blur-xl"
-                />
-                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent relative">
-                  Факты для принятия решения
-                </span>
+                Факты для принятия решения
               </motion.h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Простые цифры, которые показывают, зачем нужна автоматизация — без красивых обещаний
@@ -77,11 +65,11 @@ export const StatsAndServicesSection = () => {
               ].map((stat, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isStatsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  {...glassEmergence}
+                  animate={isStatsInView ? glassEmergence.animate : glassEmergence.initial}
+                  transition={{ ...glassEmergence.transition, delay: staggerDelay(i, 0.1) }}
                 >
-                  <Card className="p-6 bg-card/50 backdrop-blur border-border/50 hover:border-primary/50 transition-all duration-300 group h-full">
+                  <Card className={`p-6 ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08] group h-full`}>
                     <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary/20">
                       <Icon name={stat.icon as any} size={24} className="text-primary" />
                     </div>
@@ -105,20 +93,20 @@ export const StatsAndServicesSection = () => {
           <div className="max-w-6xl mx-auto">
             <motion.div 
               ref={servicesRef}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isServicesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6 }}
+              {...glassEmergence}
+              animate={isServicesInView ? glassEmergence.animate : glassEmergence.initial}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 backdrop-blur mb-6">
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
                 <Icon name="Briefcase" size={16} className="text-accent" />
                 <span className="text-xs font-bold tracking-wider uppercase text-accent">услуги</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-4">
-                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-                  Что я делаю для вашего бизнеса
-                </span>
-              </h2>
+              <motion.h2 
+                {...breathingGlow}
+                className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent"
+              >
+                Что я делаю для вашего бизнеса
+              </motion.h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Каждый проект — это законченная digital-воронка: от дизайна лендинга до автоворонки и трафика
               </p>
@@ -157,11 +145,11 @@ export const StatsAndServicesSection = () => {
               ].map((service, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isServicesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{ duration: 0.5, delay: i * 0.15 }}
+                  {...glassEmergence}
+                  animate={isServicesInView ? glassEmergence.animate : glassEmergence.initial}
+                  transition={{ ...glassEmergence.transition, delay: staggerDelay(i, 0.15) }}
                 >
-                  <Card className="p-6 bg-card/50 backdrop-blur border-border/50 hover:border-primary/50 transition-all duration-300 group h-full">
+                  <Card className={`p-6 ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08] group h-full`}>
                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} opacity-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-xl`}>
                       <div className="absolute w-14 h-14 rounded-2xl bg-gradient-to-br from-white/20 to-transparent backdrop-blur flex items-center justify-center">
                         <Icon name={service.icon as any} size={28} className="text-foreground" />
@@ -192,20 +180,20 @@ export const StatsAndServicesSection = () => {
           <div className="max-w-4xl mx-auto">
             <motion.div 
               ref={processRef}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isProcessInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6 }}
+              {...glassEmergence}
+              animate={isProcessInView ? glassEmergence.animate : glassEmergence.initial}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/30 backdrop-blur mb-6">
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
                 <Icon name="GitBranch" size={16} className="text-purple-400" />
                 <span className="text-xs font-bold tracking-wider uppercase text-purple-300">процесс работы</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-4">
-                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  Как мы работаем
-                </span>
-              </h2>
+              <motion.h2 
+                {...breathingGlow}
+                className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+              >
+                Как мы работаем
+              </motion.h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 5 простых шагов от заявки до запуска вашей автоворонки — прозрачно и без сюрпризов
               </p>

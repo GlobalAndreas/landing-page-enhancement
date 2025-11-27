@@ -3,6 +3,7 @@ import Icon from "@/components/ui/icon";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 const testimonials = [
   {
@@ -70,20 +71,20 @@ const testimonials = [
 const badgeStyles = {
   pink: {
     bg: "rgba(255, 79, 211, 0.15)",
-    border: "rgba(255, 79, 211, 0.3)",
-    shadow: "0 0 16px rgba(255, 79, 211, 0.25)",
+    border: "rgba(255, 79, 211, 0.08)",
+    shadow: "0 8px 18px rgba(255, 79, 211, 0.3)",
     text: "#FF4FD3"
   },
   purple: {
     bg: "rgba(147, 51, 234, 0.15)",
-    border: "rgba(147, 51, 234, 0.3)",
-    shadow: "0 0 16px rgba(147, 51, 234, 0.25)",
+    border: "rgba(147, 51, 234, 0.08)",
+    shadow: "0 8px 18px rgba(147, 51, 234, 0.3)",
     text: "#9333EA"
   },
   mint: {
     bg: "rgba(44, 255, 181, 0.15)",
-    border: "rgba(44, 255, 181, 0.3)",
-    shadow: "0 0 16px rgba(44, 255, 181, 0.25)",
+    border: "rgba(44, 255, 181, 0.08)",
+    shadow: "0 8px 18px rgba(44, 255, 181, 0.3)",
     text: "#2CFFB5"
   }
 };
@@ -96,12 +97,12 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 6 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
-      transition={{ duration: 0.6, delay: index * 0.12, ease: "easeOut" }}
+      {...glassEmergence}
+      animate={isInView ? glassEmergence.animate : glassEmergence.initial}
+      transition={{ ...glassEmergence.transition, delay: staggerDelay(index, 0.12) }}
       className="h-full"
     >
-      <Card className="p-7 bg-slate-900/30 backdrop-blur-xl border border-slate-700/30 hover:border-purple-500/30 hover:bg-slate-900/40 transition-all duration-500 group h-full relative overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.06)] hover:shadow-[0_0_45px_rgba(168,85,247,0.12)]">
+      <Card className={`p-7 ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08] group h-full relative overflow-hidden`}>
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <div className="relative z-10">
@@ -130,14 +131,14 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
             animate={{
               boxShadow: [
                 badgeStyle.shadow,
-                badgeStyle.shadow.replace('0.25', '0.4'),
+                badgeStyle.shadow.replace('0.3', '0.4'),
                 badgeStyle.shadow
               ]
             }}
             transition={{
-              duration: 2,
+              duration: 3.8,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: premiumEasing
             }}
           >
             <p 

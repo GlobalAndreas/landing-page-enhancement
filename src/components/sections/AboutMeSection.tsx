@@ -5,6 +5,7 @@ import { analytics } from "@/utils/analytics";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
+import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
 
 export const AboutMeSection = () => {
   const ref = useRef(null);
@@ -51,33 +52,20 @@ export const AboutMeSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+          {...glassEmergence}
+          animate={isInView ? glassEmergence.animate : glassEmergence.initial}
           className="max-w-6xl mx-auto"
         >
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 backdrop-blur mb-6">
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 ${glassStyle.base} ${glassStyle.shadow}`}>
               <Icon name="User" size={16} className="text-accent" />
               <span className="text-xs font-bold tracking-wider uppercase text-accent">Обо мне</span>
             </div>
             <motion.h2 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl font-black mb-4 relative"
+              {...breathingGlow}
+              className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
             >
-              <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: [0, 0.2, 0] }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.8, times: [0, 0.5, 1] }}
-                className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-xl"
-              />
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent relative">
-                Кто за этим стоит
-              </span>
+              Кто за этим стоит
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
@@ -92,12 +80,12 @@ export const AboutMeSection = () => {
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...glassEmergence}
+              animate={isInView ? glassEmergence.animate : glassEmergence.initial}
+              transition={{ ...glassEmergence.transition, delay: staggerDelay(1) }}
               className="order-2 md:order-1"
             >
-              <Card className="p-8 bg-card/50 backdrop-blur border-border/50 shadow-2xl shadow-accent/10">
+              <Card className={`p-8 ${glassStyle.base} ${glassStyle.shadow} border-white/[0.08]`}>
                 <p className="text-lg leading-relaxed mb-8 text-foreground/90">
                   Помогаю предпринимателям системно увеличивать поток заявок за счёт упаковки, автоворонок, чат-ботов и аналитики. Строю воронки, которые прогревают, сегментируют и стабильно доводят клиента до сделки.
                 </p>
@@ -106,10 +94,10 @@ export const AboutMeSection = () => {
                   {achievements.map((achievement, index) => (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                      className="flex flex-col items-start gap-2 p-4 rounded-xl bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20"
+                      {...glassEmergence}
+                      animate={isInView ? glassEmergence.animate : glassEmergence.initial}
+                      transition={{ ...glassEmergence.transition, delay: staggerDelay(index + 2, 0.1) }}
+                      className={`flex flex-col items-start gap-2 p-4 rounded-xl ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08]`}
                     >
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
@@ -144,9 +132,9 @@ export const AboutMeSection = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              {...glassEmergence}
+              animate={isInView ? glassEmergence.animate : glassEmergence.initial}
+              transition={{ ...glassEmergence.transition, delay: staggerDelay(2) }}
               className="order-1 md:order-2"
             >
               <Card className="relative p-2 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 border-0 shadow-2xl shadow-accent/20 overflow-hidden">
