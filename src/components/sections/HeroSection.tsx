@@ -56,16 +56,16 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 — Apple-style breathing: монолитное дыхание всего заголовка */}
+            {/* H1 — Dilman-Luxury: премиальная триада с Apple-breathing */}
             <motion.h1 
               className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ 
-                opacity: [1, 0.95, 1],
+                opacity: [1, 0.96, 1],
                 filter: [
-                  "drop-shadow(0 0 4px rgba(168,85,247,0.12)) drop-shadow(0 0 8px rgba(16,185,129,0.08))",
-                  "drop-shadow(0 0 6px rgba(168,85,247,0.16)) drop-shadow(0 0 10px rgba(16,185,129,0.1))",
-                  "drop-shadow(0 0 4px rgba(168,85,247,0.12)) drop-shadow(0 0 8px rgba(16,185,129,0.08))"
+                  "drop-shadow(0 0 4px rgba(181,0,77,0.14)) drop-shadow(0 0 6px rgba(168,85,247,0.12)) drop-shadow(0 0 8px rgba(16,185,129,0.1))",
+                  "drop-shadow(0 0 8px rgba(181,0,77,0.16)) drop-shadow(0 0 10px rgba(168,85,247,0.14)) drop-shadow(0 0 12px rgba(16,185,129,0.12))",
+                  "drop-shadow(0 0 4px rgba(181,0,77,0.14)) drop-shadow(0 0 6px rgba(168,85,247,0.12)) drop-shadow(0 0 8px rgba(16,185,129,0.1))"
                 ]
               }}
               transition={{ 
@@ -73,17 +73,35 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 filter: { duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.1 }
               }}
             >
-              <span className="bg-gradient-to-r from-rose-400/75 via-rose-300/75 to-rose-200/75 bg-clip-text text-transparent">
+              <span 
+                className="bg-gradient-to-r bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(to right, rgb(181, 0, 77), rgb(165, 0, 70), rgb(150, 20, 80))',
+                  opacity: 0.85
+                }}
+              >
                 От хаоса
               </span>
               {" "}
-              <span className="bg-gradient-to-r from-primary/75 via-accent/75 to-primary/75 bg-clip-text text-transparent">
+              <span 
+                className="bg-gradient-to-r bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(to right, rgb(94, 96, 206), rgb(168, 85, 247), rgb(120, 90, 210))',
+                  opacity: 0.85
+                }}
+              >
                 с заявками
               </span>
               {" "}
-              <span className="text-white/85">к</span>
+              <span className="text-white/88">к</span>
               {" "}
-              <span className="bg-gradient-to-r from-emerald-400/75 via-teal-300/75 to-cyan-300/75 bg-clip-text text-transparent">
+              <span 
+                className="bg-gradient-to-r bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(to right, rgb(16, 185, 129), rgb(20, 184, 166), rgb(45, 212, 191))',
+                  opacity: 0.85
+                }}
+              >
                 предсказуемой воронке
               </span>
               <br />
