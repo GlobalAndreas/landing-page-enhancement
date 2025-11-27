@@ -79,7 +79,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <br />
               <span className="text-slate-50">и трафик</span>
               <br />
-              <span className="text-slate-400 text-3xl md:text-4xl lg:text-5xl font-bold">под ваши услуги</span>
+              <span className="text-slate-300 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight">Строю автоворонки и чат-боты,<br />которые превращают хаос в поток заявок</span>
             </motion.h1>
 
             <p className="text-lg text-slate-200 max-w-2xl text-balance leading-relaxed font-semibold">
@@ -90,7 +90,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               {["Чат-боты под ключ", "Трафик: контекст, таргет", "Видео-лендинги"].map((tag, i) => (
                 <motion.span 
                   key={tag} 
-                  className="px-4 py-2.5 rounded-xl bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] text-sm font-semibold text-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/[0.14] hover:border-primary/30 hover:shadow-[0_6px_20px_rgba(168,85,247,0.3),inset_0_1px_2px_rgba(255,255,255,0.15)] transition-all duration-300 cursor-default"
+                  className="px-4 py-2.5 rounded-xl bg-black/40 backdrop-blur-xl border border-white/[0.15] text-sm font-semibold text-slate-100 shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.12),0_0_20px_rgba(168,85,247,0.08)] hover:bg-black/50 hover:border-primary/30 hover:shadow-[0_6px_20px_rgba(168,85,247,0.35),inset_0_1px_2px_rgba(255,255,255,0.18),0_0_30px_rgba(168,85,247,0.15)] transition-all duration-300 cursor-default"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 + 0.25 }}
@@ -133,11 +133,22 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
             </motion.button>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <motion.div 
+                whileHover={{ scale: 1.02 }} 
+                whileTap={{ scale: 0.98 }}
+                animate={{
+                  boxShadow: [
+                    "0 0 35px rgba(168,85,247,0.5)",
+                    "0 0 45px rgba(168,85,247,0.6)",
+                    "0 0 35px rgba(168,85,247,0.5)"
+                  ]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <Button 
                   onClick={scrollToConsultation}
                   size="lg" 
-                  className="relative bg-gradient-to-br from-primary via-accent to-primary hover:from-primary/90 hover:via-accent/90 hover:to-primary/90 transition-all text-base font-bold px-8 shadow-[0_0_35px_rgba(168,85,247,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)] hover:shadow-[0_0_50px_rgba(168,85,247,0.7),0_0_80px_rgba(168,85,247,0.3),inset_0_2px_4px_rgba(255,255,255,0.25)] border border-primary/40 hover:border-primary/60 backdrop-blur-sm overflow-hidden group"
+                  className="relative bg-gradient-to-br from-primary/95 via-primary via-accent to-accent/95 hover:from-primary hover:via-accent hover:to-accent transition-all text-base font-bold px-8 shadow-[0_8px_24px_rgba(0,0,0,0.4),0_0_40px_rgba(168,85,247,0.5),inset_0_1px_2px_rgba(255,255,255,0.25),inset_0_-2px_8px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.5),0_0_60px_rgba(168,85,247,0.7),0_0_100px_rgba(168,85,247,0.3),inset_0_2px_4px_rgba(255,255,255,0.3),inset_0_-3px_12px_rgba(0,0,0,0.2)] border border-primary/40 hover:border-primary/70 backdrop-blur-sm overflow-hidden group"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Консультация
@@ -149,7 +160,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button 
                   size="lg" 
-                  className="relative bg-white/[0.06] hover:bg-white/[0.12] backdrop-blur-xl border border-white/20 hover:border-primary/50 transition-all text-base font-bold shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:shadow-[0_6px_30px_rgba(168,85,247,0.4),inset_0_1px_2px_rgba(255,255,255,0.15)]"
+                  className="relative bg-white/[0.06] hover:bg-white/[0.12] backdrop-blur-xl border border-white/20 hover:border-primary/50 transition-all text-base font-bold shadow-[0_6px_20px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(168,85,247,0.4),inset_0_1px_2px_rgba(255,255,255,0.18),inset_0_-3px_10px_rgba(0,0,0,0.15)]"
                   asChild
                 >
                   <a 
@@ -177,13 +188,13 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:scale-[1.08]"
+            className="lg:scale-[1.08] lg:-translate-y-14"
           >
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
             >
-            <Card className="relative p-8 bg-white/[0.08] backdrop-blur-2xl border border-white/[0.12] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_80px_rgba(168,85,247,0.2),0_0_120px_rgba(168,85,247,0.1),inset_0_1px_2px_rgba(255,255,255,0.15)] overflow-hidden group">
+            <Card className="relative p-8 bg-white/[0.08] backdrop-blur-2xl border-t-2 border-x border-b border-t-amber-500/[0.12] border-x-white/[0.12] border-b-white/[0.08] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_100px_rgba(168,85,247,0.25),0_0_160px_rgba(168,85,247,0.12),inset_0_2px_3px_rgba(255,255,255,0.18),inset_0_-1px_2px_rgba(0,0,0,0.1)] overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.06] via-transparent to-accent/[0.04] opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-[80px] opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
