@@ -105,9 +105,10 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                   style={{
                     fontSize: "calc((2.75rem * 0.85))",
                     letterSpacing: "0.015em",
-                    color: "#C7C9F8",
-                    filter: "brightness(0.95) saturate(0.88) brightness(0.9)",
-                    textShadow: "0 0 4px rgba(199,201,248,0.25), 0 0 1px rgba(255,255,255,0.08)",
+                    color: "#D3D6FF",
+                    filter: "brightness(0.92) saturate(0.84) brightness(0.9)",
+                    textShadow: "0 0 6px rgba(199,201,248,0.28)",
+                    WebkitTextStroke: "0.4px rgba(0,0,0,0.35)",
                     whiteSpace: "nowrap"
                   }}
                 >
