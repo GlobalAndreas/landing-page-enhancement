@@ -75,7 +75,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 }}
                 transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
               >
-                Чат-боты, автоворонки
+                От хаоса с заявками
               </motion.span>
               <br />
               <motion.span 
@@ -90,10 +90,10 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 }}
                 transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               >
-                и трафик
+                к предсказуемой воронке
               </motion.span>
               <br />
-              {/* Подзаголовок уменьшен на 13% */}
+              {/* Подзаголовок */}
               <motion.div 
                 className="relative inline-block -mt-2"
                 initial={{ opacity: 0, y: 10 }}
@@ -113,7 +113,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                     WebkitTextFillColor: "transparent"
                   }}
                 >
-                  в единую систему
+                  24/7 без выходных и отпусков
                 </span>
                 <div className="absolute left-0 right-0 bottom-0 h-[0.5px] bg-white/[0.15]" />
               </motion.div>
@@ -127,7 +127,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.3, ease: premiumEasing }}
             >
-              Создаю интеллектуальные автоворонки и чат-боты, которые превращают хаос в стабильные заявки
+              Строю систему: трафик → прогрев → квалификация → продажа. Без ручной работы и потери лидов
             </motion.p>
 
             {/* Бейджи с единым стеклянным стилем */}
