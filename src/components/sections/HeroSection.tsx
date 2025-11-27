@@ -78,16 +78,16 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 От хаоса с заявками{" "}
               </motion.span>
               <motion.span 
-                className="text-slate-50"
+                className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
                 animate={{
                   filter: [
-                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
-                    "drop-shadow(0 0 20px rgba(168,85,247,0.22)) drop-shadow(0 0 38px rgba(168,85,247,0.1))",
-                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))"
+                    "drop-shadow(0 0 10px rgba(94,96,206,0.15)) drop-shadow(0 0 20px rgba(168,85,247,0.08))",
+                    "drop-shadow(0 0 12px rgba(94,96,206,0.18)) drop-shadow(0 0 24px rgba(168,85,247,0.1))",
+                    "drop-shadow(0 0 10px rgba(94,96,206,0.15)) drop-shadow(0 0 20px rgba(168,85,247,0.08))"
                   ],
-                  scale: [1, 1.008, 1]
+                  opacity: [1, 0.93, 1]
                 }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               >
                 к предсказуемой воронке
               </motion.span>
