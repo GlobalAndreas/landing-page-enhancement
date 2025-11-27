@@ -79,34 +79,26 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <br />
               <span className="text-slate-50">и трафик</span>
               <br />
-              <div className="relative inline-block mt-1 mb-3">
-                <div 
-                  className="absolute inset-0 translate-y-1 blur-[3px] opacity-10 bg-gradient-to-r from-primary via-accent to-primary"
-                  style={{ backgroundSize: "200% 100%" }}
-                />
-                <motion.span 
-                  className="relative inline-block font-black leading-tight bg-gradient-to-r from-slate-300 via-white to-slate-300 bg-clip-text text-transparent"
+              <div className="relative inline-block -mt-2">
+                <span 
+                  className="inline-block font-semibold leading-tight text-[2.75rem] md:text-[3rem] lg:text-[3.25rem]"
                   style={{
-                    fontSize: "calc(3rem + 3px)",
-                    letterSpacing: "0.055em",
-                    backgroundSize: "200% 200%",
-                    filter: "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))",
-                    WebkitTextStroke: "0.5px transparent",
-                    backgroundImage: "linear-gradient(to right, rgb(203 213 225) 0%, rgb(236 72 153 / 0.05) 20%, rgb(168 85 247 / 0.05) 50%, rgb(236 72 153 / 0.05) 80%, rgb(203 213 225) 100%), linear-gradient(to right, rgb(203 213 225), rgb(255 255 255), rgb(203 213 225))",
-                    backgroundClip: "text, text"
+                    letterSpacing: "0.003em",
+                    color: "rgba(248, 250, 252, 0.94)",
+                    textShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.15)",
+                    filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15))",
+                    backgroundImage: "linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.94) 50%, rgba(226, 232, 240, 0.92) 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent"
                   }}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    filter: [
-                      "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))",
-                      "drop-shadow(0 0 40px rgba(255,255,255,0.4)) drop-shadow(0 0 80px rgba(168,85,247,0.25))",
-                      "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))"
-                    ]
-                  }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 >
                   в единую систему
-                </motion.span>
+                </span>
+                <div 
+                  className="absolute left-0 right-0 bottom-0 h-[0.5px] bg-white/[0.15]"
+                  style={{ width: "100%" }}
+                />
               </div>
             </motion.h1>
 
