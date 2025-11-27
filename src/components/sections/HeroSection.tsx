@@ -65,15 +65,30 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
             >
               <motion.span 
                 className="inline-block bg-gradient-to-r from-white from-10% via-primary via-50% to-accent to-90% bg-clip-text text-transparent"
-                {...breathingGlow}
+                animate={{
+                  filter: [
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
+                    "drop-shadow(0 0 20px rgba(168,85,247,0.22)) drop-shadow(0 0 38px rgba(168,85,247,0.1))",
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))"
+                  ],
+                  scale: [1, 1.008, 1]
+                }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
               >
                 Чат-боты, автоворонки
               </motion.span>
               <br />
               <motion.span 
                 className="text-slate-50"
-                {...breathingGlow}
-                transition={{ ...breathingGlow.transition, delay: 0.5 }}
+                animate={{
+                  filter: [
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
+                    "drop-shadow(0 0 20px rgba(168,85,247,0.22)) drop-shadow(0 0 38px rgba(168,85,247,0.1))",
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))"
+                  ],
+                  scale: [1, 1.008, 1]
+                }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               >
                 и трафик
               </motion.span>
@@ -88,10 +103,10 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 <span 
                   className="inline-block font-semibold leading-tight"
                   style={{
-                    fontSize: "calc((2.75rem * 0.87))",
-                    letterSpacing: "0.003em",
+                    fontSize: "calc((2.75rem * 0.85))",
+                    letterSpacing: "0.015em",
                     color: "rgba(248, 250, 252, 0.94)",
-                    filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15))",
+                    filter: "drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.12)) blur(0.3px)",
                     backgroundImage: "linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.94) 50%, rgba(226, 232, 240, 0.92) 100%)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
@@ -106,7 +121,8 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* Текст с появлением из глубины */}
             <motion.p 
-              className="text-lg text-slate-200 max-w-2xl text-balance leading-relaxed font-semibold -mt-2"
+              className="text-lg max-w-2xl text-balance leading-relaxed font-semibold -mt-2"
+              style={{ color: "rgba(248, 250, 252, 0.88)" }}
               initial={{ opacity: 0, y: 10, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.3, ease: premiumEasing }}
@@ -181,7 +197,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
                 <Button 
                   size="lg" 
-                  className={`relative ${glassStyle.base} ${glassStyle.hover} transition-all text-base font-bold shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)]`}
+                  className="relative backdrop-blur-xl bg-black/[0.35] border border-white/[0.08] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all text-base font-bold shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:shadow-[0_10px_24px_rgba(168,85,247,0.15),inset_0_1px_2px_rgba(255,255,255,0.12),0_0_40px_rgba(168,85,247,0.08)]"
                   asChild
                 >
                   <a 
@@ -215,13 +231,13 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
             initial={{ opacity: 0, y: 20, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.25, ease: premiumEasing }}
-            className="lg:scale-[1.08] lg:-translate-y-14"
+            className="lg:scale-[1.08] lg:-translate-y-16"
           >
             <motion.div
               whileHover={{ scale: 1.005, y: -2 }}
               transition={{ duration: 0.4, ease: premiumEasing }}
             >
-            <Card className={`relative p-8 ${glassStyle.base} border-t border-t-white/[0.12] shadow-[0_12px_48px_rgba(0,0,0,0.6),0_0_100px_rgba(168,85,247,0.15),inset_0_2px_3px_rgba(255,255,255,0.1),inset_0_-1px_2px_rgba(0,0,0,0.1)] overflow-hidden group`}>
+            <Card className="relative p-8 backdrop-blur-2xl bg-black/[0.38] border border-t-white/[0.12] border-x-white/[0.08] border-b-white/[0.06] shadow-[0_14px_52px_rgba(0,0,0,0.65),0_0_110px_rgba(168,85,247,0.16),inset_0_2px_4px_rgba(255,255,255,0.12),inset_0_-2px_6px_rgba(0,0,0,0.15)] overflow-hidden group">
               {/* Градиентная подложка */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-transparent to-accent/[0.03] opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
               
