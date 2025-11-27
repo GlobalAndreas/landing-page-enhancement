@@ -56,9 +56,9 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 с breathing glow — две строки */}
+            {/* H1 с breathing glow */}
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.08] text-balance tracking-tight mb-6"
+              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] text-balance tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
@@ -92,46 +92,43 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               >
                 к предсказуемой воронке
               </motion.span>
+              <br />
+              {/* Подзаголовок */}
+              <motion.div 
+                className="relative inline-block -mt-2"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.25, ease: premiumEasing }}
+              >
+                <span 
+                  className="inline-block font-semibold leading-tight"
+                  style={{
+                    fontSize: "calc((2.75rem * 0.85))",
+                    letterSpacing: "0.015em",
+                    color: "rgba(248, 250, 252, 0.94)",
+                    filter: "drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.12)) blur(0.3px)",
+                    backgroundImage: "linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.94) 50%, rgba(226, 232, 240, 0.92) 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent"
+                  }}
+                >
+                  24/7 без выходных и отпусков
+                </span>
+                <div className="absolute left-0 right-0 bottom-0 h-[0.5px] bg-white/[0.15]" />
+              </motion.div>
             </motion.h1>
 
-            {/* Подзаголовок — отдельный блок с оптимальным отступом */}
-            <motion.div 
-              className="mb-5"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: premiumEasing }}
-            >
-              <h2 
-                className="text-2xl md:text-3xl font-semibold leading-snug tracking-tight"
-                style={{
-                  color: "rgba(248, 250, 252, 0.92)",
-                  filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15))"
-                }}
-              >
-                Система, которая работает 24/7<br />без выходных и отпусков
-              </h2>
-            </motion.div>
-
-            {/* Описание — две строки с премиальным ритмом */}
-            <motion.div 
-              className="max-w-2xl space-y-1.5"
+            {/* Текст с появлением из глубины */}
+            <motion.p 
+              className="text-lg max-w-2xl text-balance leading-relaxed font-semibold -mt-2"
+              style={{ color: "rgba(248, 250, 252, 0.88)" }}
               initial={{ opacity: 0, y: 10, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.3, ease: premiumEasing }}
             >
-              <p 
-                className="text-lg leading-relaxed font-semibold"
-                style={{ color: "rgba(248, 250, 252, 0.86)" }}
-              >
-                Выстраиваю полный цикл: трафик → прогрев → квалификация → продажа.
-              </p>
-              <p 
-                className="text-lg leading-relaxed font-medium"
-                style={{ color: "rgba(248, 250, 252, 0.78)" }}
-              >
-                Без ручной работы и потерь лидов.
-              </p>
-            </motion.div>
+              Строю систему: трафик → прогрев → квалификация → продажа. Без ручной работы и потери лидов
+            </motion.p>
 
             {/* Бейджи с единым стеклянным стилем */}
             <div className="flex flex-wrap gap-3">
