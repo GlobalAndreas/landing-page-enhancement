@@ -56,7 +56,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 — визуальный путь клиента: от красного хаоса к зелёному решению */}
+            {/* H1 — премиальная триада: красный → фиолетовый → зелёно-бирюзовый */}
             <motion.h1 
               className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px]"
               initial={{ opacity: 0, y: 20 }}
@@ -64,29 +64,31 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
             >
               <motion.span 
-                className="bg-gradient-to-r from-rose-600 via-rose-500 to-rose-400 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-rose-500/85 via-rose-400/85 to-rose-300/85 bg-clip-text text-transparent"
                 animate={{
                   filter: [
-                    "drop-shadow(0 0 12px rgba(244,63,94,0.2))",
-                    "drop-shadow(0 0 16px rgba(244,63,94,0.25))",
-                    "drop-shadow(0 0 12px rgba(244,63,94,0.2))"
-                  ]
+                    "drop-shadow(0 0 6px rgba(244,63,94,0.15))",
+                    "drop-shadow(0 0 6px rgba(244,63,94,0.2))",
+                    "drop-shadow(0 0 6px rgba(244,63,94,0.15))"
+                  ],
+                  opacity: [1, 0.95, 1]
                 }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 От хаоса
               </motion.span>
               {" "}
               <motion.span 
-                className="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-primary/85 via-accent/85 to-primary/85 bg-clip-text text-transparent"
                 animate={{
                   filter: [
-                    "drop-shadow(0 0 12px rgba(251,146,60,0.2))",
-                    "drop-shadow(0 0 16px rgba(251,146,60,0.25))",
-                    "drop-shadow(0 0 12px rgba(251,146,60,0.2))"
-                  ]
+                    "drop-shadow(0 0 6px rgba(168,85,247,0.15))",
+                    "drop-shadow(0 0 6px rgba(168,85,247,0.2))",
+                    "drop-shadow(0 0 6px rgba(168,85,247,0.15))"
+                  ],
+                  opacity: [1, 0.95, 1]
                 }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               >
                 с заявками
               </motion.span>
@@ -94,16 +96,16 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-white/90">к</span>
               {" "}
               <motion.span 
-                className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-400 bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-emerald-500/85 via-teal-400/85 to-cyan-400/85 bg-clip-text text-transparent"
                 animate={{
                   filter: [
-                    "drop-shadow(0 0 6px rgba(16,185,129,0.3)) drop-shadow(0 0 12px rgba(20,184,166,0.2))",
-                    "drop-shadow(0 0 6px rgba(16,185,129,0.36)) drop-shadow(0 0 14px rgba(20,184,166,0.24))",
-                    "drop-shadow(0 0 6px rgba(16,185,129,0.3)) drop-shadow(0 0 12px rgba(20,184,166,0.2))"
+                    "drop-shadow(0 0 6px rgba(16,185,129,0.2)) drop-shadow(0 0 8px rgba(20,184,166,0.12))",
+                    "drop-shadow(0 0 6px rgba(16,185,129,0.25)) drop-shadow(0 0 8px rgba(20,184,166,0.15))",
+                    "drop-shadow(0 0 6px rgba(16,185,129,0.2)) drop-shadow(0 0 8px rgba(20,184,166,0.12))"
                   ],
-                  opacity: [1, 0.93, 1]
+                  opacity: [1, 0.95, 1]
                 }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               >
                 предсказуемой воронке
               </motion.span>
