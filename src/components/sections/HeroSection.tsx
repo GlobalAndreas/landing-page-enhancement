@@ -226,11 +226,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                     onClick={(e) => {
                       e.preventDefault();
                       analytics.trackLinkClick('about_button', '#about');
-                      const aboutSection = document.querySelector('section:has(#about)') || 
-                                          document.querySelector('[class*="AboutMe"]')?.closest('section');
-                      if (aboutSection) {
-                        aboutSection.scrollIntoView({ behavior: 'smooth' });
-                      }
+                      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
                     <Icon name="User" size={18} />
