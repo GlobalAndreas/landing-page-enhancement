@@ -42,7 +42,7 @@ export const AboutMeSection = () => {
 
   const handleCTAClick = () => {
     analytics.logEvent('about_me_cta_click', 'about_me_cta');
-    window.open('https://t.me/dilman_ads', '_blank');
+    document.getElementById('consultation')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
