@@ -56,7 +56,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
-            {/* H1 с breathing glow — строго две строки, единый текстовый блок */}
+            {/* H1 — визуальный путь клиента: от красного хаоса к зелёному решению */}
             <motion.h1 
               className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px]"
               initial={{ opacity: 0, y: 20 }}
@@ -64,32 +64,48 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
             >
               <motion.span 
-                className="bg-gradient-to-r from-white from-10% via-primary via-50% to-accent to-90% bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-rose-600 via-rose-500 to-rose-400 bg-clip-text text-transparent"
                 animate={{
                   filter: [
-                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
-                    "drop-shadow(0 0 20px rgba(168,85,247,0.22)) drop-shadow(0 0 38px rgba(168,85,247,0.1))",
-                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))"
-                  ],
-                  scale: [1, 1.008, 1]
+                    "drop-shadow(0 0 12px rgba(244,63,94,0.2))",
+                    "drop-shadow(0 0 16px rgba(244,63,94,0.25))",
+                    "drop-shadow(0 0 12px rgba(244,63,94,0.2))"
+                  ]
                 }}
                 transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
               >
-                От хаоса с заявками{" "}
+                От хаоса
               </motion.span>
+              {" "}
               <motion.span 
-                className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400 bg-clip-text text-transparent"
                 animate={{
                   filter: [
-                    "drop-shadow(0 0 10px rgba(94,96,206,0.15)) drop-shadow(0 0 20px rgba(168,85,247,0.08))",
-                    "drop-shadow(0 0 12px rgba(94,96,206,0.18)) drop-shadow(0 0 24px rgba(168,85,247,0.1))",
-                    "drop-shadow(0 0 10px rgba(94,96,206,0.15)) drop-shadow(0 0 20px rgba(168,85,247,0.08))"
+                    "drop-shadow(0 0 12px rgba(251,146,60,0.2))",
+                    "drop-shadow(0 0 16px rgba(251,146,60,0.25))",
+                    "drop-shadow(0 0 12px rgba(251,146,60,0.2))"
+                  ]
+                }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+              >
+                с заявками
+              </motion.span>
+              {" "}
+              <span className="text-white/90">к</span>
+              {" "}
+              <motion.span 
+                className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-400 bg-clip-text text-transparent"
+                animate={{
+                  filter: [
+                    "drop-shadow(0 0 6px rgba(16,185,129,0.3)) drop-shadow(0 0 12px rgba(20,184,166,0.2))",
+                    "drop-shadow(0 0 6px rgba(16,185,129,0.36)) drop-shadow(0 0 14px rgba(20,184,166,0.24))",
+                    "drop-shadow(0 0 6px rgba(16,185,129,0.3)) drop-shadow(0 0 12px rgba(20,184,166,0.2))"
                   ],
                   opacity: [1, 0.93, 1]
                 }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
               >
-                к предсказуемой воронке
+                предсказуемой воронке
               </motion.span>
               <br />
               {/* Подзаголовок */}
