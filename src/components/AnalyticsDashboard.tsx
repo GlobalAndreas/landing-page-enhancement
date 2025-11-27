@@ -233,7 +233,7 @@ export const AnalyticsDashboard = () => {
               variant="outline"
               size="sm"
               onClick={exportToCSV}
-              className="w-full text-xs"
+              className="w-full text-xs bg-white/[0.03] backdrop-blur-[16px] border-white/[0.08] text-[#E7E7E7] shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:bg-white/[0.06] hover:border-white/[0.12] hover:shadow-[0_10px_24px_rgba(0,0,0,0.45),0_0_10px_rgba(168,85,247,0.2),0_0_20px_rgba(236,72,153,0.12),inset_0_1.5px_2px_rgba(255,255,255,0.13)] transition-all duration-200"
             >
               <Icon name="Download" size={14} className="mr-2" />
               События в CSV
@@ -250,7 +250,7 @@ export const AnalyticsDashboard = () => {
                   setLeadsCount(0);
                 }
               }}
-              className="w-full text-xs border-destructive/50 text-destructive hover:bg-destructive/10"
+              className="w-full text-xs bg-white/[0.03] backdrop-blur-[16px] border-destructive/50 text-destructive shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:bg-destructive/10 hover:border-destructive hover:shadow-[0_10px_24px_rgba(0,0,0,0.45),0_0_10px_rgba(239,68,68,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.13)] transition-all duration-200"
               disabled={leadsCount === 0}
             >
               <Icon name="UserX" size={14} className="mr-2" />
@@ -273,7 +273,7 @@ export const AnalyticsDashboard = () => {
                   });
                 }
               }}
-              className="w-full text-xs border-destructive/50 text-destructive hover:bg-destructive/10"
+              className="w-full text-xs bg-white/[0.03] backdrop-blur-[16px] border-destructive/50 text-destructive shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:bg-destructive/10 hover:border-destructive hover:shadow-[0_10px_24px_rgba(0,0,0,0.45),0_0_10px_rgba(239,68,68,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.13)] transition-all duration-200"
             >
               <Icon name="Trash2" size={14} className="mr-2" />
               Очистить события
