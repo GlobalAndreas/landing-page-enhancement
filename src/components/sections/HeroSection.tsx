@@ -79,7 +79,18 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <br />
               <span className="text-slate-50">и трафик</span>
               <br />
-              <span className="text-slate-300 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight">Строю автоворонки и чат-боты,<br />которые превращают хаос в поток заявок</span>
+              <motion.span 
+                className="inline-block text-3xl md:text-4xl lg:text-5xl font-black leading-tight bg-gradient-to-r from-slate-200 via-slate-50 to-slate-200 bg-clip-text text-transparent"
+                style={{
+                  filter: "drop-shadow(0 0 20px rgba(255,255,255,0.15))"
+                }}
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                в единую систему
+              </motion.span>
             </motion.h1>
 
             <p className="text-lg text-slate-200 max-w-2xl text-balance leading-relaxed font-semibold">
