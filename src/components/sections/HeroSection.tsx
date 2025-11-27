@@ -79,27 +79,38 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <br />
               <span className="text-slate-50">и трафик</span>
               <br />
-              <motion.span 
-                className="inline-block text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-wide bg-gradient-to-r from-slate-300 from-0% via-white via-50% to-slate-300 to-100% bg-clip-text text-transparent"
-                style={{
-                  backgroundSize: "200% 200%",
-                  filter: "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))"
-                }}
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  filter: [
-                    "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))",
-                    "drop-shadow(0 0 40px rgba(255,255,255,0.4)) drop-shadow(0 0 80px rgba(168,85,247,0.25))",
-                    "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))"
-                  ]
-                }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                в единую систему
-              </motion.span>
+              <div className="relative inline-block mt-1 mb-3">
+                <div 
+                  className="absolute inset-0 translate-y-1 blur-[3px] opacity-10 bg-gradient-to-r from-primary via-accent to-primary"
+                  style={{ backgroundSize: "200% 100%" }}
+                />
+                <motion.span 
+                  className="relative inline-block font-black leading-tight bg-gradient-to-r from-slate-300 via-white to-slate-300 bg-clip-text text-transparent"
+                  style={{
+                    fontSize: "calc(3rem + 3px)",
+                    letterSpacing: "0.055em",
+                    backgroundSize: "200% 200%",
+                    filter: "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))",
+                    WebkitTextStroke: "0.5px transparent",
+                    backgroundImage: "linear-gradient(to right, rgb(203 213 225) 0%, rgb(236 72 153 / 0.05) 20%, rgb(168 85 247 / 0.05) 50%, rgb(236 72 153 / 0.05) 80%, rgb(203 213 225) 100%), linear-gradient(to right, rgb(203 213 225), rgb(255 255 255), rgb(203 213 225))",
+                    backgroundClip: "text, text"
+                  }}
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    filter: [
+                      "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))",
+                      "drop-shadow(0 0 40px rgba(255,255,255,0.4)) drop-shadow(0 0 80px rgba(168,85,247,0.25))",
+                      "drop-shadow(0 0 30px rgba(255,255,255,0.3)) drop-shadow(0 0 60px rgba(168,85,247,0.15))"
+                    ]
+                  }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  в единую систему
+                </motion.span>
+              </div>
             </motion.h1>
 
-            <p className="text-lg text-slate-200 max-w-2xl text-balance leading-relaxed font-semibold">
+            <p className="text-lg text-slate-200 max-w-2xl text-balance leading-relaxed font-semibold -mt-2">
               Создаю интеллектуальные автоворонки и чат-боты, которые превращают хаос в стабильные заявки
             </p>
 
