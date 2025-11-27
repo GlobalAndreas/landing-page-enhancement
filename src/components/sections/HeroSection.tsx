@@ -56,24 +56,44 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
             </motion.div>
 
+            {/* H1 с breathing glow */}
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.12] tracking-tight max-w-[700px]"
+              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] text-balance tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
-              style={{
-                background: 'linear-gradient(to right, #B50044, #7A53FF, #1EC1A6)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                filter: 'brightness(0.9) saturate(0.85)',
-                textShadow: '0 2px 8px rgba(0,0,0,0.45)',
-                WebkitTextStroke: '1px rgba(0,0,0,0.35)'
-              }}
             >
-              От хаоса с заявками к предсказуемой воронке
+              <motion.span 
+                className="inline-block bg-gradient-to-r from-white from-10% via-primary via-50% to-accent to-90% bg-clip-text text-transparent"
+                animate={{
+                  filter: [
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
+                    "drop-shadow(0 0 20px rgba(168,85,247,0.22)) drop-shadow(0 0 38px rgba(168,85,247,0.1))",
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))"
+                  ],
+                  scale: [1, 1.008, 1]
+                }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+              >
+                Чат-боты, автоворонки
+              </motion.span>
               <br />
-              {/* Подзаголовок */}
+              <motion.span 
+                className="text-slate-50"
+                animate={{
+                  filter: [
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))",
+                    "drop-shadow(0 0 20px rgba(168,85,247,0.22)) drop-shadow(0 0 38px rgba(168,85,247,0.1))",
+                    "drop-shadow(0 0 16px rgba(168,85,247,0.19)) drop-shadow(0 0 32px rgba(168,85,247,0.08))"
+                  ],
+                  scale: [1, 1.008, 1]
+                }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              >
+                и трафик
+              </motion.span>
+              <br />
+              {/* Подзаголовок уменьшен на 13% */}
               <motion.div 
                 className="relative inline-block -mt-2"
                 initial={{ opacity: 0, y: 10 }}
@@ -93,7 +113,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                     WebkitTextFillColor: "transparent"
                   }}
                 >
-                  24/7 без выходных и отпусков
+                  в единую систему
                 </span>
                 <div className="absolute left-0 right-0 bottom-0 h-[0.5px] bg-white/[0.15]" />
               </motion.div>
@@ -107,7 +127,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.3, ease: premiumEasing }}
             >
-              Строю систему: трафик → прогрев → квалификация → продажа. Без ручной работы и потери лидов
+              Создаю интеллектуальные автоворонки и чат-боты, которые превращают хаос в стабильные заявки
             </motion.p>
 
             {/* Бейджи с единым стеклянным стилем */}
