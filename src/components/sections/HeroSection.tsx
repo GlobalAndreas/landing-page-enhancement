@@ -110,7 +110,8 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                     backgroundImage: "linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.94) 50%, rgba(226, 232, 240, 0.92) 100%)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
+                    WebkitTextFillColor: "transparent",
+                    whiteSpace: "nowrap"
                   }}
                 >
                   24/7 без выходных и отпусков
