@@ -174,11 +174,11 @@ const Index = () => {
         <StatsAndServicesSection />
         <ClientJourneySection />
         <TestimonialsSection />
+        <AboutMeSection />
         <LegalSection />
         <TelegramBotSection />
         <ComparisonSection />
         <MethodologySection />
-        <AboutMeSection />
         <FAQSection />
         
         <section className="py-12 text-center">
