@@ -1,25 +1,26 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { useToast } from "@/hooks/use-toast";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { StatsAndServicesSection } from "@/components/sections/StatsAndServicesSection";
-import { ClientJourneySection } from "@/components/sections/ClientJourneySection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { LegalSection } from "@/components/sections/LegalSection";
-import { ConsultationForm } from "@/components/sections/ConsultationForm";
-import { TelegramBotSection } from "@/components/sections/TelegramBotSection";
-import { ComparisonSection } from "@/components/sections/ComparisonSection";
-import { ThankYouModal } from "@/components/modals/ThankYouModal";
-import { ExitIntentModal } from "@/components/modals/ExitIntentModal";
-import { FAQSection } from "@/components/sections/FAQSection";
-import { MethodologySection } from "@/components/sections/MethodologySection";
-import { AboutMeSection } from "@/components/sections/AboutMeSection";
-import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
-import { LeadsExportPanel } from "@/components/LeadsExportPanel";
-import { WarmupPreview } from "@/components/WarmupPreview";
-import { PauseReminder } from "@/components/Popups/PauseReminder";
+
+const ClientJourneySection = lazy(() => import("@/components/sections/ClientJourneySection").then(m => ({ default: m.ClientJourneySection })));
+const TestimonialsSection = lazy(() => import("@/components/sections/TestimonialsSection").then(m => ({ default: m.TestimonialsSection })));
+const LegalSection = lazy(() => import("@/components/sections/LegalSection").then(m => ({ default: m.LegalSection })));
+const ConsultationForm = lazy(() => import("@/components/sections/ConsultationForm").then(m => ({ default: m.ConsultationForm })));
+const TelegramBotSection = lazy(() => import("@/components/sections/TelegramBotSection").then(m => ({ default: m.TelegramBotSection })));
+const ComparisonSection = lazy(() => import("@/components/sections/ComparisonSection").then(m => ({ default: m.ComparisonSection })));
+const ThankYouModal = lazy(() => import("@/components/modals/ThankYouModal").then(m => ({ default: m.ThankYouModal })));
+const ExitIntentModal = lazy(() => import("@/components/modals/ExitIntentModal").then(m => ({ default: m.ExitIntentModal })));
+const FAQSection = lazy(() => import("@/components/sections/FAQSection").then(m => ({ default: m.FAQSection })));
+const MethodologySection = lazy(() => import("@/components/sections/MethodologySection").then(m => ({ default: m.MethodologySection })));
+const AboutMeSection = lazy(() => import("@/components/sections/AboutMeSection").then(m => ({ default: m.AboutMeSection })));
+const AnalyticsDashboard = lazy(() => import("@/components/AnalyticsDashboard").then(m => ({ default: m.AnalyticsDashboard })));
+const LeadsExportPanel = lazy(() => import("@/components/LeadsExportPanel").then(m => ({ default: m.LeadsExportPanel })));
+const WarmupPreview = lazy(() => import("@/components/WarmupPreview").then(m => ({ default: m.WarmupPreview })));
+const PauseReminder = lazy(() => import("@/components/Popups/PauseReminder").then(m => ({ default: m.PauseReminder })));
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import { useExitIntent } from "@/hooks/useExitIntent";
@@ -89,8 +90,15 @@ const Index = () => {
 
   useEffect(() => {
     let hasReachedTwentyFive = false;
+    let throttleTimeout: NodeJS.Timeout | null = null;
 
     const handleScroll = () => {
+      if (throttleTimeout) return;
+      
+      throttleTimeout = setTimeout(() => {
+        throttleTimeout = null;
+      }, 150);
+
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       const currentScroll = window.scrollY;
       const scrollPercentage = scrollHeight > 0 ? (currentScroll / scrollHeight) * 100 : 0;
@@ -128,7 +136,10 @@ const Index = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (throttleTimeout) clearTimeout(throttleTimeout);
+    };
   }, [lastScrollY]);
 
   const handleStickyClick = () => {
@@ -147,6 +158,8 @@ const Index = () => {
                   src="https://cdn.poehali.dev/files/4282259e-6f12-4a46-9573-6f5a0b5d5880.jpg" 
                   alt="Andrej Dilman"
                   className="w-full h-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
               <div>
@@ -180,14 +193,16 @@ const Index = () => {
       <main>
         <HeroSection scrollToConsultation={scrollToConsultation} slots={slots} onTimerCTA={handleHeroCTA} />
         <StatsAndServicesSection />
-        <ClientJourneySection />
-        <TestimonialsSection />
-        <AboutMeSection />
-        <LegalSection />
-        <TelegramBotSection />
-        <ComparisonSection />
-        <MethodologySection />
-        <FAQSection />
+        <Suspense fallback={<div className="min-h-[200px]" />}>
+          <ClientJourneySection />
+          <TestimonialsSection />
+          <AboutMeSection />
+          <LegalSection />
+          <TelegramBotSection />
+          <ComparisonSection />
+          <MethodologySection />
+          <FAQSection />
+        </Suspense>
         
         <section className="py-12 text-center">
           <div className="container mx-auto px-4">
@@ -228,11 +243,13 @@ const Index = () => {
           </div>
         </section>
 
-        <ConsultationForm 
-          formData={formData} 
-          handleSubmit={handleSubmit} 
-          setFormData={setFormData} 
-        />
+        <Suspense fallback={<div className=\"min-h-[400px]\" />}>
+          <ConsultationForm 
+            formData={formData} 
+            handleSubmit={handleSubmit} 
+            setFormData={setFormData} 
+          />
+        </Suspense>
       </main>
 
       <footer className="py-12 border-t border-white/[0.08] bg-black/[0.35] backdrop-blur-xl shadow-[0_-8px_18px_rgba(0,0,0,0.4)]">
@@ -258,12 +275,14 @@ const Index = () => {
           </Button>
         </div>
       </div>
-      <ThankYouModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      <ExitIntentModal isOpen={showExitIntent} onClose={closeExitIntent} />
-      <AnalyticsDashboard />
-      <LeadsExportPanel />
-      <WarmupPreview />
-      <PauseReminder onCTA={scrollToConsultation} />
+      <Suspense fallback={null}>
+        <ThankYouModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <ExitIntentModal isOpen={showExitIntent} onClose={closeExitIntent} />
+        <AnalyticsDashboard />
+        <LeadsExportPanel />
+        <WarmupPreview />
+        <PauseReminder onCTA={scrollToConsultation} />
+      </Suspense>
     </div>
   );
 };

@@ -155,6 +155,7 @@ export const AboutMeSection = () => {
                     src="https://cdn.poehali.dev/files/791797f1-17b2-4b45-a837-d1fe8f9ae82c.png"
                     alt="Андрей Дильман"
                     className="w-full h-auto object-cover"
+                    loading="lazy"
                   />
                 </div>
               </Card>
