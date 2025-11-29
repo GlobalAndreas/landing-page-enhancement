@@ -28,6 +28,7 @@ import { useConsultationSlots } from "@/hooks/useConsultationSlots";
 import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
+import { getOrganizationSchema, getPersonSchema, getServiceSchema } from "@/utils/schemaOrg";
 
 const Index = () => {
   const { toast } = useToast();
@@ -38,6 +39,27 @@ const Index = () => {
 
   useEffect(() => {
     parseAndSaveUTM();
+
+    const organizationScript = document.createElement('script');
+    organizationScript.type = 'application/ld+json';
+    organizationScript.text = JSON.stringify(getOrganizationSchema());
+    document.head.appendChild(organizationScript);
+
+    const personScript = document.createElement('script');
+    personScript.type = 'application/ld+json';
+    personScript.text = JSON.stringify(getPersonSchema());
+    document.head.appendChild(personScript);
+
+    const serviceScript = document.createElement('script');
+    serviceScript.type = 'application/ld+json';
+    serviceScript.text = JSON.stringify(getServiceSchema());
+    document.head.appendChild(serviceScript);
+
+    return () => {
+      document.head.removeChild(organizationScript);
+      document.head.removeChild(personScript);
+      document.head.removeChild(serviceScript);
+    };
   }, []);
   const [formData, setFormData] = useState({
     name: "",
