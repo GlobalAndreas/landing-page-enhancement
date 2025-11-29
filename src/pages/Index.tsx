@@ -243,7 +243,7 @@ const Index = () => {
           </div>
         </section>
 
-        <Suspense fallback={<div className=\"min-h-[400px]\" />}>
+        <Suspense fallback={<div className="min-h-[400px]" />}>
           <ConsultationForm 
             formData={formData} 
             handleSubmit={handleSubmit} 
