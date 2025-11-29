@@ -182,8 +182,52 @@ export const TestimonialsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const aggregateRatingSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Андрей Дильман — Telegram-боты, автоворонки и трафик",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": testimonials.length.toString()
+    }
+  };
+
+  const reviewsSchema = testimonials.map((testimonial) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": testimonial.name
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "reviewBody": `${testimonial.before.replace(/<[^>]*>/g, '')} После: ${testimonial.after.replace(/<[^>]*>/g, '')} Результат: ${testimonial.result}`,
+    "itemReviewed": {
+      "@type": "Service",
+      "name": "Разработка Telegram-ботов, автоворонок и настройка трафика"
+    }
+  }));
+
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden bg-gradient-to-b from-slate-950/50 via-purple-950/10 to-slate-950/50">
+      <script 
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingSchema) }}
+      />
+      {reviewsSchema.map((schema, index) => (
+        <script 
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.08),transparent_65%)]" />
       <motion.div 
         className="absolute top-1/4 left-1/3 w-96 h-96 bg-purple-600/5 rounded-full blur-[100px]"
