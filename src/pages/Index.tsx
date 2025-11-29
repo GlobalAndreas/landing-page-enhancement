@@ -151,7 +151,15 @@ const Index = () => {
               </div>
               <div>
                 <div className="font-bold text-sm tracking-tight text-slate-100">Andrej Dilman</div>
-                <div className="text-xs text-slate-400">Digital-автоворонки</div>
+                <div 
+                  className="text-xs" 
+                  style={{
+                    color: "#D7DAFF",
+                    textShadow: "0 0 4px rgba(199,201,248,0.18)"
+                  }}
+                >
+                  Digital-экосистема под ключ
+                </div>
               </div>
             </div>
             
