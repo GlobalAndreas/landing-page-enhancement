@@ -75,6 +75,7 @@ export const AboutMeSection = () => {
               className="text-lg text-muted-foreground"
             >
               <span className="font-bold text-foreground">Андрей Дильман</span> — эксперт по трафику, автоворонкам и чат-ботам<br className="hidden sm:block" /> 13+ лет опыта
+              <span className="sr-only"> в разработке Telegram-ботов, чат-ботов, автоворонок продаж, настройке контекстной и таргетированной рекламы, автоматизации бизнес-процессов через CRM-интеграции и лидогенерацию</span>
             </motion.p>
           </div>
 

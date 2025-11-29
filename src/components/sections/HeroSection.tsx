@@ -54,6 +54,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 }}
               />
               <span className="text-xs font-bold tracking-widest uppercase text-slate-200">13 лет в автоматизации</span>
+              <span className="sr-only">Эксперт по разработке Telegram-ботов, автоворонок, чат-ботов и настройке трафика для автоматизации бизнес-процессов</span>
             </motion.div>
 
             {/* H1 с breathing glow */}
@@ -127,6 +128,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               transition={{ duration: 0.7, delay: 0.3, ease: premiumEasing }}
             >
               Строю систему: трафик → прогрев → квалификация → продажа. Без ручной работы и потери лидов
+              <span className="sr-only">. Полная автоматизация продаж через Telegram-ботов с интеграцией CRM, настройка контекстной рекламы и таргетированной рекламы, разработка автоворонок для увеличения конверсии в 3-5 раз</span>
             </motion.p>
 
             {/* Бейджи с единым стеклянным стилем */}
