@@ -182,9 +182,9 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
                 asChild
               >
                 <a 
-                  href="mailto:contact@example.com" 
+                  href="mailto:andreas.dilman@gmail.com" 
                   className="flex items-center gap-2"
-                  onClick={() => analytics.trackLinkClick('email_footer', 'mailto:contact@example.com')}
+                  onClick={() => analytics.trackLinkClick('email_footer', 'mailto:andreas.dilman@gmail.com')}
                 >
                   <Icon name="Mail" size={18} />
                   Email
