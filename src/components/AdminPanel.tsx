@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { analytics, AnalyticsEvent } from "@/utils/analytics";
-import { isAdminAuthorized, setupAdminKeyListener, setAdminAuthorized } from "@/utils/adminAuth";
+import { isAdminLiteAuthorized, setupAdminLiteKeyListener, setAdminLiteAuthorized } from "@/utils/adminAuth";
 
 export const AdminPanel = () => {
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
@@ -27,9 +27,9 @@ export const AdminPanel = () => {
   };
 
   useEffect(() => {
-    setIsAuthorized(isAdminAuthorized());
+    setIsAuthorized(isAdminLiteAuthorized());
     
-    const cleanupKeyListener = setupAdminKeyListener(() => {
+    const cleanupKeyListener = setupAdminLiteKeyListener(() => {
       setIsAuthorized(true);
     });
     
@@ -41,7 +41,7 @@ export const AdminPanel = () => {
       }
     };
     
-    window.addEventListener('adminAuthChanged', handleAuthChange);
+    window.addEventListener('adminLiteAuthChanged', handleAuthChange);
     
     loadAnalytics();
     const interval = setInterval(loadAnalytics, 2000);
@@ -49,7 +49,7 @@ export const AdminPanel = () => {
     return () => {
       clearInterval(interval);
       cleanupKeyListener();
-      window.removeEventListener('adminAuthChanged', handleAuthChange);
+      window.removeEventListener('adminLiteAuthChanged', handleAuthChange);
     };
   }, []);
 
@@ -67,7 +67,7 @@ export const AdminPanel = () => {
 
   const handleLogout = () => {
     if (confirm('Выйти из админки? Все кнопки управления будут скрыты.')) {
-      setAdminAuthorized(false);
+      setAdminLiteAuthorized(false);
       setIsAuthorized(false);
       setIsVisible(false);
     }
@@ -138,7 +138,7 @@ export const AdminPanel = () => {
       {isVisible && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={togglePanel}>
           <Card 
-            className="w-full max-w-4xl max-h-[85vh] overflow-hidden bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl flex flex-col"
+            className="w-full max-w-4xl max-h-[75vh] overflow-hidden bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
