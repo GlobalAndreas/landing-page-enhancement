@@ -190,7 +190,7 @@ const Index = () => {
               <div className="w-10 h-10 rounded-2xl overflow-hidden shadow-[0_4px_14px_rgba(0,0,0,0.3),0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-white/[0.08]">
                 <img 
                   src="https://cdn.poehali.dev/files/4282259e-6f12-4a46-9573-6f5a0b5d5880.jpg" 
-                  alt="Andrej Dilman"
+                  alt="Андрей Дильман — эксперт по Telegram-ботам, автоворонкам и трафику"
                   className="w-full h-full object-cover"
                   loading="eager"
                   fetchPriority="high"

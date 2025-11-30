@@ -154,7 +154,7 @@ export const AboutMeSection = () => {
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
                     src="https://cdn.poehali.dev/files/791797f1-17b2-4b45-a837-d1fe8f9ae82c.png"
-                    alt="Андрей Дильман"
+                    alt="Андрей Дильман — эксперт по разработке Telegram-ботов, автоворонок и настройке трафика"
                     className="w-full h-auto object-cover"
                     loading="lazy"
                   />
