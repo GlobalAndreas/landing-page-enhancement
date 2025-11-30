@@ -12,9 +12,10 @@ import urllib.request
 import urllib.parse
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
+    is_scheduled = event.get('messages') is not None or event.get('trigger') is not None
     method: str = event.get('httpMethod', 'GET')
     
-    if method == 'OPTIONS':
+    if method == 'OPTIONS' and not is_scheduled:
         return {
             'statusCode': 200,
             'headers': {

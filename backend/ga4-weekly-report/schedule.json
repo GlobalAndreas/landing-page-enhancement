@@ -1,0 +1,6 @@
+{
+  "schedule": {
+    "cron": "0 9 * * 1",
+    "timezone": "Europe/Moscow"
+  }
+}
