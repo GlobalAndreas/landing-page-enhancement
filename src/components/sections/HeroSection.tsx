@@ -102,15 +102,14 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                 transition={{ duration: 0.6, delay: 0.25, ease: premiumEasing }}
               >
                 <span 
-                  className="inline-block font-semibold leading-tight"
+                  className="inline-block font-semibold leading-tight whitespace-normal lg:whitespace-nowrap"
                   style={{
                     fontSize: "calc((2.75rem * 0.85))",
                     letterSpacing: "0.015em",
                     color: "#E1E4FF",
                     filter: "brightness(0.9)",
                     textShadow: "0 0 8px rgba(199,201,248,0.22)",
-                    WebkitTextStroke: "0.4px rgba(0,0,0,0.35)",
-                    whiteSpace: "nowrap"
+                    WebkitTextStroke: "0.4px rgba(0,0,0,0.35)"
                   }}
                 >
                   24/7 без выходных и отпусков
