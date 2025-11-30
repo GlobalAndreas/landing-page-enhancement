@@ -136,12 +136,13 @@ export const AdminPanel = () => {
       </Button>
 
       {isVisible && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4" onClick={togglePanel}>
-          <Card 
-            className="w-full max-w-3xl h-[90vh] sm:h-[80vh] overflow-hidden bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl flex flex-col"
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-[9999]" onClick={togglePanel} />
+          <div 
+            className="fixed top-0 right-0 bottom-0 w-[350px] overflow-y-auto overflow-x-hidden z-[10000] bg-card/95 backdrop-blur-xl border-l border-primary/30 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-3 sm:p-4 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
+            <div className="p-4 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
               <div className="flex items-center gap-2">
                 <Icon name="BarChart3" size={20} className="text-primary" />
                 <h2 className="text-lg sm:text-xl font-bold">Аналитика</h2>
@@ -169,7 +170,7 @@ export const AdminPanel = () => {
               </div>
             </div>
 
-            <div className="p-3 sm:p-4 space-y-3 sm:space-y-4 overflow-y-auto flex-1">
+            <div className="p-4 space-y-4">
               {reportStatus && (
                 <div className={`p-4 rounded-lg border ${
                   reportStatus.type === 'success' 
@@ -183,7 +184,7 @@ export const AdminPanel = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <Card className="p-4 bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon name="MousePointerClick" size={16} className="text-blue-500" />
@@ -292,8 +293,8 @@ export const AdminPanel = () => {
                 </div>
               </Card>
             </div>
-          </Card>
-        </div>
+          </div>
+        </>
       )}
     </>
   );
