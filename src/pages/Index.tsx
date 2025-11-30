@@ -45,6 +45,7 @@ const Index = () => {
       metaPixelId: import.meta.env.VITE_META_PIXEL_ID,
       vkPixelId: import.meta.env.VITE_VK_PIXEL_ID,
       yandexMetrikaId: 101026698,
+      ga4MeasurementId: import.meta.env.VITE_GA4_MEASUREMENT_ID,
     });
 
     pixelIntegration.trackPageView();

@@ -12,6 +12,7 @@ declare global {
         ProductEvent: (price: number, event: string, params?: any) => void;
       };
     };
+    gtag?: (...args: any[]) => void;
   }
 }
 
@@ -38,6 +39,7 @@ class PixelIntegration {
   private metaPixelId: string | null = null;
   private vkPixelId: string | null = null;
   private yandexMetrikaId: number | null = null;
+  private ga4MeasurementId: string | null = null;
   private initialized = false;
 
   constructor() {
@@ -50,10 +52,12 @@ class PixelIntegration {
     metaPixelId?: string;
     vkPixelId?: string;
     yandexMetrikaId?: number;
+    ga4MeasurementId?: string;
   }) {
     this.metaPixelId = config.metaPixelId || null;
     this.vkPixelId = config.vkPixelId || null;
     this.yandexMetrikaId = config.yandexMetrikaId || 101026698;
+    this.ga4MeasurementId = config.ga4MeasurementId || null;
     this.initialized = true;
 
     if (this.metaPixelId) {
@@ -62,6 +66,10 @@ class PixelIntegration {
 
     if (this.vkPixelId) {
       this.initVKPixel();
+    }
+
+    if (this.ga4MeasurementId) {
+      this.initGA4();
     }
   }
 
@@ -109,6 +117,25 @@ class PixelIntegration {
     document.head.appendChild(script);
   }
 
+  private initGA4() {
+    if (typeof window === 'undefined' || !this.ga4MeasurementId) return;
+
+    const gtagScript = document.createElement('script');
+    gtagScript.async = true;
+    gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${this.ga4MeasurementId}`;
+    document.head.appendChild(gtagScript);
+
+    window.dataLayer = window.dataLayer || [];
+    const gtag = (...args: any[]) => {
+      window.dataLayer.push(args);
+    };
+    window.gtag = gtag as any;
+    gtag('js', new Date());
+    gtag('config', this.ga4MeasurementId, {
+      send_page_view: true,
+    });
+  }
+
   trackEvent(eventData: PixelEventData) {
     if (!this.initialized) {
       console.warn('[PixelIntegration] Not initialized. Call init() first.');
@@ -121,6 +148,7 @@ class PixelIntegration {
     this.trackMetaPixel(event, metadata);
     this.trackVKPixel(event, metadata);
     this.trackYandexMetrika(event, metadata);
+    this.trackGA4(event, metadata);
   }
 
   private pushToDataLayer(eventData: PixelEventData) {
@@ -207,6 +235,43 @@ class PixelIntegration {
       window.ym(this.yandexMetrikaId, 'reachGoal', ymGoal, metadata);
     } catch (e) {
       console.error('[Yandex Metrika] Error tracking event:', e);
+    }
+  }
+
+  private trackGA4(event: PixelEvent, metadata: Record<string, any>) {
+    if (!window.gtag || !this.ga4MeasurementId) return;
+
+    const eventMap: Record<PixelEvent, string> = {
+      PageView: 'page_view',
+      Lead: 'generate_lead',
+      Scroll75: 'scroll',
+      ExitIntent: 'exit_intent',
+      OpenBot: 'open_telegram_bot',
+      ConsultationOpen: 'view_consultation_form',
+      WarmupClick: 'click_warmup_preview',
+      SubmitForm: 'form_submit',
+    };
+
+    const ga4Event = eventMap[event];
+
+    try {
+      if (event === 'PageView') {
+        window.gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+          page_path: window.location.pathname,
+          ...metadata,
+        });
+      } else {
+        window.gtag('event', ga4Event, {
+          event_category: metadata.category || 'engagement',
+          event_label: metadata.label || '',
+          value: metadata.value || 0,
+          ...metadata,
+        });
+      }
+    } catch (e) {
+      console.error('[GA4] Error tracking event:', e);
     }
   }
 
