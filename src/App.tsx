@@ -9,6 +9,7 @@ import Privacy from "./pages/Privacy";
 import PersonalData from "./pages/PersonalData";
 import NotFound from "./pages/NotFound";
 import { AdminPanel } from "@/components/AdminPanel";
+import { AdminPanelLite } from "@/components/AdminPanelLite";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <AdminPanel />
+      <AdminPanelLite />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
