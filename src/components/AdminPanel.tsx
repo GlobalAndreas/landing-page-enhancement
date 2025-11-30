@@ -136,41 +136,42 @@ export const AdminPanel = () => {
       </Button>
 
       {isVisible && (
-        <>
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-[9999]" onClick={togglePanel} />
-          <div 
-            className="fixed top-0 right-0 bottom-0 w-[350px] overflow-y-auto overflow-x-hidden z-[10000] bg-card/95 backdrop-blur-xl border-l border-primary/30 shadow-2xl"
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={togglePanel}>
+          <Card 
+            className="w-full max-w-4xl max-h-[85vh] overflow-hidden bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
-              <div className="flex items-center gap-2">
-                <Icon name="BarChart3" size={20} className="text-primary" />
-                <h2 className="text-lg sm:text-xl font-bold">Аналитика</h2>
+            <div className="p-6 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
+              <div className="flex items-center gap-3">
+                <Icon name="BarChart3" size={24} className="text-primary" />
+                <h2 className="text-2xl font-bold">Аналитика лендинга</h2>
               </div>
-              <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
+              <div className="flex items-center gap-2">
                 <Button 
                   variant="outline" 
                   size="sm" 
                   onClick={sendGA4Report}
                   disabled={isLoadingReport}
-                  className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-500/30 hover:from-blue-500/30 hover:to-purple-500/30 text-xs sm:text-sm"
+                  className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-500/30 hover:from-blue-500/30 hover:to-purple-500/30"
                 >
-                  <Icon name={isLoadingReport ? "Loader2" : "Send"} size={14} className={`mr-1 ${isLoadingReport ? 'animate-spin' : ''}`} />
-                  <span className="hidden sm:inline">{isLoadingReport ? 'Отправка...' : 'GA4'}</span>
+                  <Icon name={isLoadingReport ? "Loader2" : "Send"} size={16} className={`mr-2 ${isLoadingReport ? 'animate-spin' : ''}`} />
+                  {isLoadingReport ? 'Отправка...' : 'Отчёт GA4'}
                 </Button>
-                <Button variant="outline" size="sm" onClick={clearAllData} className="bg-white/[0.03] backdrop-blur-[16px] border-white/[0.08] text-[#E7E7E7] hover:bg-white/[0.06] text-xs sm:text-sm">
-                  <Icon name="Trash2" size={14} />
+                <Button variant="outline" size="sm" onClick={clearAllData} className="bg-white/[0.03] backdrop-blur-[16px] border-white/[0.08] text-[#E7E7E7] shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:bg-white/[0.06] hover:border-white/[0.12] hover:shadow-[0_10px_24px_rgba(0,0,0,0.45),0_0_10px_rgba(168,85,247,0.2),0_0_20px_rgba(236,72,153,0.12),inset_0_1.5px_2px_rgba(255,255,255,0.13)] transition-all duration-200">
+                  <Icon name="Trash2" size={16} className="mr-2" />
+                  Очистить
                 </Button>
-                <Button variant="destructive" size="sm" onClick={handleLogout} className="text-xs sm:text-sm">
-                  <Icon name="LogOut" size={14} />
+                <Button variant="destructive" size="sm" onClick={handleLogout}>
+                  <Icon name="LogOut" size={16} className="mr-2" />
+                  Выйти
                 </Button>
-                <Button variant="ghost" size="sm" onClick={togglePanel} className="shrink-0">
-                  <Icon name="X" size={18} />
+                <Button variant="ghost" size="sm" onClick={togglePanel}>
+                  <Icon name="X" size={20} />
                 </Button>
               </div>
             </div>
 
-            <div className="p-4 space-y-4">
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
               {reportStatus && (
                 <div className={`p-4 rounded-lg border ${
                   reportStatus.type === 'success' 
@@ -184,7 +185,7 @@ export const AdminPanel = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Card className="p-4 bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon name="MousePointerClick" size={16} className="text-blue-500" />
@@ -293,8 +294,8 @@ export const AdminPanel = () => {
                 </div>
               </Card>
             </div>
-          </div>
-        </>
+          </Card>
+        </div>
       )}
     </>
   );
