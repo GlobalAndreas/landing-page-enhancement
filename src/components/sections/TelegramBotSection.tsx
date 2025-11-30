@@ -107,11 +107,11 @@ export const TelegramBotSection = () => {
               ))}
             </div>
 
-            <div className="text-center">
+            <div className="text-center px-4">
               <Button
                 onClick={handleTelegramClick}
                 size="lg"
-                className="bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 text-lg px-8 py-6 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105 animate-gradient"
+                className="w-full max-w-full md:w-auto bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 text-lg px-8 py-6 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105 animate-gradient"
               >
                 <Icon name="Send" size={24} className="mr-3" />
                 Получить доступ в Telegram-боте
