@@ -111,10 +111,10 @@ export const TelegramBotSection = () => {
               <Button
                 onClick={handleTelegramClick}
                 size="lg"
-                className="w-full max-w-full md:w-auto bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 text-lg px-8 py-6 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105 animate-gradient"
+                className="w-full max-w-full md:w-auto h-auto py-3 whitespace-normal break-words text-balance bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 text-lg px-8 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105 animate-gradient"
               >
-                <Icon name="Send" size={24} className="mr-3" />
-                Получить доступ в Telegram-боте
+                <Icon name="Send" size={24} className="mr-3 flex-shrink-0" />
+                <span>Получить доступ в Telegram-боте</span>
               </Button>
               
               <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-4">
