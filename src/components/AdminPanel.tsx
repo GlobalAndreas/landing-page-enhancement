@@ -138,7 +138,7 @@ export const AdminPanel = () => {
       {isVisible && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={togglePanel}>
           <Card 
-            className="w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl"
+            className="w-full max-w-4xl max-h-[85vh] overflow-hidden bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
@@ -171,7 +171,7 @@ export const AdminPanel = () => {
               </div>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
               {reportStatus && (
                 <div className={`p-4 rounded-lg border ${
                   reportStatus.type === 'success' 
