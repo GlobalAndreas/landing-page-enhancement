@@ -6,6 +6,7 @@ import { analytics, AnalyticsEvent } from "@/utils/analytics";
 import { isAdminAuthorized, setupAdminKeyListener, setAdminAuthorized } from "@/utils/adminAuth";
 
 export const AdminPanel = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const [events, setEvents] = useState<AnalyticsEvent[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -27,6 +28,13 @@ export const AdminPanel = () => {
   };
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     setIsAuthorized(isAdminAuthorized());
     
     const cleanupKeyListener = setupAdminKeyListener(() => {
@@ -50,6 +58,7 @@ export const AdminPanel = () => {
       clearInterval(interval);
       cleanupKeyListener();
       window.removeEventListener('adminAuthChanged', handleAuthChange);
+      window.removeEventListener('resize', checkMobile);
     };
   }, []);
 
@@ -121,7 +130,7 @@ export const AdminPanel = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [isVisible, isAuthorized]);
 
-  if (!isAuthorized) {
+  if (isMobile || !isAuthorized) {
     return null;
   }
 
