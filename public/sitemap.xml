@@ -2,8 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dilman.pro/</loc>
-    <lastmod>2025-11-29</lastmod>
+    <lastmod>2025-11-30</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://dilman.pro/privacy</loc>
+    <lastmod>2025-11-30</lastmod>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://dilman.pro/personal-data</loc>
+    <lastmod>2025-11-30</lastmod>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

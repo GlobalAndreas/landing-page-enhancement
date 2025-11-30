@@ -78,3 +78,70 @@ export const getServiceSchema = () => ({
     ]
   }
 });
+
+export const getLocalBusinessSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Андрей Дильман — Telegram-боты, автоворонки и трафик",
+  "image": "https://cdn.poehali.dev/files/791797f1-17b2-4b45-a837-d1fe8f9ae82c.png",
+  "@id": "https://dilman.pro",
+  "url": "https://dilman.pro",
+  "telephone": "+7 (XXX) XXX-XX-XX",
+  "priceRange": "30000-120000 RUB",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "RU",
+    "addressRegion": "Москва"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 55.7558,
+    "longitude": 37.6173
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
+  "sameAs": [
+    "https://t.me/yourtelegram"
+  ]
+});
+
+export const getBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Главная",
+      "item": "https://dilman.pro/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Услуги",
+      "item": "https://dilman.pro/#services"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Отзывы",
+      "item": "https://dilman.pro/#testimonials"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Консультация",
+      "item": "https://dilman.pro/#consultation"
+    }
+  ]
+});

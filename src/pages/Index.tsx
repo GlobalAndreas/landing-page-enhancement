@@ -28,7 +28,7 @@ import { useConsultationSlots } from "@/hooks/useConsultationSlots";
 import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
-import { getOrganizationSchema, getPersonSchema, getServiceSchema } from "@/utils/schemaOrg";
+import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 
 const Index = () => {
   const { toast } = useToast();
@@ -55,10 +55,22 @@ const Index = () => {
     serviceScript.text = JSON.stringify(getServiceSchema());
     document.head.appendChild(serviceScript);
 
+    const localBusinessScript = document.createElement('script');
+    localBusinessScript.type = 'application/ld+json';
+    localBusinessScript.text = JSON.stringify(getLocalBusinessSchema());
+    document.head.appendChild(localBusinessScript);
+
+    const breadcrumbScript = document.createElement('script');
+    breadcrumbScript.type = 'application/ld+json';
+    breadcrumbScript.text = JSON.stringify(getBreadcrumbSchema());
+    document.head.appendChild(breadcrumbScript);
+
     return () => {
       document.head.removeChild(organizationScript);
       document.head.removeChild(personScript);
       document.head.removeChild(serviceScript);
+      document.head.removeChild(localBusinessScript);
+      document.head.removeChild(breadcrumbScript);
     };
   }, []);
   const [formData, setFormData] = useState({
