@@ -238,18 +238,29 @@ class PixelIntegration {
     }
   }
 
+  private getUTMParams(): Record<string, string> {
+    try {
+      const stored = localStorage.getItem('utm_params');
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
+    }
+  }
+
   private trackGA4(event: PixelEvent, metadata: Record<string, any>) {
     if (!window.gtag || !this.ga4MeasurementId) return;
+
+    const utmParams = this.getUTMParams();
 
     const eventMap: Record<PixelEvent, string> = {
       PageView: 'page_view',
       Lead: 'generate_lead',
-      Scroll75: 'scroll',
+      Scroll75: 'engaged_scroll',
       ExitIntent: 'exit_intent',
-      OpenBot: 'open_telegram_bot',
-      ConsultationOpen: 'view_consultation_form',
-      WarmupClick: 'click_warmup_preview',
-      SubmitForm: 'form_submit',
+      OpenBot: 'begin_checkout',
+      ConsultationOpen: 'view_item',
+      WarmupClick: 'select_content',
+      SubmitForm: 'generate_lead',
     };
 
     const ga4Event = eventMap[event];
@@ -260,13 +271,49 @@ class PixelIntegration {
           page_title: document.title,
           page_location: window.location.href,
           page_path: window.location.pathname,
+          ...utmParams,
           ...metadata,
+        });
+      } else if (event === 'Scroll75') {
+        window.gtag('event', 'engaged_scroll', {
+          engagement_type: 'scroll',
+          scroll_depth: 75,
+          page_path: window.location.pathname,
+          ...utmParams,
+        });
+      } else if (event === 'ConsultationOpen') {
+        window.gtag('event', 'view_item', {
+          item_category: 'consultation_form',
+          item_name: 'consultation_request',
+          funnel_step: 'form_view',
+          ...utmParams,
+        });
+      } else if (event === 'OpenBot') {
+        window.gtag('event', 'begin_checkout', {
+          item_category: 'telegram_bot',
+          lead_type: 'bot',
+          funnel_step: 'bot_open',
+          ...utmParams,
+        });
+      } else if (event === 'SubmitForm') {
+        window.gtag('event', 'generate_lead', {
+          lead_type: metadata.lead_type || 'consultation',
+          form_name: metadata.form_name || 'consultation_form',
+          value: metadata.value || 0,
+          currency: 'RUB',
+          ...utmParams,
+          ...metadata,
+        });
+      } else if (event === 'WarmupClick') {
+        window.gtag('event', 'select_content', {
+          content_type: 'warmup_preview',
+          item_id: 'warmup_click',
+          ...utmParams,
         });
       } else {
         window.gtag('event', ga4Event, {
           event_category: metadata.category || 'engagement',
-          event_label: metadata.label || '',
-          value: metadata.value || 0,
+          ...utmParams,
           ...metadata,
         });
       }
@@ -339,7 +386,11 @@ class PixelIntegration {
       event: 'SubmitForm',
       category: 'conversion',
       action: 'submit_form',
-      metadata: formData,
+      metadata: {
+        lead_type: 'consultation',
+        form_name: 'consultation_form',
+        ...formData,
+      },
     });
   }
 }
