@@ -9,7 +9,6 @@ import Privacy from "./pages/Privacy";
 import PersonalData from "./pages/PersonalData";
 import NotFound from "./pages/NotFound";
 import { AdminPanel } from "@/components/AdminPanel";
-import { WeeklyPopup } from "@/components/WeeklyPopup";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +18,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <AdminPanel />
-      <WeeklyPopup />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
