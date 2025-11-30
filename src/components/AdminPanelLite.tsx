@@ -136,42 +136,42 @@ export const AdminPanelLite = () => {
       </Button>
 
       {isVisible && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4" onClick={togglePanel}>
-          <Card 
-            className="w-full max-w-4xl max-h-[100vh] overflow-y-auto bg-card/95 backdrop-blur-xl border-primary/30 shadow-2xl flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-6 border-b border-border flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur-xl z-10">
-              <div className="flex items-center gap-3">
-                <Icon name="BarChart3" size={24} className="text-primary" />
-                <h2 className="text-2xl font-bold">Аналитика лендинга</h2>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={sendGA4Report}
-                  disabled={isLoadingReport}
-                  className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-500/30 hover:from-blue-500/30 hover:to-purple-500/30"
-                >
-                  <Icon name={isLoadingReport ? "Loader2" : "Send"} size={16} className={`mr-2 ${isLoadingReport ? 'animate-spin' : ''}`} />
-                  {isLoadingReport ? 'Отправка...' : 'Отчёт GA4'}
-                </Button>
-                <Button variant="outline" size="sm" onClick={clearAllData} className="bg-white/[0.03] backdrop-blur-[16px] border-white/[0.08] text-[#E7E7E7] shadow-[0_8px_18px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:bg-white/[0.06] hover:border-white/[0.12] hover:shadow-[0_10px_24px_rgba(0,0,0,0.45),0_0_10px_rgba(168,85,247,0.2),0_0_20px_rgba(236,72,153,0.12),inset_0_1.5px_2px_rgba(255,255,255,0.13)] transition-all duration-200">
-                  <Icon name="Trash2" size={16} className="mr-2" />
-                  Очистить
-                </Button>
-                <Button variant="destructive" size="sm" onClick={handleLogout}>
-                  <Icon name="LogOut" size={16} className="mr-2" />
-                  Выйти
-                </Button>
-                <Button variant="ghost" size="sm" onClick={togglePanel}>
-                  <Icon name="X" size={20} />
-                </Button>
-              </div>
+        <div 
+          className="fixed top-0 right-0 bottom-0 max-h-screen overflow-y-auto overflow-x-hidden"
+          style={{
+            width: '360px',
+            zIndex: 9999,
+            background: '#111'
+          }}
+        >
+          <div className="p-3 border-b border-border flex items-center justify-between sticky top-0 bg-[#111] z-10">
+            <div className="flex items-center gap-2">
+              <Icon name="BarChart3" size={18} className="text-primary" />
+              <h2 className="text-lg font-bold">Аналитика</h2>
             </div>
+            <div className="flex items-center gap-1">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={sendGA4Report}
+                disabled={isLoadingReport}
+                className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-500/30 hover:from-blue-500/30 hover:to-purple-500/30 px-2"
+              >
+                <Icon name={isLoadingReport ? "Loader2" : "Send"} size={14} className={isLoadingReport ? 'animate-spin' : ''} />
+              </Button>
+              <Button variant="outline" size="sm" onClick={clearAllData} className="px-2">
+                <Icon name="Trash2" size={14} />
+              </Button>
+              <Button variant="destructive" size="sm" onClick={handleLogout} className="px-2">
+                <Icon name="LogOut" size={14} />
+              </Button>
+              <Button variant="ghost" size="sm" onClick={togglePanel} className="px-2">
+                <Icon name="X" size={18} />
+              </Button>
+            </div>
+          </div>
 
-            <div className="p-6 space-y-6">
+          <div className="p-4 space-y-4">
               {reportStatus && (
                 <div className={`p-4 rounded-lg border ${
                   reportStatus.type === 'success' 
@@ -185,7 +185,7 @@ export const AdminPanelLite = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <Card className="p-4 bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon name="MousePointerClick" size={16} className="text-blue-500" />
@@ -219,56 +219,50 @@ export const AdminPanelLite = () => {
                 </Card>
               </div>
 
-              <Card className="p-5 bg-gradient-to-br from-primary/10 to-accent/5 border-primary/20">
-                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                  <Icon name="Zap" size={20} className="text-primary" />
+              <Card className="p-4 bg-gradient-to-br from-primary/10 to-accent/5 border-primary/20">
+                <h3 className="text-base font-bold mb-3 flex items-center gap-2">
+                  <Icon name="Zap" size={18} className="text-primary" />
                   Ключевые события
                 </h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-card/50">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                        <span className="text-lg">👀</span>
-                      </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-card/50">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">👀</span>
                       <div>
-                        <p className="font-medium">Блок с ботом в поле зрения</p>
+                        <p className="text-sm font-medium">Блок с ботом</p>
                         <p className="text-xs text-muted-foreground">open_bot_block</p>
                       </div>
                     </div>
-                    <div className="text-2xl font-bold">{openBotBlock}</div>
+                    <div className="text-xl font-bold">{openBotBlock}</div>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-card/50">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
-                        <span className="text-lg">🤖</span>
-                      </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-card/50">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">🤖</span>
                       <div>
-                        <p className="font-medium">Клик на кнопку бота</p>
+                        <p className="text-sm font-medium">Клик на бота</p>
                         <p className="text-xs text-muted-foreground">click_bot_button</p>
                       </div>
                     </div>
-                    <div className="text-2xl font-bold">{clickBotButton}</div>
+                    <div className="text-xl font-bold">{clickBotButton}</div>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-card/50">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                        <span className="text-lg">✅</span>
-                      </div>
+                  <div className="flex items-center justify-between p-2 rounded-lg bg-card/50">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">✅</span>
                       <div>
-                        <p className="font-medium">Попап благодарности</p>
+                        <p className="text-sm font-medium">Благодарность</p>
                         <p className="text-xs text-muted-foreground">thanks_popup_opened</p>
                       </div>
                     </div>
-                    <div className="text-2xl font-bold">{thanksPopupOpened}</div>
+                    <div className="text-xl font-bold">{thanksPopupOpened}</div>
                   </div>
                 </div>
               </Card>
 
-              <Card className="p-5 bg-gradient-to-br from-accent/10 to-primary/5 border-accent/20">
-                <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                  <Icon name="Activity" size={20} className="text-accent" />
+              <Card className="p-4 bg-gradient-to-br from-accent/10 to-primary/5 border-accent/20">
+                <h3 className="text-base font-bold mb-3 flex items-center gap-2">
+                  <Icon name="Activity" size={18} className="text-accent" />
                   Недавние события
                 </h3>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -294,7 +288,6 @@ export const AdminPanelLite = () => {
                 </div>
               </Card>
             </div>
-          </Card>
         </div>
       )}
     </>
