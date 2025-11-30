@@ -18,7 +18,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
     : "Запись на эту неделю закрыта — оставьте заявку на следующую";
 
   return (
-    <section className="relative py-16 md:py-28 overflow-hidden">
+    <section className="relative min-h-[100dvh] md:min-h-0 md:py-28 py-8 overflow-hidden flex items-center">
       {/* 3D-сцена глубины: многослойный фон */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(168,85,247,0.15),transparent)]" />
@@ -33,13 +33,13 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px] opacity-[0.03]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
       
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1.08fr] gap-16 items-center">
+      <div className="container mx-auto px-4 relative z-10 w-full">
+        <div className="grid lg:grid-cols-[1fr_1.08fr] gap-8 md:gap-16 items-center">
           {/* Левая колонка */}
           <motion.div 
             {...glassEmergence}
             transition={{ ...glassEmergence.transition, delay: 0 }}
-            className="space-y-8"
+            className="space-y-4 md:space-y-8"
           >
             {/* Бейдж с единым стеклянным стилем */}
             <motion.div 
@@ -59,7 +59,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* H1 с breathing glow */}
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] text-balance tracking-tight"
+              className="text-4xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] text-balance tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
@@ -121,7 +121,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* Текст с появлением из глубины */}
             <motion.p 
-              className="text-lg max-w-2xl text-balance leading-relaxed font-semibold -mt-2"
+              className="text-base md:text-lg max-w-2xl text-balance leading-relaxed font-semibold -mt-2"
               style={{ color: "rgba(248, 250, 252, 0.88)" }}
               initial={{ opacity: 0, y: 10, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
