@@ -29,6 +29,7 @@ import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
+import { pixelIntegration } from "@/utils/pixelIntegration";
 
 const Index = () => {
   const { toast } = useToast();
@@ -39,6 +40,14 @@ const Index = () => {
 
   useEffect(() => {
     parseAndSaveUTM();
+
+    pixelIntegration.init({
+      metaPixelId: import.meta.env.VITE_META_PIXEL_ID,
+      vkPixelId: import.meta.env.VITE_VK_PIXEL_ID,
+      yandexMetrikaId: 101026698,
+    });
+
+    pixelIntegration.trackPageView();
 
     const organizationScript = document.createElement('script');
     organizationScript.type = 'application/ld+json';
@@ -94,8 +103,9 @@ const Index = () => {
       return;
     }
     
-    analytics.trackFormSubmit('consultation_form');
+    analytics.trackFormSubmit('consultation_form', formData);
     analytics.track('form_pdn_agree', 'consent', 'pdn_checked');
+    pixelIntegration.trackLead(formData);
     decreaseSlot();
     
     const trackingData = getTrackingData();
@@ -114,6 +124,7 @@ const Index = () => {
 
   const scrollToConsultation = () => {
     analytics.trackButtonClick('get_consultation', 'hero_section');
+    pixelIntegration.trackConsultationOpen();
     document.getElementById("consultation")?.scrollIntoView({ behavior: "smooth" });
   };
 

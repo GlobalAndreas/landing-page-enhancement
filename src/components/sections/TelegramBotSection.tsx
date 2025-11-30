@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 import { analytics } from "@/utils/analytics";
+import { pixelIntegration } from "@/utils/pixelIntegration";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { glassEmergence, breathingGlow, glassStyle, premiumEasing, staggerDelay } from "@/utils/premiumAnimations";
@@ -33,6 +34,7 @@ export const TelegramBotSection = () => {
   const handleTelegramClick = () => {
     analytics.trackButtonClick('telegram_bot_cta', 'telegram_section');
     analytics.logEvent('click_bot_button', 'telegram_section');
+    pixelIntegration.trackOpenBot();
     window.open('https://t.me/dilman4in1bot?start=from_landing', '_blank');
   };
 

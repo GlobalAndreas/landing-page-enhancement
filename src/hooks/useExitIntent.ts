@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { pixelIntegration } from '@/utils/pixelIntegration';
 
 export const useExitIntent = () => {
   const [showExitIntent, setShowExitIntent] = useState(false);
@@ -15,6 +16,7 @@ export const useExitIntent = () => {
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) {
         setShowExitIntent(true);
+        pixelIntegration.trackExitIntent();
       }
     };
 

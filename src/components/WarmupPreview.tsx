@@ -5,6 +5,7 @@ import Icon from '@/components/ui/icon';
 import { warmup, type WarmupDay, type WarmupAttachment } from '@/data/warmupMessages';
 import { isDayActive, setWarmupDayActive } from '@/utils/warmupStorage';
 import { isAdminAuthorized, setupAdminKeyListener } from '@/utils/adminAuth';
+import { pixelIntegration } from '@/utils/pixelIntegration';
 
 const getAttachmentIcon = (type: WarmupAttachment['type']) => {
   const icons = {
@@ -100,7 +101,10 @@ export const WarmupPreview = () => {
   if (!isOpen) {
     return (
       <Button
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          pixelIntegration.trackWarmupClick();
+        }}
         className="fixed bottom-36 right-4 z-50 rounded-full w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg hover:shadow-xl transition-all"
         title="Превью автопрогрева"
       >

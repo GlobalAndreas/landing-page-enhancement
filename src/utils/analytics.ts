@@ -1,3 +1,5 @@
+import { pixelIntegration } from './pixelIntegration';
+
 export interface AnalyticsEvent {
   event: string;
   category: string;
@@ -10,10 +12,12 @@ export interface AnalyticsEvent {
 class Analytics {
   private events: AnalyticsEvent[] = [];
   private sessionId: string;
+  private scroll75Tracked = false;
 
   constructor() {
     this.sessionId = this.generateSessionId();
     this.loadEvents();
+    this.initScrollTracking();
   }
 
   private generateSessionId(): string {
@@ -37,6 +41,26 @@ class Analytics {
     } catch (e) {
       console.error('Failed to save analytics events', e);
     }
+  }
+
+  private initScrollTracking(): void {
+    if (typeof window === 'undefined') return;
+
+    let scrollTimeout: NodeJS.Timeout;
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercentage = (window.scrollY / scrollHeight) * 100;
+
+        if (scrollPercentage >= 75 && !this.scroll75Tracked) {
+          this.scroll75Tracked = true;
+          pixelIntegration.trackScroll75();
+        }
+      }, 100);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
   }
 
   track(event: string, category: string, action: string, label?: string, value?: number): void {
@@ -63,8 +87,9 @@ class Analytics {
     this.track('button_click', 'engagement', 'click', `${buttonName} (${location})`);
   }
 
-  trackFormSubmit(formName: string): void {
+  trackFormSubmit(formName: string, formData?: Record<string, any>): void {
     this.track('form_submit', 'conversion', 'submit', formName);
+    pixelIntegration.trackSubmitForm(formData);
   }
 
   trackSectionView(sectionName: string): void {
