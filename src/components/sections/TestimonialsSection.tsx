@@ -102,7 +102,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
       transition={{ ...glassEmergence.transition, delay: staggerDelay(index, 0.12) }}
       className="h-full"
     >
-      <Card className={`p-7 pt-16 md:pt-7 ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08] group h-full relative overflow-hidden`}>
+      <Card className={`p-7 ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08] group h-full relative overflow-hidden`}>
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <div className="relative z-10">
@@ -122,7 +122,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
           </div>
 
           <motion.div 
-            className="absolute top-3 right-3 md:top-6 md:right-6 z-20 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
+            className="absolute top-3 right-3 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
             style={{ 
               backgroundColor: badgeStyle.bg,
               border: `1px solid ${badgeStyle.border}`,
