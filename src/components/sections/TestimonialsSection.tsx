@@ -106,7 +106,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <div className="relative z-10">
-          <div className="flex items-start gap-4 mb-6 pr-0 md:pr-24">
+          <div className="flex items-start gap-4 mb-6">
             <motion.div 
               className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-500/20 border border-purple-500/20 flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-purple-500/10"
               initial={{ scale: 0, rotate: -180 }}
@@ -115,7 +115,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
             >
               {testimonial.avatar}
             </motion.div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 pr-24">
               <h3 className="font-bold text-base text-slate-100 mb-1 leading-snug">{testimonial.name}</h3>
               <p className="text-xs text-slate-400 leading-relaxed">{testimonial.niche}</p>
             </div>
