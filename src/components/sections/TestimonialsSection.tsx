@@ -115,7 +115,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
             >
               {testimonial.avatar}
             </motion.div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 pr-20 md:pr-0">
               <h3 className="font-bold text-base text-slate-100 mb-1 leading-snug">{testimonial.name}</h3>
               <p className="text-xs text-slate-400 leading-relaxed">{testimonial.niche}</p>
             </div>
