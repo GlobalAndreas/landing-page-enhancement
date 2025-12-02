@@ -59,7 +59,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* H1 с breathing glow */}
             <motion.h1 
-              className="text-3xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.3] md:leading-[1.1] text-balance tracking-tight"
+              className="text-3xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.35] md:leading-[1.1] text-balance tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
@@ -96,7 +96,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <br />
               {/* Подзаголовок уменьшен на 13% */}
               <motion.div 
-                className="relative inline-block -mt-2"
+                className="relative inline-block -mt-1 md:-mt-2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.25, ease: premiumEasing }}
@@ -105,7 +105,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                   className="inline-block font-semibold leading-tight whitespace-normal lg:whitespace-nowrap"
                   style={{
                     fontSize: "calc((2.75rem * 0.85))",
-                    letterSpacing: "0.015em",
+                    letterSpacing: "0.005em",
                     color: "#E1E4FF",
                     filter: "brightness(0.9)",
                     textShadow: "0 0 8px rgba(199,201,248,0.22)",
