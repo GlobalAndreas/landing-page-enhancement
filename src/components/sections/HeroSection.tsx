@@ -59,7 +59,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* H1 с breathing glow */}
             <motion.h1 
-              className="text-4xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] text-balance tracking-tight"
+              className="text-3xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.3] md:leading-[1.1] text-balance tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
