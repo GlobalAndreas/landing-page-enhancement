@@ -105,8 +105,24 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
       <Card className={`p-7 ${glassStyle.base} ${glassStyle.shadow} ${glassStyle.hover} border-white/[0.08] group h-full relative overflow-hidden`}>
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
-        <motion.div 
-          className="absolute top-3 right-3 z-20 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
+        <div className="relative z-10">
+          <div className="flex items-start gap-4 mb-6">
+            <motion.div 
+              className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-500/20 border border-purple-500/20 flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-purple-500/10"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+              transition={{ duration: 0.6, delay: index * 0.12 + 0.2, type: "spring", stiffness: 200 }}
+            >
+              {testimonial.avatar}
+            </motion.div>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-bold text-base text-slate-100 mb-1 leading-snug">{testimonial.name}</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">{testimonial.niche}</p>
+            </div>
+          </div>
+
+          <motion.div 
+            className="absolute top-3 right-3 md:top-6 md:right-6 z-20 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
             style={{ 
               backgroundColor: badgeStyle.bg,
               border: `1px solid ${badgeStyle.border}`,
@@ -131,23 +147,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
           >
             {testimonial.result}
           </p>
-        </motion.div>
-
-        <div className="relative z-10">
-          <div className="flex items-start gap-4 mb-6">
-            <motion.div 
-              className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-500/20 border border-purple-500/20 flex items-center justify-center text-2xl flex-shrink-0 shadow-lg shadow-purple-500/10"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-              transition={{ duration: 0.6, delay: index * 0.12 + 0.2, type: "spring", stiffness: 200 }}
-            >
-              {testimonial.avatar}
-            </motion.div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-base text-slate-100 mb-1 leading-snug">{testimonial.name}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">{testimonial.niche}</p>
-            </div>
-          </div>
+          </motion.div>
 
           <div className="space-y-5">
             <div className="relative pl-3.5 border-l-2 border-red-400/25">
