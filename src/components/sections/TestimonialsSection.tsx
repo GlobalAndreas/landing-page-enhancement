@@ -122,31 +122,31 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
           </div>
 
           <motion.div 
-            className="absolute top-3 right-3 md:static md:top-auto md:right-auto z-10 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
+            className="absolute top-3 right-3 md:static px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
             style={{ 
               backgroundColor: badgeStyle.bg,
               border: `1px solid ${badgeStyle.border}`,
               boxShadow: badgeStyle.shadow
             }}
-            animate={{
-              boxShadow: [
-                badgeStyle.shadow,
-                badgeStyle.shadow.replace('0.3', '0.4'),
-                badgeStyle.shadow
-              ]
-            }}
-            transition={{
-              duration: 3.8,
-              repeat: Infinity,
-              ease: premiumEasing
-            }}
+          animate={{
+            boxShadow: [
+              badgeStyle.shadow,
+              badgeStyle.shadow.replace('0.3', '0.4'),
+              badgeStyle.shadow
+            ]
+          }}
+          transition={{
+            duration: 3.8,
+            repeat: Infinity,
+            ease: premiumEasing
+          }}
+        >
+          <p 
+            className="text-xs font-bold whitespace-nowrap leading-tight tracking-wide"
+            style={{ color: badgeStyle.text }}
           >
-            <p 
-              className="text-xs font-bold whitespace-nowrap leading-tight tracking-wide"
-              style={{ color: badgeStyle.text }}
-            >
-              {testimonial.result}
-            </p>
+            {testimonial.result}
+          </p>
           </motion.div>
 
           <div className="space-y-5">
