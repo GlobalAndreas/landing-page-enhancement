@@ -122,7 +122,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
           </div>
 
           <motion.div 
-            className="absolute top-3 right-1.5 md:static md:top-auto md:right-auto md:ml-auto px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
+            className="absolute top-3 right-1.5 md:right-6 px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
             style={{ 
               backgroundColor: badgeStyle.bg,
               border: `1px solid ${badgeStyle.border}`,
