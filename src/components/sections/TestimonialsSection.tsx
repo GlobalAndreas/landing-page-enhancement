@@ -38,7 +38,7 @@ const testimonials = [
   },
   {
     name: "Елена Смирнова",
-    niche: "Бизнес-консалтинг, услуги для B2B",
+    niche: "Бизнес-консалтинг, услуги <span class='block md:inline'>для B2B</span>",
     avatar: "💼",
     before: "Сайт-визитка и холодные звонки. На консультацию выходило <span class='text-slate-300 font-semibold'>2-3 человека в месяц</span>. Долгий цикл сделки, низкая предсказуемость.",
     after: "Запустили автоворонку: контекстная реклама → лендинг с кейсами → бот для записи. Заявок стало <span class='text-slate-200 font-bold'>10-12 в месяц</span>, цикл сокращён на <span class='text-slate-200 font-bold'>30%</span>.",
@@ -58,7 +58,7 @@ const testimonials = [
   },
   {
     name: "Анна Петрова",
-    niche: "Фитнес-студия, персональные тренировки",
+    niche: "Фитнес-студия, <span class='block md:inline'>персональные тренировки</span>",
     avatar: "🏃‍♀️",
     before: "Запускала таргет ВКонтакте на форму записи. Стоимость заявки — <span class='text-slate-300 font-semibold'>850₽</span>, конверсия в оплату — <span class='text-slate-300 font-semibold'>15%</span>. Много нецелевых заявок.",
     after: "Сделали видео-лендинг с прогревом + чат-бот для квалификации. Стоимость целевой заявки упала до <span class='text-slate-200 font-bold'>450₽</span>, конверсия в оплату выросла до <span class='text-slate-200 font-bold'>42%</span>.",
@@ -117,12 +117,12 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
             </motion.div>
             <div className="flex-1 min-w-0 pr-20 md:pr-0">
               <h3 className="font-bold text-base text-slate-100 mb-1 leading-snug">{testimonial.name}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">{testimonial.niche}</p>
+              <p className="text-xs text-slate-400 leading-relaxed" dangerouslySetInnerHTML={{ __html: testimonial.niche }} />
             </div>
           </div>
 
           <motion.div 
-            className="absolute top-3 right-1.5 md:top-6 md:right-6 md:absolute px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300"
+            className={`absolute ${testimonial.name === 'Алексей Морозов' ? 'top-4' : 'top-3'} right-1.5 md:top-6 md:right-6 md:absolute px-3.5 py-2 rounded-lg backdrop-blur-sm group-hover:scale-105 transition-transform duration-300`}
             style={{ 
               backgroundColor: badgeStyle.bg,
               border: `1px solid ${badgeStyle.border}`,
