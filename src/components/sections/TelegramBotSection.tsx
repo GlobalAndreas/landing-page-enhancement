@@ -113,7 +113,7 @@ export const TelegramBotSection = () => {
                 size="lg"
                 className="w-full max-w-full md:w-auto h-auto py-2.5 md:py-6 whitespace-normal break-words text-[16px] leading-[1.2] tracking-tight md:text-lg bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-right-bottom transition-all duration-500 px-6 md:px-8 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/50 hover:scale-105 animate-gradient"
               >
-                <Icon name="Send" size={20} className="mr-1 md:mr-3 flex-shrink-0" />
+                <Icon name="Send" size={20} className="mr-2 md:mr-3 flex-shrink-0" />
                 <span>Получить доступ в Telegram-боте</span>
               </Button>
               
