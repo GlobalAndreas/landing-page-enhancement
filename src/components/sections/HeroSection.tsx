@@ -18,7 +18,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
     : "Запись на эту неделю закрыта — оставьте заявку на следующую";
 
   return (
-    <section className="relative min-h-[100dvh] md:min-h-0 md:py-28 py-8 overflow-hidden flex items-center">
+    <section className="relative min-h-[100dvh] md:min-h-0 md:py-28 py-12 overflow-hidden flex items-center">
       {/* 3D-сцена глубины: многослойный фон */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(168,85,247,0.15),transparent)]" />
@@ -39,7 +39,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
           <motion.div 
             {...glassEmergence}
             transition={{ ...glassEmergence.transition, delay: 0 }}
-            className="space-y-4 md:space-y-8"
+            className="space-y-6 md:space-y-8"
           >
             {/* Бейдж с единым стеклянным стилем */}
             <motion.div 
@@ -59,7 +59,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* H1 с breathing glow */}
             <motion.h1 
-              className="text-3xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.35] md:leading-[1.1] text-balance tracking-tight"
+              className="text-3xl md:text-6xl lg:text-[5.5rem] font-black leading-[1.4] md:leading-[1.1] text-balance tracking-[-0.02em] md:tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: premiumEasing }}
@@ -96,7 +96,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
               <br />
               {/* Подзаголовок уменьшен на 13% */}
               <motion.div 
-                className="relative inline-block -mt-1 md:-mt-2"
+                className="relative inline-block mt-1 md:-mt-2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.25, ease: premiumEasing }}
@@ -105,7 +105,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
                   className="inline-block font-semibold leading-tight whitespace-normal lg:whitespace-nowrap"
                   style={{
                     fontSize: "calc((2.75rem * 0.85))",
-                    letterSpacing: "0.005em",
+                    letterSpacing: "-0.01em",
                     color: "#E1E4FF",
                     filter: "brightness(0.9)",
                     textShadow: "0 0 8px rgba(199,201,248,0.22)",
@@ -120,7 +120,7 @@ export const HeroSection = ({ scrollToConsultation, slots, onTimerCTA }: HeroSec
 
             {/* Текст с появлением из глубины */}
             <motion.p 
-              className="text-base md:text-lg max-w-2xl text-balance leading-relaxed font-semibold -mt-2"
+              className="text-base md:text-lg max-w-2xl text-balance leading-[1.6] md:leading-relaxed font-semibold"
               style={{ color: "rgba(248, 250, 252, 0.88)" }}
               initial={{ opacity: 0, y: 10, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
