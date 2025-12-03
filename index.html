@@ -62,9 +62,10 @@
 
 <body>
 <div id="flow-preloader">
+  <canvas id="particles-canvas"></canvas>
   <div class="flow-logo-circle">
     <div class="flow-logo-inner">
-      <span>AD</span>
+      <img src="https://cdn.poehali.dev/files/970d17fe-ea6f-40d1-acf0-00d9fb4ccbbb.png" alt="AD Logo" class="flow-logo-img">
     </div>
   </div>
   <div class="flow-captcha-text">Капча ☝️ Жми на AD</div>
@@ -90,6 +91,13 @@
   pointer-events: none;
 }
 
+#particles-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .flow-logo-circle {
   width: 120px;
   height: 120px;
@@ -100,6 +108,7 @@
   cursor: pointer;
   position: relative;
   transition: transform 0.2s ease;
+  z-index: 2;
 }
 
 .flow-logo-circle::before {
@@ -129,21 +138,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  font-size: 36px;
-  letter-spacing: 0.06em;
-  color: #fff;
   position: relative;
   z-index: 1;
+  overflow: hidden;
+  padding: 18px;
 }
 
-.flow-logo-inner span {
-  animation: textPulse 2s ease-in-out infinite;
-  background: linear-gradient(135deg, #fff 0%, #d529ff 50%, #5b6cff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.flow-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: logoFloat 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
 }
 
 .flow-captcha-text {
@@ -154,6 +160,8 @@
   text-align: center;
   animation: bounceText 1.5s ease-in-out infinite;
   text-shadow: 0 0 20px rgba(213,41,255,0.5);
+  z-index: 2;
+  position: relative;
 }
 
 @keyframes rotateGradient {
@@ -191,14 +199,12 @@
   }
 }
 
-@keyframes textPulse {
+@keyframes logoFloat {
   0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
   50% {
-    opacity: 0.85;
-    transform: scale(1.05);
+    transform: translateY(-3px) scale(1.02);
   }
 }
 
@@ -219,13 +225,89 @@ document.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("flow-preloader");
   const logoCircle = document.querySelector(".flow-logo-circle");
   const audio = document.getElementById("flow-sound");
+  const canvas = document.getElementById("particles-canvas");
+  const ctx = canvas ? canvas.getContext("2d") : null;
+  
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
   
   if (audio) {
     audio.volume = 0.35;
   }
   
+  const particles = [];
+  const colors = ['#d529ff', '#5b6cff', '#ff29d5', '#00d4ff'];
+  
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 6 + 3;
+      this.speedX = (Math.random() - 0.5) * 12;
+      this.speedY = (Math.random() - 0.5) * 12;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.life = 1;
+      this.decay = Math.random() * 0.015 + 0.01;
+    }
+    
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.speedX *= 0.98;
+      this.speedY *= 0.98;
+      this.life -= this.decay;
+      this.size *= 0.97;
+    }
+    
+    draw() {
+      if (!ctx) return;
+      ctx.save();
+      ctx.globalAlpha = this.life;
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+  
+  function createExplosion(x, y) {
+    for (let i = 0; i < 80; i++) {
+      particles.push(new Particle(x, y));
+    }
+  }
+  
+  function animateParticles() {
+    if (!ctx || !canvas) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = particles.length - 1; i >= 0; i--) {
+      particles[i].update();
+      particles[i].draw();
+      
+      if (particles[i].life <= 0) {
+        particles.splice(i, 1);
+      }
+    }
+    
+    if (particles.length > 0) {
+      requestAnimationFrame(animateParticles);
+    }
+  }
+  
   if (logoCircle) {
-    logoCircle.addEventListener("click", () => {
+    logoCircle.addEventListener("click", (e) => {
+      const rect = logoCircle.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      
+      createExplosion(x, y);
+      animateParticles();
+      
       if (audio) {
         audio.play().catch(() => {});
       }
