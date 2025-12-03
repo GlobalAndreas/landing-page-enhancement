@@ -145,8 +145,10 @@
 }
 
 .flow-logo-img {
-  width: 70px;
-  height: 70px;
+  max-width: 70px;
+  max-height: 70px;
+  width: auto;
+  height: auto;
   object-fit: contain;
   animation: logoFloat 2s ease-in-out infinite;
   filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
@@ -309,7 +311,14 @@ document.addEventListener("DOMContentLoaded", () => {
       animateParticles();
       
       if (audio) {
-        audio.play().catch(() => {});
+        console.log('Attempting to play audio...');
+        audio.play().then(() => {
+          console.log('Audio playing successfully!');
+        }).catch((err) => {
+          console.error('Audio play failed:', err);
+        });
+      } else {
+        console.error('Audio element not found!');
       }
       
       if (preloader) {
@@ -318,6 +327,15 @@ document.addEventListener("DOMContentLoaded", () => {
           preloader.style.display = "none";
         }, 500);
       }
+    });
+  }
+  
+  if (audio) {
+    audio.addEventListener('loadeddata', () => {
+      console.log('Audio loaded successfully');
+    });
+    audio.addEventListener('error', (e) => {
+      console.error('Audio loading error:', e);
     });
   }
 });
