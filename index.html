@@ -65,7 +65,7 @@
   <canvas id="particles-canvas"></canvas>
   <div class="flow-logo-circle">
     <div class="flow-logo-inner">
-      <img src="https://cdn.poehali.dev/files/e824b2b6-4b2e-48cf-b84d-bf940dbf9013.png" alt="AD Logo" class="flow-logo-img" width="64" height="64">
+      <img src="https://cdn.poehali.dev/files/970d17fe-ea6f-40d1-acf0-00d9fb4ccbbb.png" alt="AD Logo" class="flow-logo-img" width="70" height="70">
     </div>
   </div>
   <div class="flow-captcha-text">Капча ☝️ Жми на AD</div>
@@ -145,10 +145,10 @@
 }
 
 .flow-logo-img {
-  width: 64px !important;
-  height: 64px !important;
+  width: 70px !important;
+  height: 70px !important;
   object-fit: contain;
-  animation: logoFloat 2s ease-in-out infinite;
+  animation: logoFloat 2s ease-in-out infinite, counterRotate 3s linear infinite;
   filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
   display: block;
 }
@@ -202,10 +202,19 @@
 
 @keyframes logoFloat {
   0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotate(0deg);
   }
   50% {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-3px) scale(1.02) rotate(0deg);
+  }
+}
+
+@keyframes counterRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }
 
