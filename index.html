@@ -64,7 +64,9 @@
 <div id="flow-preloader">
   <canvas id="particles-canvas"></canvas>
   <div class="ad-circle">
-    <img src="https://cdn.poehali.dev/files/7ec863c0-23b9-4cc7-a170-f5bf4546eb14.png" alt="AD Logo">
+    <div class="ad-inner">
+      <img src="https://cdn.poehali.dev/files/7ec863c0-23b9-4cc7-a170-f5bf4546eb14.png" alt="AD Logo">
+    </div>
   </div>
   <div class="flow-captcha-text">Капча ☝️ Жми на AD</div>
 </div>
@@ -131,13 +133,25 @@
   transform: scale(0.95);
 }
 
+.ad-inner {
+  width: 80%;
+  height: 80%;
+  background: #05050a;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
 .ad-circle img {
   width: 70px;
   height: 70px;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .flow-captcha-text {
