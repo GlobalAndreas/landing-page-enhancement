@@ -73,6 +73,8 @@ export const exportLeadsToCSV = (): void => {
     return;
   }
 
+  const DELIMITER = ';';
+
   const headers = [
     'ID',
     'Дата и время',
@@ -89,11 +91,14 @@ export const exportLeadsToCSV = (): void => {
     'Время (сек)',
     'Устройство',
     'Реферер'
-  ].map(h => `"${h}"`);
+  ];
 
   const escapeCSV = (value: string | number): string => {
     const stringValue = String(value);
-    return `"${stringValue.replace(/"/g, '""')}"`;
+    if (stringValue.includes(DELIMITER) || stringValue.includes('"') || stringValue.includes('\n')) {
+      return `"${stringValue.replace(/"/g, '""')}"`;
+    }
+    return stringValue;
   };
 
   const rows = leads.map(lead => [
@@ -112,9 +117,9 @@ export const exportLeadsToCSV = (): void => {
     escapeCSV(lead.timeOnPage),
     escapeCSV(lead.device),
     escapeCSV(lead.referrer || '-')
-  ].join(','));
+  ].join(DELIMITER));
 
-  const csvContent = [headers.join(','), ...rows].join('\n');
+  const csvContent = [headers.join(DELIMITER), ...rows].join('\n');
   const BOM = '\uFEFF';
   const dataBlob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(dataBlob);
