@@ -75,6 +75,14 @@
 </div>
 
 <style>
+body {
+  overflow: hidden;
+}
+
+body.preloader-hidden {
+  overflow: auto;
+}
+
 #flow-preloader {
   position: fixed;
   inset: 0;
@@ -457,6 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (preloader) {
         preloader.classList.add("fade-out");
+        document.body.classList.add("preloader-hidden");
         setTimeout(() => {
           preloader.style.display = "none";
         }, 500);
