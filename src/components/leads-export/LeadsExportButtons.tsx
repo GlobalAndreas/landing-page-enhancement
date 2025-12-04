@@ -33,11 +33,17 @@ export const LeadsExportButtons = ({ filteredLeads, resetFilters }: LeadsExportB
       return;
     }
 
+    const DELIMITER = ',';
+    const LINE_BREAK = '\r\n';
+    const BOM = '\uFEFF';
+
     const headers = [
       'ID',
-      'Дата и время',
+      'Дата',
       'Имя',
       'Контакт',
+      'Скролл',
+      'Время',
       'Ниша',
       'Цель',
       'UTM Source',
@@ -46,40 +52,48 @@ export const LeadsExportButtons = ({ filteredLeads, resetFilters }: LeadsExportB
       'UTM Content',
       'UTM Term',
       'Реферер',
-      'Досмотр (%)',
-      'Время (сек)',
       'Устройство'
     ];
 
-    const escapeCSV = (value: string | number): string => {
-      const stringValue = String(value);
-      if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
-        return `"${stringValue.replace(/"/g, '""')}"`;
+    const escapeCSV = (value: string | number | null | undefined): string => {
+      if (value === null || value === undefined || value === '') {
+        return '""';
       }
-      return stringValue;
+      const stringValue = String(value);
+      const escapedValue = stringValue.replace(/"/g, '""');
+      return `"${escapedValue}"`;
+    };
+
+    const formatDate = (dateString: string): string => {
+      return dateString.replace(',', '');
     };
 
     const rows = filteredLeads.map(lead => [
       lead.id,
-      lead.date,
+      formatDate(lead.date),
       lead.name,
       lead.contact,
+      `${lead.pageDepth}%`,
+      `${lead.timeOnPage} сек`,
       lead.niche,
       lead.goal,
-      lead.utmSource || '-',
-      lead.utmMedium || '-',
-      lead.utmCampaign || '-',
-      lead.utmContent || '-',
-      lead.utmTerm || '-',
-      lead.referrer || '-',
-      lead.pageDepth,
-      lead.timeOnPage,
+      lead.utmSource || '',
+      lead.utmMedium || '',
+      lead.utmCampaign || '',
+      lead.utmContent || '',
+      lead.utmTerm || '',
+      lead.referrer || '',
       lead.device
-    ].map(escapeCSV).join(','));
+    ].map(escapeCSV).join(DELIMITER));
 
-    const csvContent = [headers.join(','), ...rows].join('\n');
-    const BOM = '\uFEFF';
-    const dataBlob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const csvLines = [
+      headers.map(escapeCSV).join(DELIMITER),
+      ...rows
+    ];
+
+    const csvContent = BOM + csvLines.join(LINE_BREAK);
+
+    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
