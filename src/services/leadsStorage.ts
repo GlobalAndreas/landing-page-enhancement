@@ -73,8 +73,8 @@ export const exportLeadsToCSV = (): void => {
     return;
   }
 
-  // Разделитель для Excel в русской локали
-  const DELIMITER = ';';
+  // Разделитель: запятая (стандарт CSV для LibreOffice)
+  const DELIMITER = ',';
   // Windows line ending для Excel
   const LINE_BREAK = '\r\n';
   // UTF-8 BOM для корректного отображения кириллицы
