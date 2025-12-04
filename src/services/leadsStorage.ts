@@ -73,14 +73,10 @@ export const exportLeadsToCSV = (): void => {
     return;
   }
 
-  // Разделитель: запятая (стандарт CSV для LibreOffice)
   const DELIMITER = ',';
-  // Windows line ending для Excel
   const LINE_BREAK = '\r\n';
-  // UTF-8 BOM для корректного отображения кириллицы
   const BOM = '\uFEFF';
 
-  // Заголовки в правильном порядке
   const headers = [
     'ID',
     'Дата',
@@ -99,33 +95,37 @@ export const exportLeadsToCSV = (): void => {
     'Устройство'
   ];
 
-  // ВСЕГДА оборачиваем значения в кавычки и экранируем внутренние кавычки
-  const escapeCSV = (value: string | number): string => {
+  const escapeCSV = (value: string | number | null | undefined): string => {
+    if (value === null || value === undefined || value === '') {
+      return '""';
+    }
     const stringValue = String(value);
-    // Удваиваем кавычки внутри значения и оборачиваем всё в кавычки
-    return `"${stringValue.replace(/"/g, '""')}"`;
+    const escapedValue = stringValue.replace(/"/g, '""');
+    return `"${escapedValue}"`;
   };
 
-  // Формируем строки данных
+  const formatDate = (dateString: string): string => {
+    return dateString.replace(',', '');
+  };
+
   const rows = leads.map(lead => [
     lead.id,
-    lead.date,
+    formatDate(lead.date),
     lead.name,
     lead.contact,
-    lead.pageDepth + '%',
-    lead.timeOnPage + ' сек',
+    `${lead.pageDepth}%`,
+    `${lead.timeOnPage} сек`,
     lead.niche,
     lead.goal,
-    lead.utmSource || '-',
-    lead.utmMedium || '-',
-    lead.utmCampaign || '-',
-    lead.utmContent || '-',
-    lead.utmTerm || '-',
-    lead.referrer || '-',
+    lead.utmSource || '',
+    lead.utmMedium || '',
+    lead.utmCampaign || '',
+    lead.utmContent || '',
+    lead.utmTerm || '',
+    lead.referrer || '',
     lead.device
   ].map(escapeCSV).join(DELIMITER));
 
-  // Собираем CSV: BOM + заголовки + строки с Windows line endings
   const csvLines = [
     headers.map(escapeCSV).join(DELIMITER),
     ...rows
@@ -133,7 +133,6 @@ export const exportLeadsToCSV = (): void => {
   
   const csvContent = BOM + csvLines.join(LINE_BREAK);
   
-  // Создаём blob с правильным MIME-типом
   const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(dataBlob);
   const link = document.createElement('a');
