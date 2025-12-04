@@ -65,7 +65,9 @@
   <canvas id="particles-canvas"></canvas>
   <div class="ad-circle">
     <div class="ad-inner">
-      <img src="https://cdn.poehali.dev/files/7ec863c0-23b9-4cc7-a170-f5bf4546eb14.png" alt="AD Logo">
+      <div class="ad-logo-wrapper">
+        <img src="https://cdn.poehali.dev/files/7ec863c0-23b9-4cc7-a170-f5bf4546eb14.png" alt="AD Logo">
+      </div>
     </div>
   </div>
   <div class="flow-captcha-text">Капча ☝️ Жми на AD</div>
@@ -178,19 +180,26 @@
   z-index: 0;
 }
 
+.ad-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  transform: scale(0.82);
+  transform-origin: center;
+  animation: neonPowerOn 650ms ease-out forwards;
+}
+
 .ad-circle img {
   width: 70px;
   height: 70px;
   display: block;
   object-fit: contain;
   flex-shrink: 0;
-  position: relative;
-  z-index: 2;
   opacity: 0;
-  transform: scale(0.82);
-  transform-origin: center;
   filter: blur(6px) drop-shadow(0 0 10px rgba(213,41,255,0.5));
-  animation: neonPowerOn 650ms ease-out forwards;
+  animation: neonImageFade 650ms ease-out forwards;
 }
 
 .ad-inner::after {
@@ -268,23 +277,34 @@
 
 @keyframes neonPowerOn {
   0% {
-    opacity: 0;
     transform: scale(0.82);
+  }
+  18.5% {
+    transform: scale(0.82);
+  }
+  53.8% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1.00);
+  }
+}
+
+@keyframes neonImageFade {
+  0% {
+    opacity: 0;
     filter: blur(6px) drop-shadow(0 0 10px rgba(213,41,255,0.5)) brightness(1);
   }
   18.5% {
     opacity: 1;
-    transform: scale(0.82);
     filter: blur(1px) drop-shadow(0 0 15px rgba(213,41,255,0.8)) brightness(1.4);
   }
   53.8% {
     opacity: 1;
-    transform: scale(1.04);
     filter: blur(0.5px) drop-shadow(0 0 20px rgba(213,41,255,1)) brightness(1.3);
   }
   100% {
     opacity: 1;
-    transform: scale(1.00);
     filter: blur(0px) drop-shadow(0 0 10px rgba(213,41,255,0.5)) brightness(1);
   }
 }
