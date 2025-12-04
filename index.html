@@ -147,10 +147,20 @@
 .flow-logo-img {
   width: 70px !important;
   height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
   object-fit: contain;
   animation: logoFloat 2s ease-in-out infinite, counterRotate 3s linear infinite;
   filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
   display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.flow-logo-img.loaded {
+  opacity: 1;
 }
 
 .flow-captcha-text {
@@ -351,6 +361,17 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.addEventListener('error', (e) => {
       console.error('Audio loading error:', e);
     });
+  }
+  
+  const logoImg = document.querySelector('.flow-logo-img');
+  if (logoImg) {
+    if (logoImg.complete) {
+      logoImg.classList.add('loaded');
+    } else {
+      logoImg.addEventListener('load', () => {
+        logoImg.classList.add('loaded');
+      });
+    }
   }
 });
 </script>
