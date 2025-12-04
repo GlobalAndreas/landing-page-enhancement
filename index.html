@@ -115,6 +115,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .ad-circle::after {
@@ -186,8 +189,12 @@
   justify-content: center;
   position: relative;
   z-index: 2;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
   transform: scale(0.82);
   transform-origin: center;
+  will-change: transform;
   animation: neonPowerOn 650ms ease-out forwards;
 }
 
@@ -199,6 +206,7 @@
   flex-shrink: 0;
   opacity: 0;
   filter: blur(6px) drop-shadow(0 0 10px rgba(213,41,255,0.5));
+  will-change: opacity, filter;
   animation: neonImageFade 650ms ease-out forwards;
 }
 
