@@ -73,13 +73,21 @@ export const exportLeadsToCSV = (): void => {
     return;
   }
 
+  // Разделитель для Excel в русской локали
   const DELIMITER = ';';
+  // Windows line ending для Excel
+  const LINE_BREAK = '\r\n';
+  // UTF-8 BOM для корректного отображения кириллицы
+  const BOM = '\uFEFF';
 
+  // Заголовки в правильном порядке
   const headers = [
     'ID',
-    'Дата и время',
+    'Дата',
     'Имя',
     'Контакт',
+    'Скролл',
+    'Время',
     'Ниша',
     'Цель',
     'UTM Source',
@@ -87,41 +95,46 @@ export const exportLeadsToCSV = (): void => {
     'UTM Campaign',
     'UTM Content',
     'UTM Term',
-    'Досмотр (%)',
-    'Время (сек)',
-    'Устройство',
-    'Реферер'
+    'Реферер',
+    'Устройство'
   ];
 
+  // ВСЕГДА оборачиваем значения в кавычки и экранируем внутренние кавычки
   const escapeCSV = (value: string | number): string => {
     const stringValue = String(value);
-    if (stringValue.includes(DELIMITER) || stringValue.includes('"') || stringValue.includes('\n')) {
-      return `"${stringValue.replace(/"/g, '""')}"`;
-    }
-    return stringValue;
+    // Удваиваем кавычки внутри значения и оборачиваем всё в кавычки
+    return `"${stringValue.replace(/"/g, '""')}"`;
   };
 
+  // Формируем строки данных
   const rows = leads.map(lead => [
-    escapeCSV(lead.id),
-    escapeCSV(lead.date),
-    escapeCSV(lead.name),
-    escapeCSV(lead.contact),
-    escapeCSV(lead.niche),
-    escapeCSV(lead.goal),
-    escapeCSV(lead.utmSource || '-'),
-    escapeCSV(lead.utmMedium || '-'),
-    escapeCSV(lead.utmCampaign || '-'),
-    escapeCSV(lead.utmContent || '-'),
-    escapeCSV(lead.utmTerm || '-'),
-    escapeCSV(lead.pageDepth),
-    escapeCSV(lead.timeOnPage),
-    escapeCSV(lead.device),
-    escapeCSV(lead.referrer || '-')
-  ].join(DELIMITER));
+    lead.id,
+    lead.date,
+    lead.name,
+    lead.contact,
+    lead.pageDepth + '%',
+    lead.timeOnPage + ' сек',
+    lead.niche,
+    lead.goal,
+    lead.utmSource || '-',
+    lead.utmMedium || '-',
+    lead.utmCampaign || '-',
+    lead.utmContent || '-',
+    lead.utmTerm || '-',
+    lead.referrer || '-',
+    lead.device
+  ].map(escapeCSV).join(DELIMITER));
 
-  const csvContent = [headers.join(DELIMITER), ...rows].join('\n');
-  const BOM = '\uFEFF';
-  const dataBlob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+  // Собираем CSV: BOM + заголовки + строки с Windows line endings
+  const csvLines = [
+    headers.map(escapeCSV).join(DELIMITER),
+    ...rows
+  ];
+  
+  const csvContent = BOM + csvLines.join(LINE_BREAK);
+  
+  // Создаём blob с правильным MIME-типом
+  const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(dataBlob);
   const link = document.createElement('a');
   link.href = url;
