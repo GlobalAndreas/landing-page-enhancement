@@ -10,6 +10,7 @@ import PersonalData from "./pages/PersonalData";
 import NotFound from "./pages/NotFound";
 import { AdminPanel } from "@/components/AdminPanel";
 import { AdminPanelLite } from "@/components/AdminPanelLite";
+import { LeadsExportPanel } from "@/components/LeadsExportPanel";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
       <Sonner />
       <AdminPanel />
       <AdminPanelLite />
+      <LeadsExportPanel />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
