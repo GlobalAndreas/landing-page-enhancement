@@ -41,7 +41,7 @@ export const sendTelegramNotification = async (
 
     saveLead(payload);
 
-    const response = await fetch('/tg_notify.php', {
+    const response = await fetch('https://functions.poehali.dev/2fa68642-9eb4-4f89-9382-a2e81344756a', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,8 @@ export const sendTelegramNotification = async (
     });
 
     if (!response.ok) {
-      console.error('Failed to send Telegram notification:', response.statusText);
+      const errorData = await response.json();
+      console.error('Failed to send Telegram notification:', errorData);
       return false;
     }
 

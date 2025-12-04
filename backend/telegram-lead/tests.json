@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Test lead notification",
+      "method": "POST",
+      "body": {
+        "name": "Андрей",
+        "contact": "@andreadeev",
+        "niche": "Недвижимость",
+        "goal": "Привлечь клиентов",
+        "utmSource": "instagram",
+        "utmMedium": "social",
+        "utmCampaign": "promo_dec",
+        "utmContent": "post_1",
+        "utmTerm": "продажа_квартир",
+        "pageDepth": 98,
+        "timeOnPage": 63,
+        "device": "Desktop",
+        "referrer": "https://google.com"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
