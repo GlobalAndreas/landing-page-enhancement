@@ -155,12 +155,10 @@
   animation: logoFloat 2s ease-in-out infinite, counterRotate 3s linear infinite;
   filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
   display: block;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.flow-logo-img.loaded {
-  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .flow-captcha-text {
@@ -212,19 +210,19 @@
 
 @keyframes logoFloat {
   0%, 100% {
-    transform: translateY(0) scale(1) rotate(0deg);
+    transform: translate(-50%, -50%) translateY(0) scale(1) rotate(0deg);
   }
   50% {
-    transform: translateY(-3px) scale(1.02) rotate(0deg);
+    transform: translate(-50%, -50%) translateY(-3px) scale(1.02) rotate(0deg);
   }
 }
 
 @keyframes counterRotate {
   0% {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   100% {
-    transform: rotate(-360deg);
+    transform: translate(-50%, -50%) rotate(-360deg);
   }
 }
 
@@ -363,16 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
-  const logoImg = document.querySelector('.flow-logo-img');
-  if (logoImg) {
-    if (logoImg.complete) {
-      logoImg.classList.add('loaded');
-    } else {
-      logoImg.addEventListener('load', () => {
-        logoImg.classList.add('loaded');
-      });
-    }
-  }
+
 });
 </script>
 <div id="root"></div>
