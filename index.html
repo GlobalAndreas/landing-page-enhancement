@@ -66,7 +66,19 @@
   <div class="ad-circle">
     <div class="ad-inner">
       <div class="ad-logo-wrapper">
-        <img src="/ad-logo.png" alt="AD Logo">
+        <svg width="70" height="70" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#5b6cff"/>
+              <stop offset="0.5" stop-color="#d529ff"/>
+              <stop offset="1" stop-color="#ff29d5"/>
+            </linearGradient>
+          </defs>
+          <!-- A -->
+          <path d="M45 160 L70 80 L95 80 L120 160 L105 160 L100 145 L65 145 L60 160 Z M70 130 L95 130 L82.5 95 Z" fill="url(#logoGrad)"/>
+          <!-- D -->
+          <path d="M135 80 L165 80 Q185 80 192.5 100 Q200 120 192.5 140 Q185 160 165 160 L135 160 Z M150 95 L150 145 L165 145 Q175 145 180 130 Q185 115 180 107.5 Q175 95 165 95 Z" fill="url(#logoGrad)"/>
+        </svg>
       </div>
     </div>
   </div>
@@ -198,7 +210,8 @@
   animation: neonPowerOn 650ms ease-out forwards;
 }
 
-.ad-circle img {
+.ad-circle img,
+.ad-circle svg {
   width: 70px;
   height: 70px;
   display: block;
