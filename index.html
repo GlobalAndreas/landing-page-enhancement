@@ -101,6 +101,7 @@
 .ad-circle {
   width: 160px;
   height: 160px;
+  flex-shrink: 0;
   border-radius: 999px;
   background: conic-gradient(from 0deg, #d529ff, #5b6cff, #ff29d5, #d529ff);
   padding: 5px;
@@ -148,7 +149,9 @@
 .ad-circle img {
   width: 70px;
   height: 70px;
+  display: block;
   object-fit: contain;
+  flex-shrink: 0;
   position: relative;
   z-index: 2;
   opacity: 0;
