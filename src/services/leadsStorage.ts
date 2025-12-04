@@ -75,7 +75,7 @@ export const exportLeadsToCSV = (): void => {
 
   const headers = [
     'ID',
-    'Дата',
+    'Дата и время',
     'Имя',
     'Контакт',
     'Ниша',
@@ -85,37 +85,34 @@ export const exportLeadsToCSV = (): void => {
     'UTM Campaign',
     'UTM Content',
     'UTM Term',
-    'Досмотр страницы (%)',
-    'Время на сайте (сек)',
+    'Досмотр (%)',
+    'Время (сек)',
     'Устройство',
     'Реферер'
-  ];
+  ].map(h => `"${h}"`);
 
   const escapeCSV = (value: string | number): string => {
     const stringValue = String(value);
-    if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
-      return `"${stringValue.replace(/"/g, '""')}"`;
-    }
-    return stringValue;
+    return `"${stringValue.replace(/"/g, '""')}"`;
   };
 
   const rows = leads.map(lead => [
-    lead.id,
-    lead.date,
-    lead.name,
-    lead.contact,
-    lead.niche,
-    lead.goal,
-    lead.utmSource || '-',
-    lead.utmMedium || '-',
-    lead.utmCampaign || '-',
-    lead.utmContent || '-',
-    lead.utmTerm || '-',
-    lead.pageDepth,
-    lead.timeOnPage,
-    lead.device,
-    lead.referrer || '-'
-  ].map(escapeCSV).join(','));
+    escapeCSV(lead.id),
+    escapeCSV(lead.date),
+    escapeCSV(lead.name),
+    escapeCSV(lead.contact),
+    escapeCSV(lead.niche),
+    escapeCSV(lead.goal),
+    escapeCSV(lead.utmSource || '-'),
+    escapeCSV(lead.utmMedium || '-'),
+    escapeCSV(lead.utmCampaign || '-'),
+    escapeCSV(lead.utmContent || '-'),
+    escapeCSV(lead.utmTerm || '-'),
+    escapeCSV(lead.pageDepth),
+    escapeCSV(lead.timeOnPage),
+    escapeCSV(lead.device),
+    escapeCSV(lead.referrer || '-')
+  ].join(','));
 
   const csvContent = [headers.join(','), ...rows].join('\n');
   const BOM = '\uFEFF';
