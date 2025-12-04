@@ -28,22 +28,16 @@ export const LeadsExportButtons = ({ filteredLeads, resetFilters }: LeadsExportB
   };
 
   const exportToCSV = () => {
-    if (filteredLeads.length === 0) {
+    if (!filteredLeads || filteredLeads.length === 0) {
       alert('Нет лидов для экспорта с текущими фильтрами');
       return;
     }
-
-    const DELIMITER = ',';
-    const LINE_BREAK = '\r\n';
-    const BOM = '\uFEFF';
 
     const headers = [
       'ID',
       'Дата',
       'Имя',
       'Контакт',
-      'Скролл',
-      'Время',
       'Ниша',
       'Цель',
       'UTM Source',
@@ -52,52 +46,54 @@ export const LeadsExportButtons = ({ filteredLeads, resetFilters }: LeadsExportB
       'UTM Content',
       'UTM Term',
       'Реферер',
-      'Устройство'
+      'Досмотр (%)',
+      'Время (сек)',
+      'Устройство',
     ];
 
-    const escapeCSV = (value: string | number | null | undefined): string => {
-      if (value === null || value === undefined || value === '') {
-        return '""';
-      }
-      const stringValue = String(value);
-      const escapedValue = stringValue.replace(/"/g, '""');
-      return `"${escapedValue}"`;
+    const escapeCSV = (value: unknown): string => {
+      const s = value === null || value === undefined ? '' : String(value);
+      const safe = s.replace(/"/g, '""');
+      return `"${safe}"`;
     };
 
-    const formatDate = (dateString: string): string => {
-      return dateString.replace(',', '');
-    };
+    const headerLine = headers.map(escapeCSV).join(',');
 
-    const rows = filteredLeads.map(lead => [
-      lead.id,
-      formatDate(lead.date),
-      lead.name,
-      lead.contact,
-      `${lead.pageDepth}%`,
-      `${lead.timeOnPage} сек`,
-      lead.niche,
-      lead.goal,
-      lead.utmSource || '',
-      lead.utmMedium || '',
-      lead.utmCampaign || '',
-      lead.utmContent || '',
-      lead.utmTerm || '',
-      lead.referrer || '',
-      lead.device
-    ].map(escapeCSV).join(DELIMITER));
+    const lines = filteredLeads.map((lead) => {
+      const normalizedDate = (lead.date || '').replace(',', '');
 
-    const csvLines = [
-      headers.map(escapeCSV).join(DELIMITER),
-      ...rows
-    ];
+      const cols = [
+        lead.id,
+        normalizedDate,
+        lead.name,
+        lead.contact,
+        lead.niche,
+        lead.goal,
+        lead.utmSource || '',
+        lead.utmMedium || '',
+        lead.utmCampaign || '',
+        lead.utmContent || '',
+        lead.utmTerm || '',
+        lead.referrer || '',
+        lead.pageDepth,
+        lead.timeOnPage,
+        lead.device,
+      ];
 
-    const csvContent = BOM + csvLines.join(LINE_BREAK);
+      return cols.map(escapeCSV).join(',');
+    });
 
-    const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(dataBlob);
+    const BOM = '\uFEFF';
+    const csvContent = BOM + [headerLine, ...lines].join('\r\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
     const link = document.createElement('a');
     link.href = url;
-    link.download = `leads_filtered_${new Date().toISOString().split('T')[0]}.csv`;
+    const now = new Date();
+    const datePart = now.toISOString().slice(0, 10);
+    link.download = `leads_${datePart}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
