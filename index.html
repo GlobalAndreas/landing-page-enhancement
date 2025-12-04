@@ -65,7 +65,7 @@
   <canvas id="particles-canvas"></canvas>
   <div class="flow-logo-circle">
     <div class="flow-logo-inner">
-      <img src="https://cdn.poehali.dev/files/970d17fe-ea6f-40d1-acf0-00d9fb4ccbbb.png" alt="AD Logo" class="flow-logo-img" width="70" height="70">
+      <img src="https://cdn.poehali.dev/files/970d17fe-ea6f-40d1-acf0-00d9fb4ccbbb.png" alt="AD Logo" class="flow-logo-img">
     </div>
   </div>
   <div class="flow-captcha-text">Капча ☝️ Жми на AD</div>
@@ -99,11 +99,11 @@
 }
 
 .flow-logo-circle {
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   border-radius: 999px;
   background: conic-gradient(from 0deg, #d529ff, #5b6cff, #ff29d5, #d529ff);
-  padding: 5px;
+  padding: 4px;
   animation: rotateGradient 3s linear infinite, pulseGlow 2s ease-in-out infinite;
   cursor: pointer;
   position: relative;
@@ -141,24 +141,17 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-  padding: 40px;
+  padding: 22px;
 }
 
 .flow-logo-img {
-  width: 70px !important;
-  height: 70px !important;
-  min-width: 70px !important;
-  min-height: 70px !important;
-  max-width: 70px !important;
-  max-height: 70px !important;
+  max-width: 70px;
+  max-height: 70px;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  animation: logoFloat 2s ease-in-out infinite, counterRotate 3s linear infinite;
+  animation: logoFloat 2s ease-in-out infinite;
   filter: drop-shadow(0 0 10px rgba(213,41,255,0.5));
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .flow-captcha-text {
@@ -210,19 +203,10 @@
 
 @keyframes logoFloat {
   0%, 100% {
-    transform: translate(-50%, -50%) translateY(0) scale(1) rotate(0deg);
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: translate(-50%, -50%) translateY(-3px) scale(1.02) rotate(0deg);
-  }
-}
-
-@keyframes counterRotate {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(-360deg);
+    transform: translateY(-3px) scale(1.02);
   }
 }
 
@@ -360,8 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error('Audio loading error:', e);
     });
   }
-  
-
 });
 </script>
 <div id="root"></div>
