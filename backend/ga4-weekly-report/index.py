@@ -225,23 +225,28 @@ def generate_report(metrics_data: Dict[str, Any], start_date: datetime, end_date
     
     total_conversions = bot_opens + form_submits
     
-    cr_overall = (total_conversions / page_views * 100) if page_views > 0 else 0
-    cr_form = (form_submits / viewed_form * 100) if viewed_form > 0 else 0
-    cr_bot = (bot_opens / page_views * 100) if page_views > 0 else 0
+    cr_overall = round((total_conversions / page_views * 100), 2) if page_views > 0 else 0
+    cr_form = round((form_submits / viewed_form * 100), 2) if viewed_form > 0 else 0
+    cr_bot = round((bot_opens / page_views * 100), 2) if page_views > 0 else 0
     
-    dropoff_engagement = ((page_views - engaged) / page_views * 100) if page_views > 0 else 0
-    dropoff_form_view = ((engaged - viewed_form) / engaged * 100) if engaged > 0 else 0
-    dropoff_conversion = ((viewed_form - total_conversions) / viewed_form * 100) if viewed_form > 0 else 0
+    dropoff_engagement = round(((page_views - engaged) / page_views * 100), 2) if page_views > 0 else 0
+    dropoff_form_view = round(((engaged - viewed_form) / engaged * 100), 2) if engaged > 0 else 0
+    dropoff_conversion = round(((viewed_form - total_conversions) / viewed_form * 100), 2) if viewed_form > 0 else 0
     
     best_source = max(utm_sources.items(), key=lambda x: x[1]) if utm_sources else ('N/A', 0)
+    
+    engaged_pct = (engaged/page_views*100) if page_views > 0 else 0
+    viewed_form_pct = (viewed_form/page_views*100) if page_views > 0 else 0
+    form_submits_pct = (form_submits/total_conversions*100) if total_conversions > 0 else 0
+    bot_opens_pct = (bot_opens/total_conversions*100) if total_conversions > 0 else 0
     
     report = f"""📊 <b>Еженедельный отчёт GA4</b>
 📅 {start_date.strftime('%d.%m.%Y')} - {end_date.strftime('%d.%m.%Y')}
 
 <b>📈 Воронка:</b>
 1️⃣ page_view: {page_views:,}
-2️⃣ engaged_scroll: {engaged:,} ({engaged/page_views*100:.1f}% от входа)
-3️⃣ view_item (форма): {viewed_form:,} ({viewed_form/page_views*100:.1f}% от входа)
+2️⃣ engaged_scroll: {engaged:,} ({engaged_pct:.1f}% от входа)
+3️⃣ view_item (форма): {viewed_form:,} ({viewed_form_pct:.1f}% от входа)
 4️⃣ Конверсии:
    • generate_lead: {form_submits:,}
    • begin_checkout: {bot_opens:,}
@@ -261,8 +266,8 @@ def generate_report(metrics_data: Dict[str, Any], start_date: datetime, end_date
 {best_source[0]}: {best_source[1]:,} конверсий
 
 <b>📌 Типы лидов:</b>
-• Консультация: {form_submits:,} ({form_submits/total_conversions*100:.1f}%)
-• Telegram-бот: {bot_opens:,} ({bot_opens/total_conversions*100:.1f}%)
+• Консультация: {form_submits:,} ({form_submits_pct:.1f}%)
+• Telegram-бот: {bot_opens:,} ({bot_opens_pct:.1f}%)
 
 <b>🔝 ТОП-3 источника трафика:</b>"""
     
