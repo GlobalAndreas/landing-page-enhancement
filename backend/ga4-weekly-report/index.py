@@ -2,6 +2,7 @@
 Business: Collect GA4 analytics weekly, calculate CR/drop-off/best traffic source, send Telegram report
 Args: event with httpMethod or scheduled trigger; context with request_id
 Returns: HTTP response with report status or Telegram delivery confirmation
+Updated: Force redeploy to refresh env vars
 """
 
 import os
