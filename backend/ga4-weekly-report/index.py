@@ -70,6 +70,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         access_token = get_ga4_access_token(credentials)
         
+        print(f'Using GA4 Property ID: {ga4_property_id}')
+        
         end_date = datetime.now()
         start_date = end_date - timedelta(days=7)
         
