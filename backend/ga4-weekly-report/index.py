@@ -179,8 +179,13 @@ def fetch_ga4_metrics(access_token: str, property_id: str, start_date: str, end_
         }
     )
     
-    with urllib.request.urlopen(req) as response:
-        return json.loads(response.read().decode('utf-8'))
+    try:
+        with urllib.request.urlopen(req) as response:
+            return json.loads(response.read().decode('utf-8'))
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        print(f'GA4 API Error {e.code}: {error_body}')
+        raise Exception(f'GA4 API Error {e.code}: {error_body}')
 
 
 def generate_report(metrics_data: Dict[str, Any], start_date: datetime, end_date: datetime) -> str:
