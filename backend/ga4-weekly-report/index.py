@@ -146,7 +146,9 @@ def get_ga4_access_token(credentials: Dict[str, str]) -> str:
 
 
 def fetch_ga4_metrics(access_token: str, property_id: str, start_date: str, end_date: str) -> Dict[str, Any]:
+    print("DEBUG GA4 PROPERTY ID:", property_id)
     url = f'https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:runReport'
+    print("DEBUG GA4 URL:", url)
     
     request_body = {
         'dateRanges': [{'startDate': start_date, 'endDate': end_date}],
