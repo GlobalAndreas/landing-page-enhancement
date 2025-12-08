@@ -205,7 +205,7 @@ const Index = () => {
                   alt="Андрей Дильман — эксперт по Telegram-ботам, автоворонкам и трафику"
                   className="w-full h-full object-cover"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                 />
               </div>
               <div>
