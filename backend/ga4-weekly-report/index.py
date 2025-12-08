@@ -56,6 +56,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         try:
             credentials = json.loads(ga4_credentials)
+            print(f"DEBUG Service Account Email: {credentials.get('client_email', 'NOT FOUND')}")
         except json.JSONDecodeError:
             return {
                 'statusCode': 400,
