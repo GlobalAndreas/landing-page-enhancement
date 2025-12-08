@@ -237,6 +237,21 @@ def generate_report(metrics_data: Dict[str, Any], start_date: datetime, end_date
     
     rows = metrics_data.get('rows', [])
     
+    # Check if no data available
+    if not rows:
+        print("WARNING: No GA4 data found for the specified period")
+        return f"""📊 Еженедельный отчёт GA4
+Период: {start_date.strftime('%d.%m.%Y')} - {end_date.strftime('%d.%m.%Y')}
+
+⚠️ Нет данных за выбранный период.
+
+Возможные причины:
+• Трекинг GA4 не установлен на сайте
+• Сайт не получал посетителей за последние 7 дней
+• GA4 ещё обрабатывает данные (обычно задержка до 24-48 часов)
+
+Проверьте установку кода отслеживания GA4 на сайте."""
+    
     for row in rows:
         event_name = row['dimensionValues'][0]['value']
         source = row['dimensionValues'][1]['value']
