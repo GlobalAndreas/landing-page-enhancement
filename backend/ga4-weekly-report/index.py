@@ -150,6 +150,8 @@ def fetch_ga4_metrics(access_token: str, property_id: str, start_date: str, end_
     print("DEBUG GA4 PROPERTY ID:", property_id)
     url = f'https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:runReport'
     print("DEBUG GA4 URL:", url)
+    print(f"DEBUG Access Token (first 20 chars): {access_token[:20]}...")
+    print(f"DEBUG Date Range: {start_date} to {end_date}")
     
     request_body = {
         'dateRanges': [{'startDate': start_date, 'endDate': end_date}],
@@ -185,19 +187,39 @@ def fetch_ga4_metrics(access_token: str, property_id: str, start_date: str, end_
         }
     )
     
+    print(f"DEBUG Request Body: {json.dumps(request_body, indent=2)}")
+    
     try:
         with urllib.request.urlopen(req) as response:
-            return json.loads(response.read().decode('utf-8'))
+            result = json.loads(response.read().decode('utf-8'))
+            print(f"DEBUG GA4 Response (first 500 chars): {str(result)[:500]}")
+            return result
     except urllib.error.HTTPError as e:
         error_body = e.read().decode('utf-8')
-        print(f'GA4 API Error {e.code}: {error_body}')
-        print(f'Full request URL: {url}')
-        print(f'Request headers: Authorization: Bearer [HIDDEN], Content-Type: application/json')
+        print(f'=== GA4 API ERROR DETAILS ===')
+        print(f'HTTP Status Code: {e.code}')
+        print(f'Error Response: {error_body}')
+        print(f'Request URL: {url}')
+        print(f'Property ID: {property_id}')
+        print(f'Date Range: {start_date} to {end_date}')
+        
+        try:
+            error_json = json.loads(error_body)
+            if 'error' in error_json:
+                print(f"Error Code: {error_json['error'].get('code', 'N/A')}")
+                print(f"Error Message: {error_json['error'].get('message', 'N/A')}")
+                print(f"Error Status: {error_json['error'].get('status', 'N/A')}")
+                if 'details' in error_json['error']:
+                    print(f"Error Details: {json.dumps(error_json['error']['details'], indent=2)}")
+        except:
+            pass
+        
+        print(f'=== END ERROR DETAILS ===')
         
         if e.code == 404:
-            raise Exception(f'GA4 Property not found (404). Check: 1) Property ID={property_id} is correct, 2) Service account has access to GA4 property. Error: {error_body}')
+            raise Exception(f'GA4 Property not found (404). Check: 1) Property ID={property_id} is correct in GA4 console, 2) Service account has access. Full error: {error_body}')
         elif e.code == 403:
-            raise Exception(f'GA4 Access denied (403). Service account needs "Viewer" role in GA4 property settings. Error: {error_body}')
+            raise Exception(f'GA4 Access denied (403). Service account email needs "Viewer" or "Administrator" role in GA4 property {property_id}. Check: 1) Correct property selected, 2) Permissions applied (may take 5-10 min). Full error: {error_body}')
         else:
             raise Exception(f'GA4 API Error {e.code}: {error_body}')
 
