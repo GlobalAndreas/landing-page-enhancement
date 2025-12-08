@@ -333,6 +333,8 @@ def generate_report(metrics_data: Dict[str, Any], start_date: datetime, end_date
 
 def send_telegram_message(bot_token: str, chat_id: str, message: str) -> None:
     url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+    print(f"DEBUG Telegram: Sending to chat_id={chat_id}, token length={len(bot_token)}")
+    print(f"DEBUG Telegram URL (masked): https://api.telegram.org/bot{'*'*20}/sendMessage")
     
     data = urllib.parse.urlencode({
         'chat_id': chat_id,
@@ -342,7 +344,18 @@ def send_telegram_message(bot_token: str, chat_id: str, message: str) -> None:
     
     req = urllib.request.Request(url, data=data)
     
-    with urllib.request.urlopen(req) as response:
-        result = json.loads(response.read().decode('utf-8'))
-        if not result.get('ok'):
-            raise Exception(f"Telegram API error: {result}")
+    try:
+        with urllib.request.urlopen(req) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            print(f"DEBUG Telegram response: {result}")
+            if not result.get('ok'):
+                raise Exception(f"Telegram API error: {result}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        print(f"=== TELEGRAM API ERROR ===")
+        print(f"Status Code: {e.code}")
+        print(f"Error: {error_body}")
+        print(f"Chat ID: {chat_id}")
+        print(f"Token valid format: {bot_token.count(':') == 1 and len(bot_token) > 40}")
+        print(f"=== END TELEGRAM ERROR ===")
+        raise Exception(f"Telegram API Error {e.code}: {error_body}. Check TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID secrets.")
