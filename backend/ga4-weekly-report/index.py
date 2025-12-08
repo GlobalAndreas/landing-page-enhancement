@@ -190,7 +190,15 @@ def fetch_ga4_metrics(access_token: str, property_id: str, start_date: str, end_
     except urllib.error.HTTPError as e:
         error_body = e.read().decode('utf-8')
         print(f'GA4 API Error {e.code}: {error_body}')
-        raise Exception(f'GA4 API Error {e.code}: {error_body}')
+        print(f'Full request URL: {url}')
+        print(f'Request headers: Authorization: Bearer [HIDDEN], Content-Type: application/json')
+        
+        if e.code == 404:
+            raise Exception(f'GA4 Property not found (404). Check: 1) Property ID={property_id} is correct, 2) Service account has access to GA4 property. Error: {error_body}')
+        elif e.code == 403:
+            raise Exception(f'GA4 Access denied (403). Service account needs "Viewer" role in GA4 property settings. Error: {error_body}')
+        else:
+            raise Exception(f'GA4 API Error {e.code}: {error_body}')
 
 
 def generate_report(metrics_data: Dict[str, Any], start_date: datetime, end_date: datetime) -> str:
