@@ -197,3 +197,5 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
     </section>
   );
 };
+
+export default ConsultationForm;

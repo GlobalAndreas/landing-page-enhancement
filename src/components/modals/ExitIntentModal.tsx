@@ -181,3 +181,5 @@ export const ExitIntentModal = ({ isOpen, onClose }: ExitIntentModalProps) => {
     </AnimatePresence>
   );
 };
+
+export default ExitIntentModal;
