@@ -303,3 +303,5 @@ export const TestimonialsSection = () => {
     </section>
   );
 };
+
+export default TestimonialsSection;

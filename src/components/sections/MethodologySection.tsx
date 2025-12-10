@@ -87,3 +87,5 @@ export function MethodologySection() {
     </section>
   );
 }
+
+export default MethodologySection;

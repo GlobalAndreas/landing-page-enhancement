@@ -159,3 +159,5 @@ export const LegalSection = () => {
     </section>
   );
 };
+
+export default LegalSection;

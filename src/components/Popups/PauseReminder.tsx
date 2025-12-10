@@ -101,3 +101,5 @@ export const PauseReminder = ({ onCTA }: PauseReminderProps) => {
     </AnimatePresence>
   );
 };
+
+export default PauseReminder;

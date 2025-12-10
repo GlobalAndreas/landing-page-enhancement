@@ -154,3 +154,5 @@ export const TelegramBotSection = () => {
     </section>
   );
 };
+
+export default TelegramBotSection;

@@ -231,3 +231,5 @@ export const LeadsExportPanel = () => {
     </div>
   );
 };
+
+export default LeadsExportPanel;

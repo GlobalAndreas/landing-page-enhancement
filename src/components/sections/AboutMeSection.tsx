@@ -167,3 +167,5 @@ export const AboutMeSection = () => {
     </section>
   );
 };
+
+export default AboutMeSection;
