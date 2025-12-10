@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Privacy from "./pages/Privacy";
 import PersonalData from "./pages/PersonalData";
-import NotFound from "./pages/NotFound";
+import ErrorPage from "./pages/ErrorPage";
 import { AdminPanel } from "@/components/AdminPanel";
 import { AdminPanelLite } from "@/components/AdminPanelLite";
 import { LeadsExportPanel } from "@/components/LeadsExportPanel";
@@ -28,7 +28,7 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/personal-data" element={<PersonalData />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
