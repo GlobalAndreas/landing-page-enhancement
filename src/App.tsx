@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Privacy from "./pages/Privacy";
 import PersonalData from "./pages/PersonalData";
 import ErrorPage from "./pages/ErrorPage";
+import Error500 from "./pages/Error500";
+import Error503 from "./pages/Error503";
+import Error504 from "./pages/Error504";
 import { AdminPanel } from "@/components/AdminPanel";
 import { AdminPanelLite } from "@/components/AdminPanelLite";
 import { LeadsExportPanel } from "@/components/LeadsExportPanel";
@@ -27,6 +30,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/personal-data" element={<PersonalData />} />
+          <Route path="/500" element={<Error500 />} />
+          <Route path="/503" element={<Error503 />} />
+          <Route path="/504" element={<Error504 />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
