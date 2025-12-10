@@ -12,7 +12,7 @@ const LegalSection = lazy(() => import("@/components/sections/LegalSection").the
 const ConsultationForm = lazy(() => import("@/components/sections/ConsultationForm").then(m => ({ default: m.ConsultationForm })));
 const TelegramBotSection = lazy(() => import("@/components/sections/TelegramBotSection").then(m => ({ default: m.TelegramBotSection })));
 const ComparisonSection = lazy(() => import("@/components/sections/ComparisonSection").then(m => ({ default: m.ComparisonSection })));
-const ThankYouModal = lazy(() => import("@/components/modals/ThankYouModal").then(m => ({ default: m.ThankYouModal })));
+const ThankYouModal = lazy(() => import("@/components/modals/ThankYouModal"));
 const ExitIntentModal = lazy(() => import("@/components/modals/ExitIntentModal").then(m => ({ default: m.ExitIntentModal })));
 const FAQSection = lazy(() => import("@/components/sections/FAQSection"));
 const MethodologySection = lazy(() => import("@/components/sections/MethodologySection").then(m => ({ default: m.MethodologySection })));
