@@ -361,3 +361,5 @@ export const WarmupPreview = () => {
     </div>
   );
 };
+
+export default WarmupPreview;

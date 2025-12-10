@@ -19,7 +19,7 @@ const MethodologySection = lazy(() => import("@/components/sections/MethodologyS
 const AboutMeSection = lazy(() => import("@/components/sections/AboutMeSection").then(m => ({ default: m.AboutMeSection })));
 const AnalyticsDashboard = lazy(() => import("@/components/AnalyticsDashboard").then(m => ({ default: m.AnalyticsDashboard })));
 const LeadsExportPanel = lazy(() => import("@/components/LeadsExportPanel").then(m => ({ default: m.LeadsExportPanel })));
-const WarmupPreview = lazy(() => import("@/components/WarmupPreview").then(m => ({ default: m.WarmupPreview })));
+const WarmupPreview = lazy(() => import("@/components/WarmupPreview"));
 const PauseReminder = lazy(() => import("@/components/Popups/PauseReminder").then(m => ({ default: m.PauseReminder })));
 import { useScrollTracking } from "@/hooks/useAnalytics";
 import { usePageTracking } from "@/hooks/usePageTracking";
