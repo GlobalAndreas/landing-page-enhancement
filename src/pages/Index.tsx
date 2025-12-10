@@ -14,7 +14,7 @@ const TelegramBotSection = lazy(() => import("@/components/sections/TelegramBotS
 const ComparisonSection = lazy(() => import("@/components/sections/ComparisonSection").then(m => ({ default: m.ComparisonSection })));
 const ThankYouModal = lazy(() => import("@/components/modals/ThankYouModal").then(m => ({ default: m.ThankYouModal })));
 const ExitIntentModal = lazy(() => import("@/components/modals/ExitIntentModal").then(m => ({ default: m.ExitIntentModal })));
-const FAQSection = lazy(() => import("@/components/sections/FAQSection").then(m => ({ default: m.FAQSection })));
+const FAQSection = lazy(() => import("@/components/sections/FAQSection"));
 const MethodologySection = lazy(() => import("@/components/sections/MethodologySection").then(m => ({ default: m.MethodologySection })));
 const AboutMeSection = lazy(() => import("@/components/sections/AboutMeSection").then(m => ({ default: m.AboutMeSection })));
 const AnalyticsDashboard = lazy(() => import("@/components/AnalyticsDashboard").then(m => ({ default: m.AnalyticsDashboard })));
