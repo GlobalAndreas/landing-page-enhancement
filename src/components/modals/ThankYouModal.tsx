@@ -271,3 +271,5 @@ export const ThankYouModal = ({ isOpen, onClose }: ThankYouModalProps) => {
     </AnimatePresence>
   );
 };
+
+export default ThankYouModal;
