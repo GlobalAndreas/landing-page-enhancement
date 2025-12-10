@@ -99,7 +99,7 @@ const Error504 = () => {
                  borderTop: '1px solid rgba(245, 245, 247, 0.1)',
                  color: '#6b6b7f'
                }}>
-            Dilman FLOW™ • 2025
+            Dilman FLOW™ • 2026
           </div>
         </div>
       </div>
