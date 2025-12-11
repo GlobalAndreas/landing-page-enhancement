@@ -2,11 +2,12 @@ import { useState, useEffect, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import { getLeads, type Lead } from '@/services/leadsStorage';
+import { type Lead } from '@/services/leadsStorage';
 import { LeadsFilterControls, type Filters } from './leads-export/LeadsFilterControls';
 import { LeadsPreviewTable } from './leads-export/LeadsPreviewTable';
 import { LeadsExportButtons } from './leads-export/LeadsExportButtons';
 import { isAdminAuthorized, setupAdminKeyListener } from '@/utils/adminAuth';
+import func2url from '@/../backend/func2url.json';
 
 export const LeadsExportPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,16 @@ export const LeadsExportPanel = () => {
     sortBy: 'date-desc',
   });
 
+  const fetchLeads = async () => {
+    try {
+      const response = await fetch(func2url['get-leads']);
+      const data = await response.json();
+      setLeads(data.leads || []);
+    } catch (error) {
+      console.error('Failed to fetch leads:', error);
+    }
+  };
+
   useEffect(() => {
     setIsAuthorized(isAdminAuthorized());
     
@@ -44,9 +55,8 @@ export const LeadsExportPanel = () => {
     
     window.addEventListener('adminAuthChanged', handleAuthChange);
     
-    const interval = setInterval(() => {
-      setLeads(getLeads());
-    }, 1000);
+    fetchLeads();
+    const interval = setInterval(fetchLeads, 3000);
     
     return () => {
       clearInterval(interval);

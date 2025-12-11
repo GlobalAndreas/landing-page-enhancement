@@ -30,7 +30,7 @@ import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 import { pixelIntegration } from "@/utils/pixelIntegration";
-import { saveLead } from "@/services/leadsStorage";
+import func2url from "@/../backend/func2url.json";
 
 const Index = () => {
   const { toast } = useToast();
@@ -96,8 +96,6 @@ const Index = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('Form submitted!', formData);
-    
     if (!formData.pdnConsent) {
       toast({
         title: "Требуется согласие",
@@ -115,30 +113,39 @@ const Index = () => {
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
     
-    console.log('Saving lead to localStorage...', savedFormData);
-    saveLead({
+    const leadData = {
+      id: `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      timestamp: Date.now(),
+      date: new Date().toLocaleString('ru-RU'),
       name: savedFormData.name,
       contact: savedFormData.contact,
       niche: savedFormData.niche,
       goal: savedFormData.goal,
-      utmSource: trackingData.utmSource,
-      utmMedium: trackingData.utmMedium,
-      utmCampaign: trackingData.utmCampaign,
-      utmContent: trackingData.utmContent,
-      utmTerm: trackingData.utmTerm,
-      pageDepth: trackingData.pageDepth,
-      timeOnPage: trackingData.timeOnPage,
+      utm_source: trackingData.utmSource,
+      utm_medium: trackingData.utmMedium,
+      utm_campaign: trackingData.utmCampaign,
+      utm_content: trackingData.utmContent,
+      utm_term: trackingData.utmTerm,
+      page_depth: trackingData.pageDepth,
+      time_on_page: trackingData.timeOnPage,
       device: trackingData.device,
       referrer: trackingData.referrer,
-    });
-    console.log('Lead saved! Total leads:', localStorage.getItem('landing_leads'));
+    };
+    
+    try {
+      await fetch(func2url['save-lead'], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData),
+      });
+    } catch (error) {
+      console.error('Failed to save lead:', error);
+    }
     
     setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
     setIsModalOpen(true);
     
-    console.log('Sending to Telegram...');
     await sendTelegramNotification(savedFormData, trackingData);
-    console.log('Sent to Telegram!');
   };
 
   const [isStickyVisible, setIsStickyVisible] = useState(false);

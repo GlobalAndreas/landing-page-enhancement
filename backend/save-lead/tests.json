@@ -1,0 +1,32 @@
+{
+  "tests": [
+    {
+      "name": "Save lead successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "id": "test_lead_123",
+        "timestamp": 1734000000000,
+        "date": "12.12.2024, 10:00:00",
+        "name": "Тестовый Юзер",
+        "contact": "@testuser",
+        "niche": "Тестирование",
+        "goal": "Проверка функционала",
+        "utm_source": "test",
+        "utm_medium": "organic",
+        "utm_campaign": "test_campaign",
+        "utm_content": "",
+        "utm_term": "",
+        "page_depth": 85,
+        "time_on_page": 120,
+        "device": "desktop",
+        "referrer": "https://google.com"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
