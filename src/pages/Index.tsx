@@ -96,6 +96,8 @@ const Index = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    console.log('Form submitted!', formData);
+    
     if (!formData.pdnConsent) {
       toast({
         title: "Требуется согласие",
@@ -113,6 +115,7 @@ const Index = () => {
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
     
+    console.log('Saving lead to localStorage...', savedFormData);
     saveLead({
       name: savedFormData.name,
       contact: savedFormData.contact,
@@ -128,11 +131,14 @@ const Index = () => {
       device: trackingData.device,
       referrer: trackingData.referrer,
     });
+    console.log('Lead saved! Total leads:', localStorage.getItem('landing_leads'));
     
     setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
     setIsModalOpen(true);
     
+    console.log('Sending to Telegram...');
     await sendTelegramNotification(savedFormData, trackingData);
+    console.log('Sent to Telegram!');
   };
 
   const [isStickyVisible, setIsStickyVisible] = useState(false);
