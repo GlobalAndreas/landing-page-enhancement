@@ -27,7 +27,7 @@ import { useExitIntent } from "@/hooks/useExitIntent";
 import { useConsultationSlots } from "@/hooks/useConsultationSlots";
 import { analytics } from "@/utils/analytics";
 import { sendTelegramNotification } from "@/services/telegramNotify";
-import { parseAndSaveUTM } from "@/utils/utmTracking";
+import { parseAndSaveUTM, getUTMParams, getReferrer } from "@/utils/utmTracking";
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 import { pixelIntegration } from "@/utils/pixelIntegration";
 import func2url from "@/../backend/func2url.json";
@@ -112,6 +112,8 @@ const Index = () => {
     
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
+    const utmParams = getUTMParams();
+    const device = /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
     
     const leadData = {
       id: `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -121,15 +123,15 @@ const Index = () => {
       contact: savedFormData.contact,
       niche: savedFormData.niche,
       goal: savedFormData.goal,
-      utm_source: trackingData.utmSource,
-      utm_medium: trackingData.utmMedium,
-      utm_campaign: trackingData.utmCampaign,
-      utm_content: trackingData.utmContent,
-      utm_term: trackingData.utmTerm,
+      utm_source: utmParams.utmSource,
+      utm_medium: utmParams.utmMedium,
+      utm_campaign: utmParams.utmCampaign,
+      utm_content: utmParams.utmContent,
+      utm_term: utmParams.utmTerm,
       page_depth: trackingData.pageDepth,
       time_on_page: trackingData.timeOnPage,
-      device: trackingData.device,
-      referrer: trackingData.referrer,
+      device: device,
+      referrer: getReferrer(),
     };
     
     try {
