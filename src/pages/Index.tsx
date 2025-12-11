@@ -30,6 +30,7 @@ import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM } from "@/utils/utmTracking";
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 import { pixelIntegration } from "@/utils/pixelIntegration";
+import { saveLead } from "@/services/leadsStorage";
 
 const Index = () => {
   const { toast } = useToast();
@@ -111,6 +112,22 @@ const Index = () => {
     
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
+    
+    saveLead({
+      name: savedFormData.name,
+      contact: savedFormData.contact,
+      niche: savedFormData.niche,
+      goal: savedFormData.goal,
+      utmSource: trackingData.utmSource,
+      utmMedium: trackingData.utmMedium,
+      utmCampaign: trackingData.utmCampaign,
+      utmContent: trackingData.utmContent,
+      utmTerm: trackingData.utmTerm,
+      pageDepth: trackingData.pageDepth,
+      timeOnPage: trackingData.timeOnPage,
+      device: trackingData.device,
+      referrer: trackingData.referrer,
+    });
     
     setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
     setIsModalOpen(true);
