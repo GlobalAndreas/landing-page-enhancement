@@ -30,11 +30,22 @@ export const LeadsExportPanel = () => {
 
   const fetchLeads = async () => {
     try {
-      const response = await fetch(func2url['get-leads']);
+      const response = await fetch(func2url['get-leads'], {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       setLeads(data.leads || []);
     } catch (error) {
       console.error('Failed to fetch leads:', error);
+      setLeads([]);
     }
   };
 
