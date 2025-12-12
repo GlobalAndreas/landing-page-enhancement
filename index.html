@@ -374,15 +374,13 @@ body.preloader-hidden {
 }
 </style>
 
-<audio id="flow-sound" preload="auto" crossorigin="anonymous">
-  <source src="https://dilman.pro/AD-premium-sound.WAV" type="audio/wav">
-</audio>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("flow-preloader");
   const logoCircle = document.querySelector(".ad-circle");
-  const audio = document.getElementById("flow-sound");
+
   const canvas = document.getElementById("particles-canvas");
   const ctx = canvas ? canvas.getContext("2d") : null;
   
@@ -470,16 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
       createExplosion(x, y);
       animateParticles();
       
-      if (audio) {
-        console.log('Attempting to play audio...');
-        audio.play().then(() => {
-          console.log('Audio playing successfully!');
-        }).catch((err) => {
-          console.error('Audio play failed:', err);
-        });
-      } else {
-        console.error('Audio element not found!');
-      }
+
       
       if (preloader) {
         preloader.classList.add("fade-out");
@@ -491,14 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
-  if (audio) {
-    audio.addEventListener('loadeddata', () => {
-      console.log('Audio loaded successfully');
-    });
-    audio.addEventListener('error', (e) => {
-      console.error('Audio loading error:', e);
-    });
-  }
+
 });
 </script>
 <div id="root"></div>
