@@ -7,7 +7,7 @@ import { LeadsFilterControls, type Filters } from './leads-export/LeadsFilterCon
 import { LeadsPreviewTable } from './leads-export/LeadsPreviewTable';
 import { LeadsExportButtons } from './leads-export/LeadsExportButtons';
 import { isAdminAuthorized, setupAdminKeyListener } from '@/utils/adminAuth';
-import func2url from '@/../backend/func2url.json';
+import { getLeads as getLocalLeads } from '@/services/leadsStorage';
 
 export const LeadsExportPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,21 +28,10 @@ export const LeadsExportPanel = () => {
     sortBy: 'date-desc',
   });
 
-  const fetchLeads = async () => {
+  const fetchLeads = () => {
     try {
-      const response = await fetch(func2url['get-leads'], {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      setLeads(data.leads || []);
+      const localLeads = getLocalLeads();
+      setLeads(localLeads);
     } catch (error) {
       console.error('Failed to fetch leads:', error);
       setLeads([]);

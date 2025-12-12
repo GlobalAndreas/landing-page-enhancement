@@ -30,6 +30,7 @@ import { sendTelegramNotification } from "@/services/telegramNotify";
 import { parseAndSaveUTM, getUTMParams, getReferrer } from "@/utils/utmTracking";
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 import { pixelIntegration } from "@/utils/pixelIntegration";
+import { saveLead } from "@/services/leadsStorage";
 import func2url from "@/../backend/func2url.json";
 
 const Index = () => {
@@ -115,34 +116,21 @@ const Index = () => {
     const utmParams = getUTMParams();
     const device = /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
     
-    const leadData = {
-      id: `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      timestamp: Date.now(),
-      date: new Date().toLocaleString('ru-RU'),
+    saveLead({
       name: savedFormData.name,
       contact: savedFormData.contact,
       niche: savedFormData.niche,
       goal: savedFormData.goal,
-      utm_source: utmParams.utmSource,
-      utm_medium: utmParams.utmMedium,
-      utm_campaign: utmParams.utmCampaign,
-      utm_content: utmParams.utmContent,
-      utm_term: utmParams.utmTerm,
-      page_depth: trackingData.pageDepth,
-      time_on_page: trackingData.timeOnPage,
+      utmSource: utmParams.utmSource,
+      utmMedium: utmParams.utmMedium,
+      utmCampaign: utmParams.utmCampaign,
+      utmContent: utmParams.utmContent,
+      utmTerm: utmParams.utmTerm,
+      pageDepth: trackingData.pageDepth,
+      timeOnPage: trackingData.timeOnPage,
       device: device,
       referrer: getReferrer(),
-    };
-    
-    try {
-      await fetch(func2url['save-lead'], {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(leadData),
-      });
-    } catch (error) {
-      console.error('Failed to save lead:', error);
-    }
+    });
     
     setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
     setIsModalOpen(true);
