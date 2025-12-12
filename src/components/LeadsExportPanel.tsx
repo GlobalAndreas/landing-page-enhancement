@@ -216,14 +216,25 @@ export const LeadsExportPanel = () => {
             <Icon name="FileDown" size={20} className="text-green-500" />
             <h3 className="font-bold text-lg">Экспорт лидов</h3>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsOpen(false)}
-            className="h-8 w-8 p-0"
-          >
-            <Icon name="X" size={16} />
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={fetchLeads}
+              className="h-8 w-8 p-0"
+              title="Обновить"
+            >
+              <Icon name="RefreshCw" size={16} />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsOpen(false)}
+              className="h-8 w-8 p-0"
+            >
+              <Icon name="X" size={16} />
+            </Button>
+          </div>
         </div>
 
         <div className="mb-4 p-3 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30">
