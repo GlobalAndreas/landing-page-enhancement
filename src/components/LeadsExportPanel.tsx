@@ -66,15 +66,17 @@ export const LeadsExportPanel = () => {
     
     window.addEventListener('adminAuthChanged', handleAuthChange);
     
-    fetchLeads();
-    const interval = setInterval(fetchLeads, 3000);
-    
     return () => {
-      clearInterval(interval);
       cleanupKeyListener();
       window.removeEventListener('adminAuthChanged', handleAuthChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (isOpen && isAuthorized) {
+      fetchLeads();
+    }
+  }, [isOpen, isAuthorized]);
 
   const uniqueValues = useMemo(() => {
     return {
