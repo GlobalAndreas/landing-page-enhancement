@@ -41,13 +41,18 @@ export const saveLead = async (lead: Omit<Lead, 'id' | 'timestamp' | 'date'>): P
       referrer: lead.referrer,
     };
 
-    await fetch(func2url['save-lead'], {
+    const response = await fetch(func2url['save-lead'], {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(leadData),
     });
+    
+    if (!response.ok) {
+      throw new Error(`Failed to save lead: ${response.status}`);
+    }
   } catch (error) {
     console.error('Error saving lead:', error);
+    throw error;
   }
 };
 

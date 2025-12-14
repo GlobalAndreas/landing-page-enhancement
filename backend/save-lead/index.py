@@ -24,7 +24,7 @@ class LeadData(BaseModel):
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Бизнес: Сохранение лида в базу данных
+    Сохранение лида в базу данных PostgreSQL
     Args: event - dict с httpMethod, body
           context - объект с request_id и другими атрибутами
     Returns: HTTP response dict

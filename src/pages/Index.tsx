@@ -111,33 +111,42 @@ const Index = () => {
     analytics.trackFormSubmit('consultation_form', formData);
     analytics.track('form_pdn_agree', 'consent', 'pdn_checked');
     pixelIntegration.trackLead(formData);
-    decreaseSlot();
     
     const trackingData = getTrackingData();
     const savedFormData = { ...formData };
     const utmParams = getUTMParams();
     const device = /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
     
-    saveLead({
-      name: savedFormData.name,
-      contact: savedFormData.contact,
-      niche: savedFormData.niche,
-      goal: savedFormData.goal,
-      utmSource: utmParams.utmSource,
-      utmMedium: utmParams.utmMedium,
-      utmCampaign: utmParams.utmCampaign,
-      utmContent: utmParams.utmContent,
-      utmTerm: utmParams.utmTerm,
-      pageDepth: trackingData.pageDepth,
-      timeOnPage: trackingData.timeOnPage,
-      device: device,
-      referrer: getReferrer(),
-    });
-    
-    setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
-    setIsModalOpen(true);
-    
-    await sendTelegramNotification(savedFormData, trackingData);
+    try {
+      await saveLead({
+        name: savedFormData.name,
+        contact: savedFormData.contact,
+        niche: savedFormData.niche,
+        goal: savedFormData.goal,
+        utmSource: utmParams.utmSource,
+        utmMedium: utmParams.utmMedium,
+        utmCampaign: utmParams.utmCampaign,
+        utmContent: utmParams.utmContent,
+        utmTerm: utmParams.utmTerm,
+        pageDepth: trackingData.pageDepth,
+        timeOnPage: trackingData.timeOnPage,
+        device: device,
+        referrer: getReferrer(),
+      });
+      
+      await sendTelegramNotification(savedFormData, trackingData);
+      
+      decreaseSlot();
+      setFormData({ name: "", contact: "", niche: "", goal: "", pdnConsent: false });
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+      toast({
+        title: "Ошибка отправки",
+        description: "Попробуйте ещё раз или напишите напрямую",
+        variant: "destructive",
+      });
+    }
   };
 
   const [isStickyVisible, setIsStickyVisible] = useState(false);
