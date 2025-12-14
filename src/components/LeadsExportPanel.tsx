@@ -28,10 +28,10 @@ export const LeadsExportPanel = () => {
     sortBy: 'date-desc',
   });
 
-  const fetchLeads = () => {
+  const fetchLeads = async () => {
     try {
-      const localLeads = getLocalLeads();
-      setLeads(localLeads);
+      const fetchedLeads = await getLocalLeads();
+      setLeads(fetchedLeads);
     } catch (error) {
       console.error('Failed to fetch leads:', error);
       setLeads([]);

@@ -1,3 +1,5 @@
+import func2url from '@/../backend/func2url.json';
+
 export interface Lead {
   id: string;
   timestamp: number;
@@ -17,30 +19,51 @@ export interface Lead {
   referrer: string;
 }
 
-const LEADS_STORAGE_KEY = 'landing_leads';
-
-export const saveLead = (lead: Omit<Lead, 'id' | 'timestamp' | 'date'>): void => {
+export const saveLead = async (lead: Omit<Lead, 'id' | 'timestamp' | 'date'>): Promise<void> => {
   try {
-    const leads = getLeads();
     const timestamp = Date.now();
-    const newLead: Lead = {
-      ...lead,
+    const leadData = {
       id: `lead_${timestamp}_${Math.random().toString(36).substr(2, 9)}`,
       timestamp,
       date: new Date(timestamp).toLocaleString('ru-RU'),
+      name: lead.name,
+      contact: lead.contact,
+      niche: lead.niche,
+      goal: lead.goal,
+      utm_source: lead.utmSource,
+      utm_medium: lead.utmMedium,
+      utm_campaign: lead.utmCampaign,
+      utm_content: lead.utmContent,
+      utm_term: lead.utmTerm,
+      page_depth: lead.pageDepth,
+      time_on_page: lead.timeOnPage,
+      device: lead.device,
+      referrer: lead.referrer,
     };
-    
-    leads.push(newLead);
-    localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leads));
+
+    await fetch(func2url['save-lead'], {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(leadData),
+    });
   } catch (error) {
     console.error('Error saving lead:', error);
   }
 };
 
-export const getLeads = (): Lead[] => {
+export const getLeads = async (): Promise<Lead[]> => {
   try {
-    const storedLeads = localStorage.getItem(LEADS_STORAGE_KEY);
-    return storedLeads ? JSON.parse(storedLeads) : [];
+    const response = await fetch(func2url['get-leads'], {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data.leads || [];
   } catch (error) {
     console.error('Error reading leads:', error);
     return [];
@@ -48,11 +71,11 @@ export const getLeads = (): Lead[] => {
 };
 
 export const clearLeads = (): void => {
-  localStorage.removeItem(LEADS_STORAGE_KEY);
+  console.log('clearLeads is deprecated - leads are now in database');
 };
 
-export const exportLeadsToJSON = (): void => {
-  const leads = getLeads();
+export const exportLeadsToJSON = async (): Promise<void> => {
+  const leads = await getLeads();
   const dataStr = JSON.stringify(leads, null, 2);
   const dataBlob = new Blob([dataStr], { type: 'application/json' });
   const url = URL.createObjectURL(dataBlob);
@@ -65,8 +88,8 @@ export const exportLeadsToJSON = (): void => {
   URL.revokeObjectURL(url);
 };
 
-export const exportLeadsToCSV = (): void => {
-  const leads = getLeads();
+export const exportLeadsToCSV = async (): Promise<void> => {
+  const leads = await getLeads();
   
   if (leads.length === 0) {
     alert('Нет лидов для экспорта');

@@ -31,6 +31,7 @@ import { parseAndSaveUTM, getUTMParams, getReferrer } from "@/utils/utmTracking"
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 import { pixelIntegration } from "@/utils/pixelIntegration";
 import { saveLead } from "@/services/leadsStorage";
+import { migrateLocalLeadsToDatabase } from "@/utils/migrateLeadsToDb";
 import func2url from "@/../backend/func2url.json";
 
 const Index = () => {
@@ -41,6 +42,7 @@ const Index = () => {
   const { slots, decreaseSlot } = useConsultationSlots();
 
   useEffect(() => {
+    migrateLocalLeadsToDatabase();
     parseAndSaveUTM();
 
     pixelIntegration.init({
