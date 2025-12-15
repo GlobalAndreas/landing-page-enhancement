@@ -31,7 +31,6 @@ import { parseAndSaveUTM, getUTMParams, getReferrer } from "@/utils/utmTracking"
 import { getOrganizationSchema, getPersonSchema, getServiceSchema, getLocalBusinessSchema, getBreadcrumbSchema } from "@/utils/schemaOrg";
 import { pixelIntegration } from "@/utils/pixelIntegration";
 import { saveLead } from "@/services/leadsStorage";
-import { migrateLocalLeadsToDatabase } from "@/utils/migrateLeadsToDb";
 import func2url from "@/../backend/func2url.json";
 
 const Index = () => {
@@ -42,7 +41,6 @@ const Index = () => {
   const { slots, decreaseSlot } = useConsultationSlots();
 
   useEffect(() => {
-    migrateLocalLeadsToDatabase();
     parseAndSaveUTM();
 
     pixelIntegration.init({
@@ -95,9 +93,12 @@ const Index = () => {
     pdnConsent: false,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (isSubmitting) return;
     
     if (!formData.pdnConsent) {
       toast({
@@ -107,6 +108,8 @@ const Index = () => {
       });
       return;
     }
+    
+    setIsSubmitting(true);
     
     analytics.trackFormSubmit('consultation_form', formData);
     analytics.track('form_pdn_agree', 'consent', 'pdn_checked');
@@ -146,6 +149,8 @@ const Index = () => {
         description: "Попробуйте ещё раз или напишите напрямую",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -324,7 +329,8 @@ const Index = () => {
           <ConsultationForm 
             formData={formData} 
             handleSubmit={handleSubmit} 
-            setFormData={setFormData} 
+            setFormData={setFormData}
+            isSubmitting={isSubmitting}
           />
         </Suspense>
       </main>

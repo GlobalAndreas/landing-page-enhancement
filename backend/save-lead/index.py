@@ -64,6 +64,24 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     try:
         with conn.cursor() as cur:
             cur.execute('''
+                SELECT id FROM leads 
+                WHERE contact = %s 
+                AND timestamp > %s
+                LIMIT 1
+            ''', (lead.contact, lead.timestamp - 60000))
+            
+            if cur.fetchone():
+                return {
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    'body': json.dumps({'success': True, 'duplicate': True, 'id': lead.id}),
+                    'isBase64Encoded': False
+                }
+            
+            cur.execute('''
                 INSERT INTO leads (
                     id, timestamp, date, name, contact, niche, goal,
                     utm_source, utm_medium, utm_campaign, utm_content, utm_term,

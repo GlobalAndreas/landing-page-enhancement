@@ -27,9 +27,10 @@ interface ConsultationFormProps {
     goal: string;
     pdnConsent: boolean;
   }>>;
+  isSubmitting?: boolean;
 }
 
-export const ConsultationForm = ({ formData, handleSubmit, setFormData }: ConsultationFormProps) => {
+export const ConsultationForm = ({ formData, handleSubmit, setFormData, isSubmitting }: ConsultationFormProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -149,9 +150,10 @@ export const ConsultationForm = ({ formData, handleSubmit, setFormData }: Consul
 
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity text-lg font-semibold py-6"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity text-lg font-semibold py-6 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Отправить заявку
+                {isSubmitting ? 'Отправляем...' : 'Отправить заявку'}
               </Button>
             </form>
           </Card>
