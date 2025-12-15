@@ -58,19 +58,34 @@ export const saveLead = async (lead: Omit<Lead, 'id' | 'timestamp' | 'date'>): P
 
 export const getLeads = async (): Promise<Lead[]> => {
   try {
-    const response = await fetch(func2url['get-leads'], {
+    const url = func2url['get-leads'];
+    if (!url) {
+      console.error('get-leads URL not found in func2url.json');
+      return [];
+    }
+
+    const response = await fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const text = await response.text();
+      console.error(`HTTP error ${response.status}:`, text.substring(0, 200));
+      return [];
+    }
+    
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('Response is not JSON:', text.substring(0, 200));
+      return [];
     }
     
     const data = await response.json();
     return data.leads || [];
   } catch (error) {
-    console.error('Error reading leads:', error);
+    console.error('Error reading leads:', error instanceof Error ? error.message : error);
     return [];
   }
 };
