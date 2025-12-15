@@ -10,16 +10,16 @@ class LeadData(BaseModel):
     date: str = Field(..., min_length=1)
     name: str = Field(..., min_length=1)
     contact: str = Field(..., min_length=1)
-    niche: str = Field(..., min_length=1)
-    goal: str = Field(..., min_length=1)
+    niche: str = ''
+    goal: str = ''
     utm_source: str = ''
     utm_medium: str = ''
     utm_campaign: str = ''
     utm_content: str = ''
     utm_term: str = ''
-    page_depth: int = Field(..., ge=0, le=100)
-    time_on_page: int = Field(..., ge=0)
-    device: str = Field(..., pattern='^(mobile|desktop)$')
+    page_depth: int = Field(default=0, ge=0, le=100)
+    time_on_page: int = Field(default=0, ge=0)
+    device: str = Field(default='desktop', pattern='^(mobile|desktop)$')
     referrer: str = ''
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
