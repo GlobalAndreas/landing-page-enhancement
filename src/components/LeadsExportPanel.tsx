@@ -28,13 +28,20 @@ export const LeadsExportPanel = () => {
     sortBy: 'date-desc',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchLeads = async () => {
+    if (isLoading) return;
+    
+    setIsLoading(true);
     try {
       const fetchedLeads = await getLocalLeads();
       setLeads(fetchedLeads);
     } catch (error) {
       console.error('Failed to fetch leads:', error);
       setLeads([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,7 +69,7 @@ export const LeadsExportPanel = () => {
   }, []);
 
   useEffect(() => {
-    if (isOpen && isAuthorized) {
+    if (isOpen && isAuthorized && !isLoading && leads.length === 0) {
       fetchLeads();
     }
   }, [isOpen, isAuthorized]);
